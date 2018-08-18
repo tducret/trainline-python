@@ -1,0 +1,5 @@
+include *.py
+include *.txt
+include MANIFEST.in
+recursive-include tests *
+recursive-exclude * __pycache__

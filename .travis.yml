@@ -1,0 +1,25 @@
+# Config file for automatic testing at travis-ci.org
+
+language: python
+python:
+  - 3.6
+
+# command to install dependencies
+before_script:
+  - pip install -r requirements.txt
+  - pip install python-coveralls
+  - pip install pytest-cov
+install:
+  - pip install .
+# command to run tests
+script:
+  - pytest
+after_success:
+  coveralls
+deploy:
+  provider: pypi
+  user: thibdct
+  password:
+    secure: REPLACE_ME
+  on:
+    tags: true
