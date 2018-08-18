@@ -1,25 +1,19 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
 python:
-  - 3.6
-
-# command to install dependencies
+- 3.6
 before_script:
-  - pip install -r requirements.txt
-  - pip install python-coveralls
-  - pip install pytest-cov
+- pip install -r requirements.txt
+- pip install python-coveralls
+- pip install pytest-cov
 install:
-  - pip install .
-# command to run tests
+- pip install .
 script:
-  - pytest
-after_success:
-  coveralls
+- pytest
+after_success: coveralls
 deploy:
   provider: pypi
   user: thibdct
   password:
-    secure: REPLACE_ME
+    secure: j6jAWXRAV+iEUF1oBikfr2IZG5m8PraY4vgEY6k2lgK8LPyeIrbNuWLVQ0HSynUbmGH+tU915SdXjwO9/ASSLgwPMSPV2sTioyqHnxMMDDKhaRpNC3LezWrx+JKt3bklCo5tT7m4DlA+vavo3arQZ5JRtAjJSrd/ebcgWgXmp4yBulGuTnejck1ROaQ0OmBgIFN3XgfuaWv7nJ25ynbny1/IwB1xO6WEdgDGBGToc033/Ad/1+OUBH3ld1iiZSS4tGJtJLZTNbR7AtB5pCZXri3HSDERKDAfwG6LWRDhgw02lxkXyfuShGQXV5yQIw8dgT74q5gSeascf6Akrx4xcxm7Wt6TgIVWJQh/V+/FZPq0BSDqzc2RXpFKJe2ATHOkOKwyw6K5bIodhnTb6cVT/3+T6e2qttli/HubsyEYTQxoGTODkowb9bKUXt8fNhjZu03bcVOToAG1V3ffX/oc/77q4wVAu1rX6iag6TE9Kk4IRCkQ6MlKfJKvRl4ZNs+xAcv3EgjxSLd17llTgEcqtATK2oHtpto95zQkvt0cefxL6CuBxPJKi8qdg5nguF/oUpwxGXQGI82aPzGweB6wPs9SQxSe18uNiiAxXhoxfwOa7DMFiixitAaswo+pUdVFJo6fQaooZM4Twew4XIzB+28YU7NGCmO45tCiLz/WDGw=
   on:
     tags: true
