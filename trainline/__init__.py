@@ -12,7 +12,12 @@ __email__ = 'hello@tducret.com'
 __version__ = '0.0.1'
 
 _SEARCH_URL = "https://www.trainline.eu/api/v5_1/search"
-_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
+_DEFAULT_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
+_BIRTHDATE_FORMAT = '%d/%m/%Y'
+
+ENFANT_PLUS = "ENFANT_PLUS"
+JEUNE = "JEUNE"
+_AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE]
 
 
 class Client(object):
@@ -98,6 +103,25 @@ class Trainline(object):
         ret = c._post(url=_SEARCH_URL, post_data=post_data)
         return ret
 
+    def _get_trips(self, search_results):
+        j = json.loads(search_results)
+        trips = j.get("trips")
+        trip_obj_list = []
+        for trip in trips:
+            dict_trip = {
+                "id": trip.get("id"),
+                "departure_date": trip.get("departure_date"),
+                "departure_station_id": trip.get("departure_station_id"),
+                "arrival_date": trip.get("arrival_date"),
+                "arrival_station_id": trip.get("arrival_station_id"),
+                "price": trip.get("price"),
+                "currency": trip.get("currency"),
+                "segment_ids": trip.get("segment_ids"),
+            }
+            trip_obj = Trip(dict_trip)
+            trip_obj_list.append(trip_obj)
+        return trip_obj_list
+
     def get_param1(self):
         """ Get the param1 """
         return(self.param1)
@@ -148,8 +172,10 @@ class Trip(object):
         self.departure_date = _fix_date_offset_format(self.departure_date)
         self.arrival_date = _fix_date_offset_format(self.arrival_date)
 
-        self.departure_date_obj = _str_date_to_datetime(self.departure_date)
-        self.darrival_date_obj = _str_date_to_datetime(self.arrival_date)
+        self.departure_date_obj = _str_datetime_to_datetime_obj(
+            self.departure_date)
+        self.darrival_date_obj = _str_datetime_to_datetime_obj(
+            self.arrival_date)
 
         if self.price < 0:
             raise ValueError("price cannot be < 0, {} received".format(
@@ -175,14 +201,49 @@ class Trip(object):
         return self.dict1.get(attr, "")
 
 
-def _str_date_to_datetime(date, date_format=_DATE_FORMAT):
+class Passenger(object):
+    """ Class to represent a passenger """
+    def __init__(self, birthdate, cards=[]):
+        self.birthdate = birthdate
+        self.birthdate_obj = _str_date_to_date_obj(
+            str_date=self.birthdate,
+            date_format=_BIRTHDATE_FORMAT)
+
+        for card in cards:
+            if card not in _AVAILABLE_CARDS:
+                raise KeyError("Card '{}' unknown, [{}] available".format(
+                    card, ",".join(_AVAILABLE_CARDS)))
+        self.cards = cards
+
+    def __str__(self):
+        return(repr(self))
+
+    def __repr__(self):
+        return("Passenger(birthdate={}, cards=[{}])".format(
+            self.birthdate,
+            ",".join(self.cards)))
+
+
+def _str_datetime_to_datetime_obj(str_datetime,
+                                  date_format=_DEFAULT_DATE_FORMAT):
     """ Check the expected format of the string date and returns a datetime
     object """
     try:
-        date_obj = datetime.strptime(date, date_format)
+        datetime_obj = datetime.strptime(str_datetime, date_format)
     except:
-        raise TypeError("date must respect the format " + date_format +
-                        ", received : " + date)
+        raise TypeError("date must match the format {}, received : {}".format(
+            date_format, str_datetime))
+    return datetime_obj
+
+
+def _str_date_to_date_obj(str_date, date_format=_BIRTHDATE_FORMAT):
+    """ Check the expected format of the string date and returns a datetime
+    object """
+    try:
+        date_obj = datetime.strptime(str_date, date_format)
+    except:
+        raise TypeError("date must match the format {}, received : {}".format(
+            date_format, str_date))
     return date_obj
 
 
@@ -192,3 +253,14 @@ def _fix_date_offset_format(date_str):
             2018-10-15T08:49:00+0200
             """
             return date_str[:-3]+date_str[-2:]
+
+
+def get_station_id(station_name):
+    # TODO : Use trainline station database instead
+    # https://github.com/trainline-eu/stations
+    # https://raw.githubusercontent.com/trainline-eu/stations/master/stations.csv
+    _AVAILABLE_STATIONS = {
+        "Toulouse Matabiau": 5311,
+        "Bordeaux St-Jean": 828,
+    }
+    return _AVAILABLE_STATIONS[station_name]

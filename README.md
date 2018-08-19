@@ -26,17 +26,48 @@ pip3 install -U trainline
 # -*- coding: utf-8 -*-
 import trainline
 
-TODO : Insert a package usage
+results = trainline.search(
+	departure_station="Toulouse",
+	arrival_station="Bordeaux",
+	from_date="15/10/2018 08:00",
+	to_date="15/10/2018 21:00")
+
+print(results.csv())
 ```
 
 Example output :
 
 ```bash
-
-TODO : Insert output
+departure_date;arrival_date;duration;number_of_segments;price;currency
+15/10/2018 08:49;15/10/2018 10:58;02h09;1;15,00;EUR
+15/10/2018 10:19;15/10/2018 12:26;02h07;1;17,00;EUR
+[...]
 ```
 
-## TODO
+```python
+# -*- coding: utf-8 -*-
+import trainline
 
-- [ ] Update the package usage
-- [ ] Update the example output
+Pierre = trainline.Passenger(birthdate="01/01/1980")
+Sophie = trainline.Passenger(birthdate="01/02/1981")
+Enzo = trainline.Passenger(birthdate="01/03/2012", card=trainline.ENFANT_PLUS)
+
+results = trainline.search(
+	passengers=[Pierre, Sophie, Enzo],
+	departure_station="Toulouse",
+	arrival_station="Bordeaux",
+	from_date="15/10/2018 08:00",
+	to_date="15/10/2018 21:00",
+	bicyle_required=True)
+
+print(results.csv())
+```
+
+Example output :
+
+```bash
+departure_date;arrival_date;duration;number_of_segments;price;currency
+15/10/2018 08:49;15/10/2018 10:58;02h09;1;55,00;EUR
+15/10/2018 10:19;15/10/2018 12:26;02h07;1;57,00;EUR
+[...]
+```

@@ -7,13 +7,15 @@
 
 import pytest
 import os
-from trainline import Trainline, Trip
+import trainline
+from trainline import Trainline, Trip, Passenger
+from datetime import date, timedelta
 
 # Get useful environment variables
 VAR = os.environ.get('VAR', None)
 
-TOULOUSE_STATION_ID = 5306
-BORDEAUX_STATION_ID = 827
+TOULOUSE_STATION_ID = 5311
+BORDEAUX_STATION_ID = 828
 
 _DEFAULT_TRIP_DICT = {
         "id": "f721ce4ca2cb11e88152d3a9f56d4f85",
@@ -27,9 +29,88 @@ _DEFAULT_TRIP_DICT = {
     }
 
 
+# Get the date of tomorrow for search tests,
+# otherwise they will become obsolete in the future
+tommorow_obj = date.today() + timedelta(days=1)
+_TOMORROW = tommorow_obj.strftime("%d/%m/%Y")
+
+
 def test_class_Trip():
     trip = Trip(dict=_DEFAULT_TRIP_DICT)
     assert trip.id == "f721ce4ca2cb11e88152d3a9f56d4f85"
+
+
+def test_class_Passenger():
+    p1 = Passenger(birthdate="01/01/1980")
+    print()
+    print(p1)
+    assert p1.birthdate == "01/01/1980"
+    assert p1.cards == []
+
+    p2 = Passenger(birthdate="01/03/2012", cards=[trainline.ENFANT_PLUS])
+    print(p2)
+    assert p2.birthdate == "01/03/2012"
+    assert p2.cards == [trainline.ENFANT_PLUS]
+
+
+def test_class_Passenger_errors():
+    with pytest.raises(KeyError):
+        Passenger(birthdate="01/03/2012", cards=["Unknown"])
+
+    with pytest.raises(TypeError):
+        Passenger(birthdate="not_a_date")
+
+    with pytest.raises(TypeError):
+        Passenger()
+
+
+def test_get_station_id():
+    station_id = trainline.get_station_id(station_name="Toulouse Matabiau")
+    assert station_id == TOULOUSE_STATION_ID
+
+    station_id = trainline.get_station_id(station_name="Bordeaux St-Jean")
+    assert station_id == BORDEAUX_STATION_ID
+
+
+def test_get_station_id_errors():
+    with pytest.raises(KeyError):
+        trainline.get_station_id(station_name="Unknown station")
+
+
+def test_internal_search():
+    t = Trainline()
+    ret = t.search(
+        departure_station_id=TOULOUSE_STATION_ID,
+        arrival_station_id=BORDEAUX_STATION_ID,
+        departure_date="2018-10-15T10:48:00+00:00")
+    assert ret.status_code == 200
+
+# def test_search_3_passengers_and_bicyles():
+#     Pierre = Passenger(birthdate="01/01/1980")
+#     Sophie = Passenger(birthdate="01/02/1981")
+#     Enzo = Passenger(birthdate="01/03/2012", cards=[trainline.ENFANT_PLUS])
+
+#     results = trainline.search(
+#         passengers=[Pierre, Sophie, Enzo],
+#         departure_station="Toulouse Matabiau",
+#         arrival_station="Bordeaux St-Jean",
+#         from_date="{} 08:00".format(_TOMORROW),
+#         to_date="{} 21:00".format(_TOMORROW),
+#         bicyle_required=True)
+
+#     print("{} results".format(len(results)))
+#     assert results.len() > 0
+
+#     csv_header = results.csv().split("\n")[0]
+#     assert csv_header == "departure_date;arrival_date;duration;\
+# number_of_segments;price;currency"
+
+#     # Check that the result trips starts at the proper date (tomorrow)
+#     first_result = results.csv().split("\n")[1]
+#     assert _TOMORROW in first_result.split(";")[0]
+
+#     last_result = results.csv().split("\n")[-1]
+#     assert _TOMORROW in last_result.split(";")[0]
 
 
 def test_class_Trip_errors():
@@ -69,21 +150,10 @@ def test_class_Trainline():
     assert t is not None
 
 
-# def test_class_MyClass_errors():
-#     with pytest.raises(KeyError):
-#         MyClass(param1=1, param2="UNKNOWN")
-
-#     with pytest.raises(TypeError):
-#         MyClass(param1="abc", param2="abc")
-
-#     with pytest.raises(ValueError):
-#         MyClass(param2="abc")
-
-
-def test_search():
-    t = Trainline()
-    ret = t.search(
-        departure_station_id=TOULOUSE_STATION_ID,
-        arrival_station_id=BORDEAUX_STATION_ID,
-        departure_date="2018-10-15T10:48:00+00:00")
-    assert ret.status_code == 200
+# def test_search():
+#     t = Trainline()
+#     ret = t.search(
+#         departure_station_id=TOULOUSE_STATION_ID,
+#         arrival_station_id=BORDEAUX_STATION_ID,
+#         departure_date="2018-10-15T10:48:00+00:00")
+#     assert ret.status_code == 200
