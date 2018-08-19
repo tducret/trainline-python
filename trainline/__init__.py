@@ -139,29 +139,6 @@ class Trainline(object):
                 to_be_filtered = True
         return to_be_filtered
 
-    def get_param1(self):
-        """ Get the param1 """
-        return(self.param1)
-
-    def __str__(self):
-        return('{}'.format(self.param1))
-
-    def __repr__(self):
-        return("Myclass(param1={})".format(self.param1))
-
-    def __len__(self):
-        return len(self.list1)
-
-    def __getitem__(self, key):
-        """ Méthod to access the object as a list
-        (ex : list1[1]) """
-        return self.list[key]
-
-    def __getattr__(self, attr):
-        """ Method to access a dictionnary key as an attribute
-        (ex : dict1.my_key) """
-        return self.dict1.get(attr, "")
-
 
 class Trip(object):
     """ Class to represent a trip, composed of one or more segments """
@@ -202,22 +179,6 @@ class Trip(object):
         return("{} → {} : {} {} ({} segments)".format(
             self.departure_date, self.arrival_date, self.price, self.currency,
             len(self.segment_ids)))
-
-    def __repr__(self):
-        return(self.__dict__)
-
-    def __len__(self):
-        return len(self.list1)
-
-    def __getitem__(self, key):
-        """ Méthod to access the object as a list
-        (ex : list1[1]) """
-        return self.list[key]
-
-    def __getattr__(self, attr):
-        """ Method to access a dictionnary key as an attribute
-        (ex : dict1.my_key) """
-        return self.dict1.get(attr, "")
 
 
 class Passenger(object):
