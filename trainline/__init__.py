@@ -143,6 +143,11 @@ class Trip(object):
                     expected_type, expected_param, type(param_value)))
             setattr(self, expected_param, param_value)
 
+        # Remove ':' in the +02:00 offset (=> +0200). It caused problem with
+        # Python 3.6 version of strptime
+        self.departure_date = _fix_date_offset_format(self.departure_date)
+        self.arrival_date = _fix_date_offset_format(self.arrival_date)
+
         self.departure_date_obj = _str_date_to_datetime(self.departure_date)
         self.darrival_date_obj = _str_date_to_datetime(self.arrival_date)
 
@@ -179,3 +184,11 @@ def _str_date_to_datetime(date, date_format=_DATE_FORMAT):
         raise TypeError("date must respect the format " + date_format +
                         ", received : " + date)
     return date_obj
+
+
+def _fix_date_offset_format(date_str):
+            """ Remove ':' in the UTC offset, for example :
+            >>> _fix_date_offset_format("2018-10-15T08:49:00+02:00")
+            2018-10-15T08:49:00+0200
+            """
+            return date_str[:-3]+date_str[-2:]
