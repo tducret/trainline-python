@@ -5,7 +5,8 @@
 import requests
 from requests import ConnectionError
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
+import pytz
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
@@ -14,6 +15,8 @@ __version__ = '0.0.1'
 _SEARCH_URL = "https://www.trainline.eu/api/v5_1/search"
 _DEFAULT_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 _BIRTHDATE_FORMAT = '%d/%m/%Y'
+_READABLE_DATE_FORMAT = "%d/%m/%Y %H:%M"
+_DEFAULT_SEARCH_TIMEZONE = 'Europe/Paris'
 
 ENFANT_PLUS = "ENFANT_PLUS"
 JEUNE = "JEUNE"
@@ -108,19 +111,33 @@ class Trainline(object):
         trips = j.get("trips")
         trip_obj_list = []
         for trip in trips:
-            dict_trip = {
-                "id": trip.get("id"),
-                "departure_date": trip.get("departure_date"),
-                "departure_station_id": trip.get("departure_station_id"),
-                "arrival_date": trip.get("arrival_date"),
-                "arrival_station_id": trip.get("arrival_station_id"),
-                "price": trip.get("price"),
-                "currency": trip.get("currency"),
-                "segment_ids": trip.get("segment_ids"),
-            }
-            trip_obj = Trip(dict_trip)
-            trip_obj_list.append(trip_obj)
+            if self._filter_trip(trip):
+                pass  # Filter unbookable trips
+            else:
+                dict_trip = {
+                    "id": trip.get("id"),
+                    "departure_date": trip.get("departure_date"),
+                    "departure_station_id": trip.get("departure_station_id"),
+                    "arrival_date": trip.get("arrival_date"),
+                    "arrival_station_id": trip.get("arrival_station_id"),
+                    "price": float(trip.get("cents"))/100,
+                    "currency": trip.get("currency"),
+                    "segment_ids": trip.get("segment_ids"),
+                }
+                trip_obj = Trip(dict_trip)
+                trip_obj_list.append(trip_obj)
         return trip_obj_list
+
+    def _filter_trip(self, trip, min_price=0.10, max_price=None):
+        to_be_filtered = False
+
+        price = float(trip.get("cents"))/100
+        if price < min_price:
+            to_be_filtered = True
+        if max_price:
+            if price > max_price:
+                to_be_filtered = True
+        return to_be_filtered
 
     def get_param1(self):
         """ Get the param1 """
@@ -152,9 +169,9 @@ class Trip(object):
         expected = {
             "id": str,
             "departure_date": str,
-            "departure_station_id": int,
+            "departure_station_id": str,
             "arrival_date": str,
-            "arrival_station_id": int,
+            "arrival_station_id": str,
             "price": float,
             "currency": str,
             "segment_ids": list,
@@ -174,7 +191,7 @@ class Trip(object):
 
         self.departure_date_obj = _str_datetime_to_datetime_obj(
             self.departure_date)
-        self.darrival_date_obj = _str_datetime_to_datetime_obj(
+        self.arrival_date_obj = _str_datetime_to_datetime_obj(
             self.arrival_date)
 
         if self.price < 0:
@@ -182,10 +199,12 @@ class Trip(object):
                 self.price))
 
     def __str__(self):
-        return('{}'.format(self.param1))
+        return("{} → {} : {} {} ({} segments)".format(
+            self.departure_date, self.arrival_date, self.price, self.currency,
+            len(self.segment_ids)))
 
     def __repr__(self):
-        return("Myclass(param1={})".format(self.param1))
+        return(self.__dict__)
 
     def __len__(self):
         return len(self.list1)
@@ -233,6 +252,9 @@ def _str_datetime_to_datetime_obj(str_datetime,
     except:
         raise TypeError("date must match the format {}, received : {}".format(
             date_format, str_datetime))
+    if datetime_obj.tzinfo is None:
+        tz = pytz.timezone(_DEFAULT_SEARCH_TIMEZONE)
+        datetime_obj = tz.localize(datetime_obj)
     return datetime_obj
 
 
@@ -248,11 +270,11 @@ def _str_date_to_date_obj(str_date, date_format=_BIRTHDATE_FORMAT):
 
 
 def _fix_date_offset_format(date_str):
-            """ Remove ':' in the UTC offset, for example :
-            >>> print(_fix_date_offset_format("2018-10-15T08:49:00+02:00"))
-            2018-10-15T08:49:00+0200
-            """
-            return date_str[:-3]+date_str[-2:]
+    """ Remove ':' in the UTC offset, for example :
+    >>> print(_fix_date_offset_format("2018-10-15T08:49:00+02:00"))
+    2018-10-15T08:49:00+0200
+    """
+    return date_str[:-3]+date_str[-2:]
 
 
 def get_station_id(station_name):
@@ -260,7 +282,69 @@ def get_station_id(station_name):
     # https://github.com/trainline-eu/stations
     # https://raw.githubusercontent.com/trainline-eu/stations/master/stations.csv
     _AVAILABLE_STATIONS = {
-        "Toulouse Matabiau": 5311,
-        "Bordeaux St-Jean": 828,
+        "Toulouse Matabiau": "5311",
+        "Bordeaux St-Jean": "828",
     }
     return _AVAILABLE_STATIONS[station_name]
+
+
+def search(departure_station, arrival_station,
+           from_date, to_date, bicyle_required=False, passengers=[]):
+    t = Trainline()
+
+    departure_station_id = get_station_id(departure_station)
+    arrival_station_id = get_station_id(arrival_station)
+
+    from_date_obj = _str_datetime_to_datetime_obj(
+        from_date, date_format=_READABLE_DATE_FORMAT)
+
+    to_date_obj = _str_datetime_to_datetime_obj(
+        to_date, date_format=_READABLE_DATE_FORMAT)
+
+    trip_list = []
+
+    search_date = from_date_obj
+
+    while True:
+
+        last_search_date = search_date
+        departure_date = search_date.strftime(_DEFAULT_DATE_FORMAT)
+
+        ret = t.search(
+            departure_station_id=departure_station_id,
+            arrival_station_id=arrival_station_id,
+            departure_date=departure_date)
+        trips = t._get_trips(search_results=ret.text)
+        trip_list += trips
+
+        print("\ntrips[-1].departure_date_obj:{}, to_date_obj:{}, \
+search_date:{}".format(
+            trips[-1].departure_date_obj, to_date_obj, search_date))
+
+        # Check the departure date of the last trip found
+        # If it is after the 'to_date', we can stop searching
+        if trips[-1].departure_date_obj > to_date_obj:
+            break
+        else:
+            search_date = trips[-1].departure_date_obj
+            # If we get a date earlier than the last search date,
+            # it means that we may be searching during the night,
+            # so we must increment the search_date till we have a
+            # trip posterior to 'to_date'
+            # Probably the next day in this case
+            if search_date <= last_search_date:
+                search_date = last_search_date + timedelta(hours=4)
+
+    # TODO : Remove duplicate trips in the list
+    return trip_list
+
+
+def _convert_date_format(origin_date_str,
+                         origin_date_format, target_date_format):
+    """ Convert a date string to another format, for example :
+    >>> print(_convert_date_format(origin_date_str="01/01/2002 08:00",\
+origin_date_format="%d/%m/%Y %H:%M", target_date_format="%Y-%m-%dT%H:%M:%S%z"))
+    """
+    date_obj = _str_datetime_to_datetime_obj(str_datetime=origin_date_str,
+                                             date_format=origin_date_format)
+    return date_obj.strftime(target_date_format)

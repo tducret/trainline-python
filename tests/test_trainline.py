@@ -14,15 +14,15 @@ from datetime import date, timedelta
 # Get useful environment variables
 VAR = os.environ.get('VAR', None)
 
-TOULOUSE_STATION_ID = 5311
-BORDEAUX_STATION_ID = 828
+TOULOUSE_STATION_ID = "5311"
+BORDEAUX_STATION_ID = "828"
 
 _DEFAULT_TRIP_DICT = {
         "id": "f721ce4ca2cb11e88152d3a9f56d4f85",
         "departure_date": "2018-10-15T08:49:00+02:00",
-        "departure_station_id": 5311,
+        "departure_station_id": TOULOUSE_STATION_ID,
         "arrival_date": "2018-10-15T10:58:00+02:00",
-        "arrival_station_id": 828,
+        "arrival_station_id": BORDEAUX_STATION_ID,
         "price": 66.00,
         "currency": "EUR",
         "segment_ids": ["f721c960a2cb11e89a42408805033f41"],
@@ -38,6 +38,38 @@ _TOMORROW = tommorow_obj.strftime("%d/%m/%Y")
 def test_class_Trip():
     trip = Trip(dict=_DEFAULT_TRIP_DICT)
     assert trip.id == "f721ce4ca2cb11e88152d3a9f56d4f85"
+
+
+def test_class_Trip_errors():
+    with pytest.raises(TypeError):
+        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
+        modified_trip_dict["departure_station_id"] = 1234  # should be a string
+        Trip(dict=modified_trip_dict)
+
+    with pytest.raises(TypeError):
+        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
+        modified_trip_dict["price"] = "not_a_float"
+        Trip(dict=modified_trip_dict)
+
+    with pytest.raises(TypeError):
+        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
+        modified_trip_dict["departure_date"] = "not_a_date"
+        Trip(dict=modified_trip_dict)
+
+    with pytest.raises(TypeError):
+        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
+        modified_trip_dict["id"] = 12345  # string expected
+        Trip(dict=modified_trip_dict)
+
+    with pytest.raises(TypeError):
+        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
+        modified_trip_dict.pop("id")  # delete a required parameter
+        Trip(dict=modified_trip_dict)
+
+    with pytest.raises(ValueError):
+        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
+        modified_trip_dict["price"] = -1.50  # negative price impossible
+        Trip(dict=modified_trip_dict)
 
 
 def test_class_Passenger():
@@ -85,6 +117,22 @@ def test_internal_search():
         departure_date="2018-10-15T10:48:00+00:00")
     assert ret.status_code == 200
 
+
+def test_basic_search():
+    results = trainline.search(
+        departure_station="Toulouse Matabiau",
+        arrival_station="Bordeaux St-Jean",
+        from_date="{} 08:00".format(_TOMORROW),
+        to_date="{} 23:00".format(_TOMORROW),
+        bicyle_required=True)
+    print()
+    print("{} results".format(len(results)))
+    assert len(results) > 0
+
+    for trip in results:
+        print(trip)
+
+
 # def test_search_3_passengers_and_bicyles():
 #     Pierre = Passenger(birthdate="01/01/1980")
 #     Sophie = Passenger(birthdate="01/02/1981")
@@ -111,38 +159,6 @@ def test_internal_search():
 
 #     last_result = results.csv().split("\n")[-1]
 #     assert _TOMORROW in last_result.split(";")[0]
-
-
-def test_class_Trip_errors():
-    with pytest.raises(TypeError):
-        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
-        modified_trip_dict["departure_station_id"] = "not_an_integer"
-        Trip(dict=modified_trip_dict)
-
-    with pytest.raises(TypeError):
-        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
-        modified_trip_dict["price"] = "not_a_float"
-        Trip(dict=modified_trip_dict)
-
-    with pytest.raises(TypeError):
-        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
-        modified_trip_dict["departure_date"] = "not_a_date"
-        Trip(dict=modified_trip_dict)
-
-    with pytest.raises(TypeError):
-        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
-        modified_trip_dict["id"] = 12345  # string expected
-        Trip(dict=modified_trip_dict)
-
-    with pytest.raises(TypeError):
-        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
-        modified_trip_dict.pop("id")  # delete a required parameter
-        Trip(dict=modified_trip_dict)
-
-    with pytest.raises(ValueError):
-        modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
-        modified_trip_dict["price"] = -1.50  # negative price impossible
-        Trip(dict=modified_trip_dict)
 
 
 def test_class_Trainline():
