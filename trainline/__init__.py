@@ -4,10 +4,15 @@
 
 import requests
 from requests import ConnectionError
+import json
+from datetime import datetime
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
 __version__ = '0.0.1'
+
+_SEARCH_URL = "https://www.trainline.eu/api/v5_1/search"
+_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
 
 class Client(object):
@@ -15,8 +20,11 @@ class Client(object):
     def __init__(self):
         self.session = requests.session()
         self.headers = {
-                    'Host': 'myhost.com',
-                    'User-Agent': 'User agent',
+                    'Accept': 'application/json',
+                    'User-Agent': 'CaptainTrain/43(4302) Android/4.4.2(19)',
+                    'Accept-Language': 'fr',
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Host': 'www.trainline.eu',
                     }
 
     def _get(self, url, expected_status_code=200):
@@ -38,12 +46,57 @@ class Client(object):
         return ret
 
 
-class MyClass(object):
+class Trainline(object):
     """ Class to... """
-    def __init__(self, param1, list1, dict1):
-        self.param1 = param1
-        self.list1 = list1
-        self.dict1 = dict1
+    def __init__(self):
+        pass
+
+    def search(self, departure_station_id, arrival_station_id, departure_date):
+        """ Search on Trainline """
+        data = {
+              "local_currency": "EUR",
+              "search": {
+                "passengers": [
+                  {
+                    "id": "90ec4e55-f6f1-4298-bb02-7dd88fe33fca",
+                    "age": 26,
+                    "cards": [],
+                    "label": "90ec4e55-f6f1-4298-bb02-7dd88fe33fca"
+                  }
+                ],
+                "arrival_station_id": arrival_station_id,
+                "departure_date": departure_date,
+                "departure_station_id": departure_station_id,
+                "systems": [
+                  "benerail",
+                  "busbud",
+                  "db",
+                  "hkx",
+                  "idtgv",
+                  "locomore",
+                  "ntv",
+                  "ocebo",
+                  "ouigo",
+                  "ravel",
+                  "renfe",
+                  "sncf",
+                  "timetable",
+                  "trenitalia",
+                  "westbahn",
+                  "flixbus",
+                  "pao_ouigo",
+                  "pao_sncf",
+                  "leoexpress",
+                  "city_airport_train",
+                  "obb",
+                  "distribusion"
+                ]
+              }
+            }
+        post_data = json.dumps(data)
+        c = Client()
+        ret = c._post(url=_SEARCH_URL, post_data=post_data)
+        return ret
 
     def get_param1(self):
         """ Get the param1 """
@@ -67,3 +120,62 @@ class MyClass(object):
         """ Method to access a dictionnary key as an attribute
         (ex : dict1.my_key) """
         return self.dict1.get(attr, "")
+
+
+class Trip(object):
+    """ Class to represent a trip, composed of one or more segments """
+    def __init__(self, dict):
+        expected = {
+            "id": str,
+            "departure_date": str,
+            "departure_station_id": int,
+            "arrival_date": str,
+            "arrival_station_id": int,
+            "price": float,
+            "currency": str,
+            "segment_ids": list,
+        }
+
+        for expected_param, expected_type in expected.items():
+            param_value = dict.get(expected_param)
+            if type(param_value) is not expected_type:
+                raise TypeError("Type {} expected for {}, {} received".format(
+                    expected_type, expected_param, type(param_value)))
+            setattr(self, expected_param, param_value)
+
+        self.departure_date_obj = _str_date_to_datetime(self.departure_date)
+        self.darrival_date_obj = _str_date_to_datetime(self.arrival_date)
+
+        if self.price < 0:
+            raise ValueError("price cannot be < 0, {} received".format(
+                self.price))
+
+    def __str__(self):
+        return('{}'.format(self.param1))
+
+    def __repr__(self):
+        return("Myclass(param1={})".format(self.param1))
+
+    def __len__(self):
+        return len(self.list1)
+
+    def __getitem__(self, key):
+        """ Méthod to access the object as a list
+        (ex : list1[1]) """
+        return self.list[key]
+
+    def __getattr__(self, attr):
+        """ Method to access a dictionnary key as an attribute
+        (ex : dict1.my_key) """
+        return self.dict1.get(attr, "")
+
+
+def _str_date_to_datetime(date, date_format=_DATE_FORMAT):
+    """ Check the expected format of the string date and returns a datetime
+    object """
+    try:
+        date_obj = datetime.strptime(date, date_format)
+    except:
+        raise TypeError("date must respect the format " + date_format +
+                        ", received : " + date)
+    return date_obj
