@@ -188,7 +188,7 @@ def _str_date_to_datetime(date, date_format=_DATE_FORMAT):
 
 def _fix_date_offset_format(date_str):
             """ Remove ':' in the UTC offset, for example :
-            >>> _fix_date_offset_format("2018-10-15T08:49:00+02:00")
+            >>> print(_fix_date_offset_format("2018-10-15T08:49:00+02:00"))
             2018-10-15T08:49:00+0200
             """
             return date_str[:-3]+date_str[-2:]
