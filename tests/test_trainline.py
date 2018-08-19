@@ -122,7 +122,7 @@ def test_basic_search():
     results = trainline.search(
         departure_station="Toulouse Matabiau",
         arrival_station="Bordeaux St-Jean",
-        from_date="{} 08:00".format(_TOMORROW),
+        from_date="{} 18:00".format(_TOMORROW),
         to_date="{} 23:00".format(_TOMORROW),
         bicyle_required=True)
     print()

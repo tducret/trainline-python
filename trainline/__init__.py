@@ -317,10 +317,6 @@ def search(departure_station, arrival_station,
         trips = t._get_trips(search_results=ret.text)
         trip_list += trips
 
-        print("\ntrips[-1].departure_date_obj:{}, to_date_obj:{}, \
-search_date:{}".format(
-            trips[-1].departure_date_obj, to_date_obj, search_date))
-
         # Check the departure date of the last trip found
         # If it is after the 'to_date', we can stop searching
         if trips[-1].departure_date_obj > to_date_obj:
@@ -344,6 +340,7 @@ def _convert_date_format(origin_date_str,
     """ Convert a date string to another format, for example :
     >>> print(_convert_date_format(origin_date_str="01/01/2002 08:00",\
 origin_date_format="%d/%m/%Y %H:%M", target_date_format="%Y-%m-%dT%H:%M:%S%z"))
+    2002-01-01T08:00:00+0100
     """
     date_obj = _str_datetime_to_datetime_obj(str_datetime=origin_date_str,
                                              date_format=origin_date_format)
