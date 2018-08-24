@@ -38,9 +38,9 @@ print(results.csv())
 Example output :
 
 ```bash
-departure_date;arrival_date;duration;number_of_segments;price;currency
-15/10/2018 08:49;15/10/2018 10:58;02h09;1;15,0;EUR
-15/10/2018 10:19;15/10/2018 12:26;02h07;1;17,0;EUR
+departure_date;arrival_date;duration;number_of_segments;price;currency;transportation_mean
+15/10/2018 08:49;15/10/2018 10:58;02h09;1;15,0;EUR;train
+15/10/2018 10:19;15/10/2018 12:26;02h07;1;17,0;EUR;coach
 [...]
 ```
 
@@ -66,9 +66,9 @@ print(results.csv())
 Example output :
 
 ```bash
-departure_date;arrival_date;duration;number_of_segments;price;currency
-15/10/2018 08:49;15/10/2018 10:58;02h09;1;55,0;EUR
-15/10/2018 10:19;15/10/2018 12:26;02h07;1;57,0;EUR
+departure_date;arrival_date;duration;number_of_segments;price;currency;transportation_mean
+15/10/2018 08:49;15/10/2018 10:58;02h09;1;55,0;EUR;train
+15/10/2018 10:19;15/10/2018 12:26;02h07;1;57,0;EUR;coach
 [...]
 ```
 
