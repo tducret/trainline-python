@@ -111,33 +111,19 @@ class Trainline(object):
         trips = j.get("trips")
         trip_obj_list = []
         for trip in trips:
-            if self._filter_trip(trip):
-                pass  # Filter unbookable trips
-            else:
-                dict_trip = {
-                    "id": trip.get("id"),
-                    "departure_date": trip.get("departure_date"),
-                    "departure_station_id": trip.get("departure_station_id"),
-                    "arrival_date": trip.get("arrival_date"),
-                    "arrival_station_id": trip.get("arrival_station_id"),
-                    "price": float(trip.get("cents"))/100,
-                    "currency": trip.get("currency"),
-                    "segment_ids": trip.get("segment_ids"),
-                }
-                trip_obj = Trip(dict_trip)
-                trip_obj_list.append(trip_obj)
+            dict_trip = {
+                "id": trip.get("id"),
+                "departure_date": trip.get("departure_date"),
+                "departure_station_id": trip.get("departure_station_id"),
+                "arrival_date": trip.get("arrival_date"),
+                "arrival_station_id": trip.get("arrival_station_id"),
+                "price": float(trip.get("cents"))/100,
+                "currency": trip.get("currency"),
+                "segment_ids": trip.get("segment_ids"),
+            }
+            trip_obj = Trip(dict_trip)
+            trip_obj_list.append(trip_obj)
         return trip_obj_list
-
-    def _filter_trip(self, trip, min_price=0.10, max_price=None):
-        to_be_filtered = False
-
-        price = float(trip.get("cents"))/100
-        if price < min_price:
-            to_be_filtered = True
-        if max_price:
-            if price > max_price:
-                to_be_filtered = True
-        return to_be_filtered
 
 
 class Trip(object):
@@ -176,9 +162,17 @@ class Trip(object):
                 self.price))
 
     def __str__(self):
-        return("{} → {} : {} {} ({} segments)".format(
+        return("{} → {} : {} {} ({} segments) [id : {}]".format(
             self.departure_date, self.arrival_date, self.price, self.currency,
-            len(self.segment_ids)))
+            len(self.segment_ids), self.id))
+
+    # __hash__ and __eq__ methods are defined to allow to remove duplicates
+    # in the results with list(set(trip_list))
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return hash((self.id))
 
 
 class Passenger(object):
@@ -291,9 +285,17 @@ def search(departure_station, arrival_station,
             # Probably the next day in this case
             if search_date <= last_search_date:
                 search_date = last_search_date + timedelta(hours=4)
+    trip_list = list(set(trip_list))  # Remove duplicate trips in the list
 
-    # TODO : Remove duplicate trips in the list
-    return trip_list
+    # Filter the list
+    filtered_trip_list = _filter_trips(trip_list,
+                                       from_date_obj=from_date_obj,
+                                       to_date_obj=to_date_obj)
+
+    # Sort by date
+    filtered_trip_list = sorted(filtered_trip_list,
+                                key=lambda trip: trip.departure_date_obj)
+    return filtered_trip_list
 
 
 def _convert_date_format(origin_date_str,
@@ -306,3 +308,32 @@ origin_date_format="%d/%m/%Y %H:%M", target_date_format="%Y-%m-%dT%H:%M:%S%z"))
     date_obj = _str_datetime_to_datetime_obj(str_datetime=origin_date_str,
                                              date_format=origin_date_format)
     return date_obj.strftime(target_date_format)
+
+
+def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,
+                  min_price=0.10, max_price=None):
+    """ Filter a list of trips, based on different attributes, such as
+    from_date or min_price. Returns the filtered list """
+    filtered_trip_list = []
+    for trip in trip_list:
+        to_be_filtered = False
+
+        # Price
+        if trip.price < min_price:
+            to_be_filtered = True
+        if max_price:
+            if trip.price > max_price:
+                to_be_filtered = True
+
+        # Date
+        if from_date_obj:
+            if trip.departure_date_obj < from_date_obj:
+                to_be_filtered = True
+        if to_date_obj:
+            if trip.departure_date_obj > to_date_obj:
+                to_be_filtered = True
+
+        # Add to list if it has not been filtered
+        if not to_be_filtered:
+            filtered_trip_list.append(trip)
+    return filtered_trip_list

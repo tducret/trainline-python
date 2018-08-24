@@ -119,13 +119,20 @@ def test_internal_search():
 
 
 def test_basic_search():
+    from_date = "{} 18:00".format(_TOMORROW)
+    to_date = "{} 23:00".format(_TOMORROW)
+    departure_station = "Toulouse Matabiau"
+    arrival_station = "Bordeaux St-Jean"
+
     results = trainline.search(
-        departure_station="Toulouse Matabiau",
-        arrival_station="Bordeaux St-Jean",
-        from_date="{} 18:00".format(_TOMORROW),
-        to_date="{} 23:00".format(_TOMORROW),
+        departure_station=departure_station,
+        arrival_station=arrival_station,
+        from_date=from_date,
+        to_date=to_date,
         bicyle_required=True)
     print()
+    print("Search trips for {} to {}, between {} and {}".format(
+        departure_station, arrival_station, from_date, to_date))
     print("{} results".format(len(results)))
     assert len(results) > 0
 
