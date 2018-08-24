@@ -106,25 +106,6 @@ class Trainline(object):
         ret = c._post(url=_SEARCH_URL, post_data=post_data)
         return ret
 
-    def _get_trips(self, search_results):
-        j = json.loads(search_results)
-        trips = j.get("trips")
-        trip_obj_list = []
-        for trip in trips:
-            dict_trip = {
-                "id": trip.get("id"),
-                "departure_date": trip.get("departure_date"),
-                "departure_station_id": trip.get("departure_station_id"),
-                "arrival_date": trip.get("arrival_date"),
-                "arrival_station_id": trip.get("arrival_station_id"),
-                "price": float(trip.get("cents"))/100,
-                "currency": trip.get("currency"),
-                "segment_ids": trip.get("segment_ids"),
-            }
-            trip_obj = Trip(dict_trip)
-            trip_obj_list.append(trip_obj)
-        return trip_obj_list
-
 
 class Trip(object):
     """ Class to represent a trip, composed of one or more segments """
@@ -138,6 +119,7 @@ class Trip(object):
             "price": float,
             "currency": str,
             "segment_ids": list,
+            "segments": list,
         }
 
         for expected_param, expected_type in expected.items():
@@ -196,6 +178,56 @@ class Passenger(object):
         return("Passenger(birthdate={}, cards=[{}])".format(
             self.birthdate,
             ",".join(self.cards)))
+
+
+class Segment(object):
+    """ Class to represent a segment
+    (a trip is composed of one or more segment) """
+    def __init__(self, dict):
+        expected = {
+            "id": str,
+            "departure_date": str,
+            "departure_station_id": str,
+            "arrival_date": str,
+            "arrival_station_id": str,
+            "transportation_mean": str,
+            "carrier": str,
+            "train_number": str,
+            "travel_class": str,
+            "trip_id": str,
+            "comfort_class_ids": list,
+        }
+
+        for expected_param, expected_type in expected.items():
+            param_value = dict.get(expected_param)
+            if type(param_value) is not expected_type:
+                raise TypeError("Type {} expected for {}, {} received".format(
+                    expected_type, expected_param, type(param_value)))
+            setattr(self, expected_param, param_value)
+
+        # Remove ':' in the +02:00 offset (=> +0200). It caused problem with
+        # Python 3.6 version of strptime
+        self.departure_date = _fix_date_offset_format(self.departure_date)
+        self.arrival_date = _fix_date_offset_format(self.arrival_date)
+
+        self.departure_date_obj = _str_datetime_to_datetime_obj(
+            self.departure_date)
+        self.arrival_date_obj = _str_datetime_to_datetime_obj(
+            self.arrival_date)
+
+    def __str__(self):
+        return("{} → {} : {}({}) ({} comfort_class) [id : {}]".format(
+            self.departure_date, self.arrival_date, self.transportation_mean,
+            self.carrier,
+            len(self.comfort_class_ids), self.id))
+
+    # __hash__ and __eq__ methods are defined to allow to remove duplicates
+    # in the results with list(set(trip_list))
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return hash((self.id))
 
 
 def _str_datetime_to_datetime_obj(str_datetime,
@@ -269,7 +301,8 @@ def search(departure_station, arrival_station,
             departure_station_id=departure_station_id,
             arrival_station_id=arrival_station_id,
             departure_date=departure_date)
-        trips = t._get_trips(search_results=ret.text)
+        j = json.loads(ret.text)
+        trips = _get_trips(search_results_obj=j)
         trip_list += trips
 
         # Check the departure date of the last trip found
@@ -308,6 +341,66 @@ origin_date_format="%d/%m/%Y %H:%M", target_date_format="%Y-%m-%dT%H:%M:%S%z"))
     date_obj = _str_datetime_to_datetime_obj(str_datetime=origin_date_str,
                                              date_format=origin_date_format)
     return date_obj.strftime(target_date_format)
+
+
+def _get_trips(search_results_obj):
+    """ Get trips from the json object of search results """
+    segment_obj_list = _get_segments(search_results_obj)
+    trips = search_results_obj.get("trips")
+    trip_obj_list = []
+    for trip in trips:
+        dict_trip = {
+            "id": trip.get("id"),
+            "departure_date": trip.get("departure_date"),
+            "departure_station_id": trip.get("departure_station_id"),
+            "arrival_date": trip.get("arrival_date"),
+            "arrival_station_id": trip.get("arrival_station_id"),
+            "price": float(trip.get("cents"))/100,
+            "currency": trip.get("currency"),
+            "segment_ids": trip.get("segment_ids"),
+        }
+        segments = []
+        for segment_id in dict_trip["segment_ids"]:
+            segments.append(_get_segment_from_id(
+                segment_obj_list=segment_obj_list,
+                segment_id=segment_id))
+        dict_trip["segments"] = segments
+
+        trip_obj = Trip(dict_trip)
+        trip_obj_list.append(trip_obj)
+    return trip_obj_list
+
+
+def _get_segments(search_results_obj):
+    """ Get segments from the json object of search results """
+    segments = search_results_obj.get("segments")
+    segment_obj_list = []
+    for segment in segments:
+        dict_segment = {
+            "id": segment.get("id"),
+            "departure_date": segment.get("departure_date"),
+            "departure_station_id": segment.get("departure_station_id"),
+            "arrival_date": segment.get("arrival_date"),
+            "arrival_station_id": segment.get("arrival_station_id"),
+            "transportation_mean": segment.get("transportation_mean"),
+            "carrier": segment.get("carrier"),
+            "train_number": segment.get("train_number"),
+            "travel_class": segment.get("travel_class"),
+            "trip_id": segment.get("trip_id"),
+            "comfort_class_ids": segment.get("comfort_class_ids"),
+        }
+        segment_obj = Segment(dict_segment)
+        segment_obj_list.append(segment_obj)
+    return segment_obj_list
+
+
+def _get_segment_from_id(segment_obj_list, segment_id):
+    """ Get a segment from a list, based on a segment id """
+    for segment_obj in segment_obj_list:
+        if segment_obj.id == segment_id:
+            found_segment_obj = segment_obj
+            break
+    return found_segment_obj
 
 
 def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,

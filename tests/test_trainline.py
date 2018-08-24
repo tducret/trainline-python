@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """Tests for `trainline` package."""
@@ -8,7 +8,7 @@
 import pytest
 import os
 import trainline
-from trainline import Trainline, Trip, Passenger
+from trainline import Trainline, Trip, Passenger, Segment
 from datetime import date, timedelta
 
 # Get useful environment variables
@@ -16,6 +16,20 @@ VAR = os.environ.get('VAR', None)
 
 TOULOUSE_STATION_ID = "5311"
 BORDEAUX_STATION_ID = "828"
+
+_DEFAULT_SEGMENT_DICT = {
+        "id": "ae8b939ca7c211e8967edcf1e2aa0fd7",
+        "departure_date": "2018-10-15T08:49:00+02:00",
+        "departure_station_id": TOULOUSE_STATION_ID,
+        "arrival_date": "2018-10-15T10:58:00+02:00",
+        "arrival_station_id": BORDEAUX_STATION_ID,
+        "transportation_mean": "train",
+        "carrier": "sncf",
+        "train_number": "8202",
+        "travel_class": "first",
+        "trip_id": "f721ce4ca2cb11e88152d3a9f56d4f85",
+        "comfort_class_ids": ["ae9ba138a7c211e88f35afa2c1b6c287"],
+    }
 
 _DEFAULT_TRIP_DICT = {
         "id": "f721ce4ca2cb11e88152d3a9f56d4f85",
@@ -26,6 +40,7 @@ _DEFAULT_TRIP_DICT = {
         "price": 66.00,
         "currency": "EUR",
         "segment_ids": ["f721c960a2cb11e89a42408805033f41"],
+        "segments": [Segment(dict=_DEFAULT_SEGMENT_DICT)],
     }
 
 
@@ -35,9 +50,18 @@ tommorow_obj = date.today() + timedelta(days=1)
 _TOMORROW = tommorow_obj.strftime("%d/%m/%Y")
 
 
+def test_class_Segment():
+    seg = Segment(dict=_DEFAULT_SEGMENT_DICT)
+    assert seg.id == "ae8b939ca7c211e8967edcf1e2aa0fd7"
+    print()
+    print(seg)
+
+
 def test_class_Trip():
     trip = Trip(dict=_DEFAULT_TRIP_DICT)
     assert trip.id == "f721ce4ca2cb11e88152d3a9f56d4f85"
+    print()
+    print(trip)
 
 
 def test_class_Trip_errors():
@@ -138,6 +162,9 @@ def test_basic_search():
 
     for trip in results:
         print(trip)
+        for segment in trip.segments:
+            print('\t', end='')
+            print(segment)
 
 
 # def test_search_3_passengers_and_bicyles():
