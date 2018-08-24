@@ -119,6 +119,35 @@ class Trainline(object):
         return ret
 
 
+class Trips(object):
+    """ Class to represent a list of trips """
+    def __init__(self, trip_list):
+        self.trips = trip_list
+
+    def csv(self):
+        csv_str = "departure_date;arrival_date;duration;number_of_segments;\
+price;currency\n"
+        for trip in self.trips:
+            trip_duration = (trip.arrival_date_obj-trip.departure_date_obj)
+            csv_str += "{dep};{arr};{dur};{seg};{price};{curr}\n".format(
+                dep=trip.departure_date_obj.strftime(_READABLE_DATE_FORMAT),
+                arr=trip.arrival_date_obj.strftime(_READABLE_DATE_FORMAT),
+                dur=_strfdelta(trip_duration, "{hours:02d}h{minutes:02d}"),
+                seg=len(trip.segments),
+                price=str(trip.price).replace(".", ","),  # For French Excel
+                curr=trip.currency,
+                )
+        return csv_str
+
+    def __len__(self):
+        return len(self.trips)
+
+    def __getitem__(self, key):
+        """ Method to access the object as a list
+        (ex : trips[1]) """
+        return self.trips[key]
+
+
 class Trip(object):
     """ Class to represent a trip, composed of one or more segments """
     def __init__(self, mydict):
@@ -147,9 +176,9 @@ class Trip(object):
         self.arrival_date = _fix_date_offset_format(self.arrival_date)
 
         self.departure_date_obj = _str_datetime_to_datetime_obj(
-            self.departure_date)
+            str_datetime=self.departure_date)
         self.arrival_date_obj = _str_datetime_to_datetime_obj(
-            self.arrival_date)
+            str_datetime=self.arrival_date)
 
         if self.price < 0:
             raise ValueError("price cannot be < 0, {} received".format(
@@ -224,9 +253,9 @@ class Segment(object):
         self.arrival_date = _fix_date_offset_format(self.arrival_date)
 
         self.departure_date_obj = _str_datetime_to_datetime_obj(
-            self.departure_date)
+            str_datetime=self.departure_date)
         self.arrival_date_obj = _str_datetime_to_datetime_obj(
-            self.arrival_date)
+            str_datetime=self.arrival_date)
 
         self.bicycle_with_reservation = \
             self._check_extra_value("bicycle_with_reservation")
@@ -339,7 +368,9 @@ def get_station_id(station_name):
     # https://github.com/trainline-eu/stations
     # https://raw.githubusercontent.com/trainline-eu/stations/master/stations.csv
     _AVAILABLE_STATIONS = {
+        "Toulouse": "5306",
         "Toulouse Matabiau": "5311",
+        "Bordeaux": "827",
         "Bordeaux St-Jean": "828",
         "Carcassonne": "1119",
         "Paris": "4916",
@@ -360,10 +391,10 @@ def search(departure_station, arrival_station,
     arrival_station_id = get_station_id(arrival_station)
 
     from_date_obj = _str_datetime_to_datetime_obj(
-        from_date, date_format=_READABLE_DATE_FORMAT)
+        str_datetime=from_date, date_format=_READABLE_DATE_FORMAT)
 
     to_date_obj = _str_datetime_to_datetime_obj(
-        to_date, date_format=_READABLE_DATE_FORMAT)
+        str_datetime=to_date, date_format=_READABLE_DATE_FORMAT)
 
     trip_list = []
 
@@ -411,7 +442,9 @@ def search(departure_station, arrival_station,
     # Sort by date
     filtered_trip_list = sorted(filtered_trip_list,
                                 key=lambda trip: trip.departure_date_obj)
-    return filtered_trip_list
+
+    trip_list_obj = Trips(filtered_trip_list)
+    return trip_list_obj
 
 
 def _convert_date_format(origin_date_str,
@@ -618,3 +651,12 @@ def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,
         if not to_be_filtered:
             filtered_trip_list.append(trip)
     return filtered_trip_list
+
+
+def _strfdelta(tdelta, fmt):
+    """ Format a timedelta object """
+    # Thanks to https://stackoverflow.com/questions/8906926
+    d = {"days": tdelta.days}
+    d["hours"], rem = divmod(tdelta.seconds, 3600)
+    d["minutes"], d["seconds"] = divmod(rem, 60)
+    return fmt.format(**d)

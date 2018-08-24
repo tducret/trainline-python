@@ -39,8 +39,8 @@ Example output :
 
 ```bash
 departure_date;arrival_date;duration;number_of_segments;price;currency
-15/10/2018 08:49;15/10/2018 10:58;02h09;1;15,00;EUR
-15/10/2018 10:19;15/10/2018 12:26;02h07;1;17,00;EUR
+15/10/2018 08:49;15/10/2018 10:58;02h09;1;15,0;EUR
+15/10/2018 10:19;15/10/2018 12:26;02h07;1;17,0;EUR
 [...]
 ```
 
@@ -50,7 +50,7 @@ import trainline
 
 Pierre = trainline.Passenger(birthdate="01/01/1980")
 Sophie = trainline.Passenger(birthdate="01/02/1981")
-Enzo = trainline.Passenger(birthdate="01/03/2012", card=trainline.ENFANT_PLUS)
+Enzo = trainline.Passenger(birthdate="01/03/2012", cards=[trainline.ENFANT_PLUS])
 
 results = trainline.search(
 	passengers=[Pierre, Sophie, Enzo],
@@ -58,7 +58,7 @@ results = trainline.search(
 	arrival_station="Bordeaux",
 	from_date="15/10/2018 08:00",
 	to_date="15/10/2018 21:00",
-	bicyle_required=True)
+	bicycle_with_or_without_reservation=True)
 
 print(results.csv())
 ```
@@ -67,7 +67,15 @@ Example output :
 
 ```bash
 departure_date;arrival_date;duration;number_of_segments;price;currency
-15/10/2018 08:49;15/10/2018 10:58;02h09;1;55,00;EUR
-15/10/2018 10:19;15/10/2018 12:26;02h07;1;57,00;EUR
+15/10/2018 08:49;15/10/2018 10:58;02h09;1;55,0;EUR
+15/10/2018 10:19;15/10/2018 12:26;02h07;1;57,0;EUR
 [...]
 ```
+
+# TODO
+
+- [ ] Implement `get_station_id`
+- [ ] Implement the use of passengers during search
+- [ ] Create a sort function in Trips class (to get the cheapest trips first for example)
+- [ ] Allow to filter on Trips objects
+- [ ] Create the CLI tool and update README

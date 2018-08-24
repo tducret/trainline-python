@@ -309,20 +309,21 @@ def test_basic_search_with_bicyle_with_reservation():
 
 
 def display_trips(trip_list):
-    for trip in trip_list:
-        print(trip)
-        for segment in trip.segments:
-            print('\t', end='')
-            print(segment)
-            for comfort_class in segment.comfort_classes:
-                print('\t\t', end='')
-                print(comfort_class)
-                for extra in comfort_class.extras:
-                    print('\t\t\t', end='')
-                    print("{} : {} {}".format(
-                        extra.get("title"),
-                        float(extra.get("cents"))/100,
-                        extra.get("currency")))
+    print(trip_list.csv())
+    # for trip in trip_list:
+    #     print(trip)
+    #     for segment in trip.segments:
+    #         print('\t', end='')
+    #         print(segment)
+    #         for comfort_class in segment.comfort_classes:
+    #             print('\t\t', end='')
+    #             print(comfort_class)
+    #             for extra in comfort_class.extras:
+    #                 print('\t\t\t', end='')
+    #                 print("{} : {} {}".format(
+    #                     extra.get("title"),
+    #                     float(extra.get("cents"))/100,
+    #                     extra.get("currency")))
 
 # def test_search_3_passengers_and_bicyles():
 #     Pierre = Passenger(birthdate="01/01/1980")
