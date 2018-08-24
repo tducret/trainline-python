@@ -126,16 +126,17 @@ class Trips(object):
 
     def csv(self):
         csv_str = "departure_date;arrival_date;duration;number_of_segments;\
-price;currency\n"
+price;currency;transportation_mean\n"
         for trip in self.trips:
             trip_duration = (trip.arrival_date_obj-trip.departure_date_obj)
-            csv_str += "{dep};{arr};{dur};{seg};{price};{curr}\n".format(
+            csv_str += "{dep};{arr};{dur};{seg};{price};{curr};{tr}\n".format(
                 dep=trip.departure_date_obj.strftime(_READABLE_DATE_FORMAT),
                 arr=trip.arrival_date_obj.strftime(_READABLE_DATE_FORMAT),
                 dur=_strfdelta(trip_duration, "{hours:02d}h{minutes:02d}"),
                 seg=len(trip.segments),
                 price=str(trip.price).replace(".", ","),  # For French Excel
                 curr=trip.currency,
+                tr=trip.transportation_mean,
                 )
         return csv_str
 
@@ -179,6 +180,12 @@ class Trip(object):
             str_datetime=self.departure_date)
         self.arrival_date_obj = _str_datetime_to_datetime_obj(
             str_datetime=self.arrival_date)
+
+        transportation_mean = []
+        for segment in self.segments:
+            transportation_mean.append(segment.transportation_mean)
+        transportation_mean = list(set(transportation_mean))  # no duplicates
+        self.transportation_mean = "+".join(transportation_mean)
 
         if self.price < 0:
             raise ValueError("price cannot be < 0, {} received".format(
