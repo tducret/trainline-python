@@ -22,8 +22,7 @@ _DEFAULT_COMFORT_CLASS_DICT = {
         "name": "pao.default",
         "description": "Un siège standard.",
         "title": "Normal",
-        "extras": [],
-        "options": [],
+        "options": {},
         "segment_id": "ae8b939ca7c211e8967edcf1e2aa0fd7",
         "condition_id": "ae9b9fbca7c211e893c6790139ba5461",
     }
@@ -40,6 +39,7 @@ _DEFAULT_SEGMENT_DICT = {
         "travel_class": "first",
         "trip_id": "f721ce4ca2cb11e88152d3a9f56d4f85",
         "comfort_class_ids": ["ae9ba138a7c211e88f35afa2c1b6c287"],
+        "comfort_classes": [ComfortClass(mydict=_DEFAULT_COMFORT_CLASS_DICT)]
     }
 
 _DEFAULT_TRIP_DICT = {
@@ -51,7 +51,7 @@ _DEFAULT_TRIP_DICT = {
         "price": 66.00,
         "currency": "EUR",
         "segment_ids": ["f721c960a2cb11e89a42408805033f41"],
-        "segments": [Segment(dict=_DEFAULT_SEGMENT_DICT)],
+        "segments": [Segment(mydict=_DEFAULT_SEGMENT_DICT)],
     }
 
 
@@ -62,21 +62,21 @@ _TOMORROW = tommorow_obj.strftime("%d/%m/%Y")
 
 
 def test_class_ComfortClass():
-    cc = ComfortClass(dict=_DEFAULT_COMFORT_CLASS_DICT)
+    cc = ComfortClass(mydict=_DEFAULT_COMFORT_CLASS_DICT)
     assert cc.id == "ae9ba138a7c211e88f35afa2c1b6c287"
     print()
     print(cc)
 
 
 def test_class_Segment():
-    seg = Segment(dict=_DEFAULT_SEGMENT_DICT)
+    seg = Segment(mydict=_DEFAULT_SEGMENT_DICT)
     assert seg.id == "ae8b939ca7c211e8967edcf1e2aa0fd7"
     print()
     print(seg)
 
 
 def test_class_Trip():
-    trip = Trip(dict=_DEFAULT_TRIP_DICT)
+    trip = Trip(mydict=_DEFAULT_TRIP_DICT)
     assert trip.id == "f721ce4ca2cb11e88152d3a9f56d4f85"
     print()
     print(trip)
@@ -86,32 +86,32 @@ def test_class_Trip_errors():
     with pytest.raises(TypeError):
         modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
         modified_trip_dict["departure_station_id"] = 1234  # should be a string
-        Trip(dict=modified_trip_dict)
+        Trip(mydict=modified_trip_dict)
 
     with pytest.raises(TypeError):
         modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
         modified_trip_dict["price"] = "not_a_float"
-        Trip(dict=modified_trip_dict)
+        Trip(mydict=modified_trip_dict)
 
     with pytest.raises(TypeError):
         modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
         modified_trip_dict["departure_date"] = "not_a_date"
-        Trip(dict=modified_trip_dict)
+        Trip(mydict=modified_trip_dict)
 
     with pytest.raises(TypeError):
         modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
         modified_trip_dict["id"] = 12345  # string expected
-        Trip(dict=modified_trip_dict)
+        Trip(mydict=modified_trip_dict)
 
     with pytest.raises(TypeError):
         modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
         modified_trip_dict.pop("id")  # delete a required parameter
-        Trip(dict=modified_trip_dict)
+        Trip(mydict=modified_trip_dict)
 
     with pytest.raises(ValueError):
         modified_trip_dict = _DEFAULT_TRIP_DICT.copy()
         modified_trip_dict["price"] = -1.50  # negative price impossible
-        Trip(dict=modified_trip_dict)
+        Trip(mydict=modified_trip_dict)
 
 
 def test_class_Passenger():
@@ -170,19 +170,54 @@ def test_basic_search():
         departure_station=departure_station,
         arrival_station=arrival_station,
         from_date=from_date,
-        to_date=to_date,
-        bicyle_required=True)
+        to_date=to_date)
     print()
     print("Search trips for {} to {}, between {} and {}".format(
         departure_station, arrival_station, from_date, to_date))
     print("{} results".format(len(results)))
     assert len(results) > 0
 
-    for trip in results:
-        print(trip)
-        for segment in trip.segments:
-            print('\t', end='')
-            print(segment)
+    display_trips(results)
+
+
+def test_basic_search_Carcassonne():
+    from_date = "{} 18:00".format(_TOMORROW)
+    to_date = "{} 23:00".format(_TOMORROW)
+    departure_station = "Toulouse Matabiau"
+    arrival_station = "Carcassonne"
+
+    results = trainline.search(
+        departure_station=departure_station,
+        arrival_station=arrival_station,
+        from_date=from_date,
+        to_date=to_date)
+    print()
+    print("Search trips for {} to {}, between {} and {}".format(
+        departure_station, arrival_station, from_date, to_date))
+    print("{} results".format(len(results)))
+    assert len(results) > 0
+
+    display_trips(results)
+
+
+def test_basic_search_Paris():
+    from_date = "{} 08:00".format(_TOMORROW)
+    to_date = "{} 23:00".format(_TOMORROW)
+    departure_station = "Toulouse Matabiau"
+    arrival_station = "Paris"
+
+    results = trainline.search(
+        departure_station=departure_station,
+        arrival_station=arrival_station,
+        from_date=from_date,
+        to_date=to_date)
+    print()
+    print("Search trips for {} to {}, between {} and {}".format(
+        departure_station, arrival_station, from_date, to_date))
+    print("{} results".format(len(results)))
+    assert len(results) > 0
+
+    display_trips(results)
 
 
 def test_search_only_bus():
@@ -196,7 +231,6 @@ def test_search_only_bus():
         arrival_station=arrival_station,
         from_date=from_date,
         to_date=to_date,
-        bicyle_required=True,
         transportation_mean="coach")
     print()
     print("Search BUS trips for {} to {}, between {} and {}".format(
@@ -204,12 +238,91 @@ def test_search_only_bus():
     print("{} results".format(len(results)))
     assert len(results) > 0
 
+    display_trips(results)
+
     for trip in results:
+        for segment in trip.segments:
+            assert(segment.transportation_mean == "coach")
+
+
+def test_basic_search_with_bicyle():
+    from_date = "{} 08:00".format(_TOMORROW)
+    to_date = "{} 23:00".format(_TOMORROW)
+    departure_station = "Toulouse Matabiau"
+    arrival_station = "Narbonne"
+
+    results = trainline.search(
+        departure_station=departure_station,
+        arrival_station=arrival_station,
+        from_date=from_date,
+        to_date=to_date,
+        bicycle_with_or_without_reservation=True)
+    print()
+    print("Search trips for {} to {}, between {} and {}".format(
+        departure_station, arrival_station, from_date, to_date))
+    print("{} results".format(len(results)))
+    assert len(results) > 0
+
+    display_trips(results)
+
+
+def test_basic_search_with_bicyle_without_reservation():
+    from_date = "{} 08:00".format(_TOMORROW)
+    to_date = "{} 23:00".format(_TOMORROW)
+    departure_station = "Toulouse Matabiau"
+    arrival_station = "Carcassonne"
+
+    results = trainline.search(
+        departure_station=departure_station,
+        arrival_station=arrival_station,
+        from_date=from_date,
+        to_date=to_date,
+        bicycle_without_reservation_only=True)
+    print()
+    print("Search trips for {} to {}, between {} and {}".format(
+        departure_station, arrival_station, from_date, to_date))
+    print("{} results".format(len(results)))
+    assert len(results) > 0
+
+    display_trips(results)
+
+
+def test_basic_search_with_bicyle_with_reservation():
+    from_date = "{} 08:00".format(_TOMORROW)
+    to_date = "{} 23:00".format(_TOMORROW)
+    departure_station = "Toulouse Matabiau"
+    arrival_station = "Bordeaux St-Jean"
+
+    results = trainline.search(
+        departure_station=departure_station,
+        arrival_station=arrival_station,
+        from_date=from_date,
+        to_date=to_date,
+        bicycle_with_reservation_only=True)
+    print()
+    print("Search trips for {} to {}, between {} and {}".format(
+        departure_station, arrival_station, from_date, to_date))
+    print("{} results".format(len(results)))
+    assert len(results) > 0
+
+    display_trips(results)
+
+
+def display_trips(trip_list):
+    for trip in trip_list:
         print(trip)
         for segment in trip.segments:
             print('\t', end='')
             print(segment)
-            assert(segment.transportation_mean == "coach")
+            for comfort_class in segment.comfort_classes:
+                print('\t\t', end='')
+                print(comfort_class)
+                for extra in comfort_class.extras:
+                    print('\t\t\t', end='')
+                    print("{} : {} {}".format(
+                        extra.get("title"),
+                        float(extra.get("cents"))/100,
+                        extra.get("currency")))
 
 # def test_search_3_passengers_and_bicyles():
 #     Pierre = Passenger(birthdate="01/01/1980")
@@ -221,8 +334,7 @@ def test_search_only_bus():
 #         departure_station="Toulouse Matabiau",
 #         arrival_station="Bordeaux St-Jean",
 #         from_date="{} 08:00".format(_TOMORROW),
-#         to_date="{} 21:00".format(_TOMORROW),
-#         bicyle_required=True)
+#         to_date="{} 21:00".format(_TOMORROW))
 
 #     print("{} results".format(len(results)))
 #     assert results.len() > 0

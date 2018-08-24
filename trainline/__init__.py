@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """Top-level package for Trainline."""
@@ -7,6 +8,7 @@ from requests import ConnectionError
 import json
 from datetime import datetime, timedelta
 import pytz
+import time
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
@@ -17,6 +19,8 @@ _DEFAULT_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 _BIRTHDATE_FORMAT = '%d/%m/%Y'
 _READABLE_DATE_FORMAT = "%d/%m/%Y %H:%M"
 _DEFAULT_SEARCH_TIMEZONE = 'Europe/Paris'
+_MAX_SERVER_RETRY = 3  # If a request is rejected, retry X times
+_TIME_AFTER_FAILED_REQUEST = 10  # and wait Y seconds after a rejected request
 
 ENFANT_PLUS = "ENFANT_PLUS"
 JEUNE = "JEUNE"
@@ -44,13 +48,21 @@ class Client(object):
         return ret
 
     def _post(self, url, post_data, expected_status_code=200):
-        ret = self.session.post(url=url,
-                                headers=self.headers,
-                                data=post_data)
+        trials = 0
+        while trials <= _MAX_SERVER_RETRY:
+            trials += 1
+            ret = self.session.post(url=url,
+                                    headers=self.headers,
+                                    data=post_data)
+            if (ret.status_code == expected_status_code):
+                break
+            else:
+                time.sleep(_TIME_AFTER_FAILED_REQUEST)
+
         if (ret.status_code != expected_status_code):
-            raise ConnectionError(
-                'Status code {status} for url {url}\n{content}'.format(
-                    status=ret.status_code, url=url, content=ret.text))
+                raise ConnectionError(
+                    'Status code {status} for url {url}\n{content}'.format(
+                        status=ret.status_code, url=url, content=ret.text))
         return ret
 
 
@@ -109,7 +121,7 @@ class Trainline(object):
 
 class Trip(object):
     """ Class to represent a trip, composed of one or more segments """
-    def __init__(self, dict):
+    def __init__(self, mydict):
         expected = {
             "id": str,
             "departure_date": str,
@@ -123,7 +135,7 @@ class Trip(object):
         }
 
         for expected_param, expected_type in expected.items():
-            param_value = dict.get(expected_param)
+            param_value = mydict.get(expected_param)
             if type(param_value) is not expected_type:
                 raise TypeError("Type {} expected for {}, {} received".format(
                     expected_type, expected_param, type(param_value)))
@@ -183,7 +195,7 @@ class Passenger(object):
 class Segment(object):
     """ Class to represent a segment
     (a trip is composed of one or more segment) """
-    def __init__(self, dict):
+    def __init__(self, mydict):
         expected = {
             "id": str,
             "departure_date": str,
@@ -196,10 +208,11 @@ class Segment(object):
             "travel_class": str,
             "trip_id": str,
             "comfort_class_ids": list,
+            "comfort_classes": list,
         }
 
         for expected_param, expected_type in expected.items():
-            param_value = dict.get(expected_param)
+            param_value = mydict.get(expected_param)
             if type(param_value) is not expected_type:
                 raise TypeError("Type {} expected for {}, {} received".format(
                     expected_type, expected_param, type(param_value)))
@@ -215,6 +228,11 @@ class Segment(object):
         self.arrival_date_obj = _str_datetime_to_datetime_obj(
             self.arrival_date)
 
+        self.bicycle_with_reservation = \
+            self._check_extra_value("bicycle_with_reservation")
+        self.bicycle_without_reservation = \
+            self._check_extra_value("bicycle_without_reservation")
+
     def __str__(self):
         return("{} → {} : {} ({}) ({} comfort_class) [id : {}]".format(
             self.departure_date, self.arrival_date,
@@ -229,36 +247,47 @@ class Segment(object):
     def __hash__(self):
         return hash((self.id))
 
+    def _check_extra_value(self, value):
+        """ Returns True if the segment has an extra
+        with the specified value """
+        res = False
+        for comfort_class in self.comfort_classes:
+            for extra in comfort_class.extras:
+                if extra.get("value", "") == value:
+                    res = True
+                    break
+        return res
+
 
 class ComfortClass(object):
     """ Class to represent a comfort_class
     (a trip is composed of one or more segment,
     each one composed of one or more comfort_class) """
-    def __init__(self, dict):
+    def __init__(self, mydict):
         expected = {
             "id": str,
             "name": str,
             "description": str,
             "title": str,
-            "extras": list,
-            "options": list,
+            "options": dict,
             "segment_id": str,
             "condition_id": str,
         }
 
         for expected_param, expected_type in expected.items():
-            param_value = dict.get(expected_param)
+            param_value = mydict.get(expected_param)
             if type(param_value) is not expected_type:
                 raise TypeError("Type {} expected for {}, {} received".format(
                     expected_type, expected_param, type(param_value)))
             setattr(self, expected_param, param_value)
 
+        self.extras = self.options.get("extras", [])
+
     def __str__(self):
-        return("{} {} ({}) ({} options, {} extras) [id : {}]".format(
+        return("{} {} ({}) ({} extras) [id : {}]".format(
             self.name,
             self.title,
             self.description,
-            len(self.options),
             len(self.extras),
             self.id))
 
@@ -312,13 +341,19 @@ def get_station_id(station_name):
     _AVAILABLE_STATIONS = {
         "Toulouse Matabiau": "5311",
         "Bordeaux St-Jean": "828",
+        "Carcassonne": "1119",
+        "Paris": "4916",
+        "Narbonne": "5806",
     }
     return _AVAILABLE_STATIONS[station_name]
 
 
 def search(departure_station, arrival_station,
-           from_date, to_date, bicyle_required=False, passengers=[],
-           transportation_mean=None):
+           from_date, to_date, passengers=[],
+           transportation_mean=None,
+           bicycle_without_reservation_only=None,
+           bicycle_with_reservation_only=None,
+           bicycle_with_or_without_reservation=None):
     t = Trainline()
 
     departure_station_id = get_station_id(departure_station)
@@ -363,10 +398,15 @@ def search(departure_station, arrival_station,
     trip_list = list(set(trip_list))  # Remove duplicate trips in the list
 
     # Filter the list
-    filtered_trip_list = _filter_trips(trip_list,
-                                       from_date_obj=from_date_obj,
-                                       to_date_obj=to_date_obj,
-                                       transportation_mean=transportation_mean)
+    bicycle_w_or_wout_reservation = bicycle_with_or_without_reservation
+    filtered_trip_list = _filter_trips(
+        trip_list=trip_list,
+        from_date_obj=from_date_obj,
+        to_date_obj=to_date_obj,
+        transportation_mean=transportation_mean,
+        bicycle_without_reservation_only=bicycle_without_reservation_only,
+        bicycle_with_reservation_only=bicycle_with_reservation_only,
+        bicycle_with_or_without_reservation=bicycle_w_or_wout_reservation)
 
     # Sort by date
     filtered_trip_list = sorted(filtered_trip_list,
@@ -410,6 +450,7 @@ def _get_trips(search_results_obj):
             if segment_found:
                 segments.append(segment_found)
             else:
+                # Remove the id if the object is invalid or not found
                 dict_trip["segment_ids"].remove(segment_id)
         dict_trip["segments"] = segments
 
@@ -420,9 +461,13 @@ def _get_trips(search_results_obj):
 
 def _get_segments(search_results_obj):
     """ Get segments from the json object of search results """
+    comfort_class_obj_list = _get_comfort_classes(search_results_obj)
     segments = search_results_obj.get("segments")
     segment_obj_list = []
     for segment in segments:
+        comfort_class_ids = segment.get("comfort_class_ids")
+        if comfort_class_ids is None:
+            comfort_class_ids = []
         dict_segment = {
             "id": segment.get("id"),
             "departure_date": segment.get("departure_date"),
@@ -434,8 +479,19 @@ def _get_segments(search_results_obj):
             "train_number": segment.get("train_number"),
             "travel_class": segment.get("travel_class"),
             "trip_id": segment.get("trip_id"),
-            "comfort_class_ids": segment.get("comfort_class_ids"),
+            "comfort_class_ids": comfort_class_ids,
         }
+        comfort_classes = []
+        for comfort_class_id in dict_segment["comfort_class_ids"]:
+            comfort_class_found = _get_comfort_class_from_id(
+                comfort_class_obj_list=comfort_class_obj_list,
+                comfort_class_id=comfort_class_id)
+            if comfort_class_found:
+                comfort_classes.append(comfort_class_found)
+            else:
+                # Remove the id if the object is invalid or not found
+                dict_segment["comfort_class_ids"].remove(comfort_class_id)
+        dict_segment["comfort_classes"] = comfort_classes
         try:
             segment_obj = Segment(dict_segment)
             segment_obj_list.append(segment_obj)
@@ -455,9 +511,49 @@ def _get_segment_from_id(segment_obj_list, segment_id):
     return found_segment_obj
 
 
+def _get_comfort_classes(search_results_obj):
+    """ Get comfort classes from the json object of search results """
+    comfort_classes = search_results_obj.get("comfort_classes")
+    if comfort_classes is None:
+        comfort_classes = []
+    comfort_class_obj_list = []
+    for comfort_class in comfort_classes:
+        description = comfort_class.get("description")
+        if description is None:
+            description = ""
+        title = comfort_class.get("title")
+        if title is None:
+            title = ""
+        dict_comfort_class = {
+            "id": comfort_class.get("id"),
+            "name": comfort_class.get("name"),
+            "description": description,
+            "title": title,
+            "options": comfort_class.get("options"),
+            "segment_id": comfort_class.get("segment_id"),
+            "condition_id": comfort_class.get("condition_id"),
+        }
+        comfort_class_obj = ComfortClass(dict_comfort_class)
+        comfort_class_obj_list.append(comfort_class_obj)
+    return comfort_class_obj_list
+
+
+def _get_comfort_class_from_id(comfort_class_obj_list, comfort_class_id):
+    """ Get a comfort_class from a list, based on a comfort_class id """
+    found_comfort_class_obj = None
+    for comfort_class_obj in comfort_class_obj_list:
+        if comfort_class_obj.id == comfort_class_id:
+            found_comfort_class_obj = comfort_class_obj
+            break
+    return found_comfort_class_obj
+
+
 def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,
                   min_price=0.1, max_price=None, transportation_mean=None,
-                  min_segment_nb=1, max_segment_nb=None):
+                  min_segment_nb=1, max_segment_nb=None,
+                  bicycle_without_reservation_only=None,
+                  bicycle_with_reservation_only=None,
+                  bicycle_with_or_without_reservation=None):
     """ Filter a list of trips, based on different attributes, such as
     from_date or min_price. Returns the filtered list """
     filtered_trip_list = []
@@ -493,6 +589,30 @@ def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,
         if max_segment_nb:
             if len(trip.segments) > max_segment_nb:
                 to_be_filtered = True
+
+        # Bicycle
+        # All segments of the trip must respect the bicycle conditions
+        if bicycle_with_reservation_only:
+            for segment in trip.segments:
+                if segment.bicycle_with_reservation != \
+                   bicycle_with_reservation_only:
+                    to_be_filtered = True
+                    break
+
+        if bicycle_without_reservation_only:
+            for segment in trip.segments:
+                if segment.bicycle_without_reservation != \
+                   bicycle_without_reservation_only:
+                    to_be_filtered = True
+                    break
+
+        if bicycle_with_or_without_reservation:
+            for segment in trip.segments:
+                condition = (segment.bicycle_with_reservation or
+                             segment.bicycle_without_reservation)
+                if condition != bicycle_with_or_without_reservation:
+                    to_be_filtered = True
+                    break
 
         # Add to list if it has not been filtered
         if not to_be_filtered:
