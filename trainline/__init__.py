@@ -276,7 +276,8 @@ def get_station_id(station_name):
 
 
 def search(departure_station, arrival_station,
-           from_date, to_date, bicyle_required=False, passengers=[]):
+           from_date, to_date, bicyle_required=False, passengers=[],
+           transportation_mean=None):
     t = Trainline()
 
     departure_station_id = get_station_id(departure_station)
@@ -323,7 +324,8 @@ def search(departure_station, arrival_station,
     # Filter the list
     filtered_trip_list = _filter_trips(trip_list,
                                        from_date_obj=from_date_obj,
-                                       to_date_obj=to_date_obj)
+                                       to_date_obj=to_date_obj,
+                                       transportation_mean=transportation_mean)
 
     # Sort by date
     filtered_trip_list = sorted(filtered_trip_list,
@@ -361,9 +363,13 @@ def _get_trips(search_results_obj):
         }
         segments = []
         for segment_id in dict_trip["segment_ids"]:
-            segments.append(_get_segment_from_id(
+            segment_found = _get_segment_from_id(
                 segment_obj_list=segment_obj_list,
-                segment_id=segment_id))
+                segment_id=segment_id)
+            if segment_found:
+                segments.append(segment_found)
+            else:
+                dict_trip["segment_ids"].remove(segment_id)
         dict_trip["segments"] = segments
 
         trip_obj = Trip(dict_trip)
@@ -389,13 +395,18 @@ def _get_segments(search_results_obj):
             "trip_id": segment.get("trip_id"),
             "comfort_class_ids": segment.get("comfort_class_ids"),
         }
-        segment_obj = Segment(dict_segment)
-        segment_obj_list.append(segment_obj)
+        try:
+            segment_obj = Segment(dict_segment)
+            segment_obj_list.append(segment_obj)
+        except TypeError:
+            pass
+            # Do not add a segment if it is not contain all the required fields
     return segment_obj_list
 
 
 def _get_segment_from_id(segment_obj_list, segment_id):
     """ Get a segment from a list, based on a segment id """
+    found_segment_obj = None
     for segment_obj in segment_obj_list:
         if segment_obj.id == segment_id:
             found_segment_obj = segment_obj
@@ -404,7 +415,8 @@ def _get_segment_from_id(segment_obj_list, segment_id):
 
 
 def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,
-                  min_price=0.10, max_price=None):
+                  min_price=0.1, max_price=None, transportation_mean=None,
+                  min_segment_nb=1, max_segment_nb=None):
     """ Filter a list of trips, based on different attributes, such as
     from_date or min_price. Returns the filtered list """
     filtered_trip_list = []
@@ -424,6 +436,21 @@ def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,
                 to_be_filtered = True
         if to_date_obj:
             if trip.departure_date_obj > to_date_obj:
+                to_be_filtered = True
+
+        # Transportation mean
+        if transportation_mean:
+            for segment in trip.segments:
+                if segment.transportation_mean != transportation_mean:
+                    to_be_filtered = True
+                    break
+
+        # Number of segments
+        if min_segment_nb:
+            if len(trip.segments) < min_segment_nb:
+                to_be_filtered = True
+        if max_segment_nb:
+            if len(trip.segments) > max_segment_nb:
                 to_be_filtered = True
 
         # Add to list if it has not been filtered

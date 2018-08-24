@@ -167,6 +167,32 @@ def test_basic_search():
             print(segment)
 
 
+def test_search_only_bus():
+    from_date = "{} 09:00".format(_TOMORROW)
+    to_date = "{} 15:00".format(_TOMORROW)
+    departure_station = "Toulouse Matabiau"
+    arrival_station = "Bordeaux St-Jean"
+
+    results = trainline.search(
+        departure_station=departure_station,
+        arrival_station=arrival_station,
+        from_date=from_date,
+        to_date=to_date,
+        bicyle_required=True,
+        transportation_mean="coach")
+    print()
+    print("Search BUS trips for {} to {}, between {} and {}".format(
+        departure_station, arrival_station, from_date, to_date))
+    print("{} results".format(len(results)))
+    assert len(results) > 0
+
+    for trip in results:
+        print(trip)
+        for segment in trip.segments:
+            print('\t', end='')
+            print(segment)
+            assert(segment.transportation_mean == "coach")
+
 # def test_search_3_passengers_and_bicyles():
 #     Pierre = Passenger(birthdate="01/01/1980")
 #     Sophie = Passenger(birthdate="01/02/1981")
