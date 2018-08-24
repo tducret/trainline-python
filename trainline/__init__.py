@@ -216,13 +216,54 @@ class Segment(object):
             self.arrival_date)
 
     def __str__(self):
-        return("{} → {} : {}({}) ({} comfort_class) [id : {}]".format(
-            self.departure_date, self.arrival_date, self.transportation_mean,
-            self.carrier,
+        return("{} → {} : {} ({}) ({} comfort_class) [id : {}]".format(
+            self.departure_date, self.arrival_date,
+            self.transportation_mean, self.carrier,
             len(self.comfort_class_ids), self.id))
 
     # __hash__ and __eq__ methods are defined to allow to remove duplicates
-    # in the results with list(set(trip_list))
+    # in the results with list(set(segment_list))
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return hash((self.id))
+
+
+class ComfortClass(object):
+    """ Class to represent a comfort_class
+    (a trip is composed of one or more segment,
+    each one composed of one or more comfort_class) """
+    def __init__(self, dict):
+        expected = {
+            "id": str,
+            "name": str,
+            "description": str,
+            "title": str,
+            "extras": list,
+            "options": list,
+            "segment_id": str,
+            "condition_id": str,
+        }
+
+        for expected_param, expected_type in expected.items():
+            param_value = dict.get(expected_param)
+            if type(param_value) is not expected_type:
+                raise TypeError("Type {} expected for {}, {} received".format(
+                    expected_type, expected_param, type(param_value)))
+            setattr(self, expected_param, param_value)
+
+    def __str__(self):
+        return("{} {} ({}) ({} options, {} extras) [id : {}]".format(
+            self.name,
+            self.title,
+            self.description,
+            len(self.options),
+            len(self.extras),
+            self.id))
+
+    # __hash__ and __eq__ methods are defined to allow to remove duplicates
+    # in the results with list(set(comfort_class_list))
     def __eq__(self, other):
         return self.id == other.id
 

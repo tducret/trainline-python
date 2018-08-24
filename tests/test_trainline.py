@@ -8,7 +8,7 @@
 import pytest
 import os
 import trainline
-from trainline import Trainline, Trip, Passenger, Segment
+from trainline import Trainline, Trip, Passenger, Segment, ComfortClass
 from datetime import date, timedelta
 
 # Get useful environment variables
@@ -16,6 +16,17 @@ VAR = os.environ.get('VAR', None)
 
 TOULOUSE_STATION_ID = "5311"
 BORDEAUX_STATION_ID = "828"
+
+_DEFAULT_COMFORT_CLASS_DICT = {
+        "id": "ae9ba138a7c211e88f35afa2c1b6c287",
+        "name": "pao.default",
+        "description": "Un siège standard.",
+        "title": "Normal",
+        "extras": [],
+        "options": [],
+        "segment_id": "ae8b939ca7c211e8967edcf1e2aa0fd7",
+        "condition_id": "ae9b9fbca7c211e893c6790139ba5461",
+    }
 
 _DEFAULT_SEGMENT_DICT = {
         "id": "ae8b939ca7c211e8967edcf1e2aa0fd7",
@@ -48,6 +59,13 @@ _DEFAULT_TRIP_DICT = {
 # otherwise they will become obsolete in the future
 tommorow_obj = date.today() + timedelta(days=1)
 _TOMORROW = tommorow_obj.strftime("%d/%m/%Y")
+
+
+def test_class_ComfortClass():
+    cc = ComfortClass(dict=_DEFAULT_COMFORT_CLASS_DICT)
+    assert cc.id == "ae9ba138a7c211e88f35afa2c1b6c287"
+    print()
+    print(cc)
 
 
 def test_class_Segment():
