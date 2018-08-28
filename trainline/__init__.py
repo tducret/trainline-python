@@ -22,9 +22,11 @@ _DEFAULT_SEARCH_TIMEZONE = 'Europe/Paris'
 _MAX_SERVER_RETRY = 3  # If a request is rejected, retry X times
 _TIME_AFTER_FAILED_REQUEST = 10  # and wait Y seconds after a rejected request
 
-ENFANT_PLUS = "ENFANT_PLUS"
-JEUNE = "JEUNE"
-_AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE]
+ENFANT_PLUS = "SNCF.CarteEnfantPlus"
+JEUNE = "SNCF.Carte1225"
+WEEK_END = "SNCF.CarteEscapades"
+SENIOR = "SNCF.CarteSenior"
+_AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE, WEEK_END, SENIOR]
 
 
 class Client(object):
