@@ -28,6 +28,13 @@ WEEK_END = "SNCF.CarteEscapades"
 SENIOR = "SNCF.CarteSenior"
 _AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE, WEEK_END, SENIOR]
 
+_DEFAULT_PASSENGER = {
+                       "id": "90ec4e55-f6f1-4298-bb02-7dd88fe33fca",
+                       "age": 26,
+                       "cards": [],
+                       "label": "90ec4e55-f6f1-4298-bb02-7dd88fe33fca"
+                    }
+
 
 class Client(object):
     """ Do the requests with the servers """
@@ -73,18 +80,14 @@ class Trainline(object):
     def __init__(self):
         pass
 
-    def search(self, departure_station_id, arrival_station_id, departure_date):
+    def search(self, departure_station_id, arrival_station_id, departure_date,
+               passenger=_DEFAULT_PASSENGER):
         """ Search on Trainline """
         data = {
               "local_currency": "EUR",
               "search": {
                 "passengers": [
-                  {
-                    "id": "90ec4e55-f6f1-4298-bb02-7dd88fe33fca",
-                    "age": 26,
-                    "cards": [],
-                    "label": "90ec4e55-f6f1-4298-bb02-7dd88fe33fca"
-                  }
+                  passenger
                 ],
                 "arrival_station_id": arrival_station_id,
                 "departure_date": departure_date,
