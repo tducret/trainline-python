@@ -178,7 +178,8 @@ def test_internal_search():
     ret = t.search(
         departure_station_id=TOULOUSE_STATION_ID,
         arrival_station_id=BORDEAUX_STATION_ID,
-        departure_date="2018-10-15T10:48:00+00:00")
+        departure_date="2018-10-15T10:48:00+00:00",
+        passenger_list=[Passenger(birthdate="01/01/1980").get_dict()])
     assert ret.status_code == 200
 
 
@@ -347,42 +348,38 @@ def display_trips(trip_list):
     #                     float(extra.get("cents"))/100,
     #                     extra.get("currency")))
 
-# def test_search_3_passengers_and_bicyles():
-#     Pierre = Passenger(birthdate="01/01/1980")
-#     Sophie = Passenger(birthdate="01/02/1981")
-#     Enzo = Passenger(birthdate="01/03/2012", cards=[trainline.ENFANT_PLUS])
 
-#     results = trainline.search(
-#         passengers=[Pierre, Sophie, Enzo],
-#         departure_station="Toulouse Matabiau",
-#         arrival_station="Bordeaux St-Jean",
-#         from_date="{} 08:00".format(_TOMORROW),
-#         to_date="{} 21:00".format(_TOMORROW))
+def test_search_3_passengers_and_bicyles():
+    Pierre = Passenger(birthdate="01/01/1980")
+    Sophie = Passenger(birthdate="01/02/1981")
+    Enzo = Passenger(birthdate="01/03/2012", cards=[trainline.ENFANT_PLUS])
 
-#     print("{} results".format(len(results)))
-#     assert results.len() > 0
+    results = trainline.search(
+        passengers=[Pierre, Sophie, Enzo],
+        departure_station="Toulouse Matabiau",
+        arrival_station="Bordeaux St-Jean",
+        from_date="{} 08:00".format(_TOMORROW),
+        to_date="{} 21:00".format(_TOMORROW),
+        bicycle_with_or_without_reservation=True)
 
-#     csv_header = results.csv().split("\n")[0]
-#     assert csv_header == "departure_date;arrival_date;duration;\
-# number_of_segments;price;currency"
+    print()
+    print("{} results".format(len(results)))
+    assert len(results) > 0
 
-#     # Check that the result trips starts at the proper date (tomorrow)
-#     first_result = results.csv().split("\n")[1]
-#     assert _TOMORROW in first_result.split(";")[0]
+    display_trips(results)
 
-#     last_result = results.csv().split("\n")[-1]
-#     assert _TOMORROW in last_result.split(";")[0]
+    csv_header = results.csv().split("\n")[0]
+    assert csv_header == "departure_date;arrival_date;duration;\
+number_of_segments;price;currency;transportation_mean"
+
+    # Check that the result trips starts at the proper date (tomorrow)
+    first_result = results.csv().split("\n")[1]
+    assert _TOMORROW in first_result.split(";")[0]
+
+    last_result = results.csv().split("\n")[-2]
+    assert _TOMORROW in last_result.split(";")[0]
 
 
 def test_class_Trainline():
     t = Trainline()
     assert t is not None
-
-
-# def test_search():
-#     t = Trainline()
-#     ret = t.search(
-#         departure_station_id=TOULOUSE_STATION_ID,
-#         arrival_station_id=BORDEAUX_STATION_ID,
-#         departure_date="2018-10-15T10:48:00+00:00")
-#     assert ret.status_code == 200

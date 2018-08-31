@@ -29,12 +29,7 @@ WEEK_END = "SNCF.CarteEscapades"
 SENIOR = "SNCF.CarteSenior"
 _AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE, WEEK_END, SENIOR]
 
-_DEFAULT_PASSENGER = {
-                       "id": "90ec4e55-f6f1-4298-bb02-7dd88fe33fca",
-                       "age": 26,
-                       "cards": [],
-                       "label": "90ec4e55-f6f1-4298-bb02-7dd88fe33fca"
-                    }
+_DEFAULT_PASSENGER_BIRTHDATE = "01/01/1980"
 
 
 class Client(object):
@@ -82,14 +77,12 @@ class Trainline(object):
         pass
 
     def search(self, departure_station_id, arrival_station_id, departure_date,
-               passenger=_DEFAULT_PASSENGER):
+               passenger_list):
         """ Search on Trainline """
         data = {
               "local_currency": "EUR",
               "search": {
-                "passengers": [
-                  passenger
-                ],
+                "passengers": passenger_list,
                 "arrival_station_id": arrival_station_id,
                 "departure_date": departure_date,
                 "departure_station_id": departure_station_id,
@@ -422,7 +415,8 @@ def get_station_id(station_name):
 
 
 def search(departure_station, arrival_station,
-           from_date, to_date, passengers=[],
+           from_date, to_date,
+           passengers=[Passenger(birthdate=_DEFAULT_PASSENGER_BIRTHDATE)],
            transportation_mean=None,
            bicycle_without_reservation_only=None,
            bicycle_with_reservation_only=None,
@@ -438,6 +432,10 @@ def search(departure_station, arrival_station,
     to_date_obj = _str_datetime_to_datetime_obj(
         str_datetime=to_date, date_format=_READABLE_DATE_FORMAT)
 
+    passenger_list = []
+    for passenger in passengers:
+        passenger_list.append(passenger.get_dict())
+
     trip_list = []
 
     search_date = from_date_obj
@@ -450,7 +448,8 @@ def search(departure_station, arrival_station,
         ret = t.search(
             departure_station_id=departure_station_id,
             arrival_station_id=arrival_station_id,
-            departure_date=departure_date)
+            departure_date=departure_date,
+            passenger_list=passenger_list)
         j = json.loads(ret.text)
         trips = _get_trips(search_results_obj=j)
         trip_list += trips
