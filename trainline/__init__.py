@@ -6,9 +6,10 @@
 import requests
 from requests import ConnectionError
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import pytz
 import time
+import uuid
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
@@ -217,12 +218,41 @@ class Passenger(object):
         self.birthdate_obj = _str_date_to_date_obj(
             str_date=self.birthdate,
             date_format=_BIRTHDATE_FORMAT)
+        self.age = self._calculate_age()
+
+        self.id = self._gen_id()
 
         for card in cards:
             if card not in _AVAILABLE_CARDS:
                 raise KeyError("Card '{}' unknown, [{}] available".format(
                     card, ",".join(_AVAILABLE_CARDS)))
         self.cards = cards
+
+    def _gen_id(self):
+        """ Returns a unique passenger id in the proper format
+        hhhhhhhh-hhhh-hhhh-hhhh-hhhhhhhhhhhh"""
+        return str(uuid.uuid4())  # uuid4 = make a random UUID
+
+    def _calculate_age(self):
+        """ Returns the age (in years) from the birthdate """
+        born = self.birthdate_obj
+        today = date.today()
+        age = today.year - born.year - \
+            ((today.month, today.day) < (born.month, born.day))
+        return age
+
+    def get_dict(self):
+        cards_dicts = []
+        for card in self.cards:
+            cards_dicts.append({"reference": card})
+
+        passenger_dict = {
+                           "id": self.id,
+                           "age": self.age,
+                           "cards": cards_dicts,
+                           "label": self.id
+                        }
+        return passenger_dict
 
     def __str__(self):
         return(repr(self))

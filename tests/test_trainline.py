@@ -120,11 +120,33 @@ def test_class_Passenger():
     print(p1)
     assert p1.birthdate == "01/01/1980"
     assert p1.cards == []
+    age_p1 = date.today().year - 2018 + 38
+    assert p1.age == age_p1
+    id_p1 = p1.id
+    assert len(id_p1) == 36
+    assert p1.get_dict() == {
+                              "id": id_p1,
+                              "age": age_p1,
+                              "cards": [],
+                              "label": id_p1
+                            }
 
-    p2 = Passenger(birthdate="01/03/2012", cards=[trainline.ENFANT_PLUS])
+    p2 = Passenger(birthdate="01/01/2006",
+                   cards=[trainline.JEUNE, trainline.WEEK_END])
     print(p2)
-    assert p2.birthdate == "01/03/2012"
-    assert p2.cards == [trainline.ENFANT_PLUS]
+    assert p2.birthdate == "01/01/2006"
+    assert p2.cards == [trainline.JEUNE, trainline.WEEK_END]
+    age_p2 = date.today().year - 2018 + 12
+    assert p2.age == age_p2
+    id_p2 = p2.id
+    assert len(id_p2) == 36
+    assert p2.get_dict() == {
+                              "id": id_p2,
+                              "age": age_p2,
+                              "cards": [{"reference": trainline.JEUNE},
+                                        {"reference": trainline.WEEK_END}],
+                              "label": id_p2
+                            }
 
 
 def test_class_Passenger_errors():
