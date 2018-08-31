@@ -75,9 +75,10 @@ departure_date;arrival_date;duration;number_of_segments;price;currency;transport
 # TODO
 
 - [ ] Implement `get_station_id`
-- [ ] Implement the use of passengers during search
+- [X] Implement the use of passengers during search
 - [ ] Create a sort function in Trips class (to get the cheapest trips first for example)
 - [ ] Add filter for class (first, second), for max_duration
 - [ ] Calculate total price with bicycle reservation if search 'with_bicyle' (and export it in csv)
+- [ ] Calculate total price for all the passengers (and export it in csv) => may need to create a class for Folder 
 - [ ] Allow to filter on Trips objects
 - [ ] Create the CLI tool and update README
