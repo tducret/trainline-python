@@ -453,7 +453,6 @@ class ComfortClass(object):
                (extra.get("value", "") == "bicycle_without_reservation")):
                 self.bicycle_price = float(extra.get("cents"))/100
                 break
-        #print(self.bicycle_price)
 
     def __str__(self):
         return repr(self)
@@ -848,78 +847,6 @@ def _filter_folders(folder_list, from_date_obj=None, to_date_obj=None,
         if not to_be_filtered:
             filtered_folder_list.append(folder)
     return filtered_folder_list
-
-
-def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,
-                  min_price=0.1, max_price=None, transportation_mean=None,
-                  min_segment_nb=1, max_segment_nb=None,
-                  bicycle_without_reservation_only=None,
-                  bicycle_with_reservation_only=None,
-                  bicycle_with_or_without_reservation=None):
-    """ Filter a list of trips, based on different attributes, such as
-    from_date or min_price. Returns the filtered list """
-    filtered_trip_list = []
-    for trip in trip_list:
-        to_be_filtered = False
-
-        # Price
-        if trip.price < min_price:
-            to_be_filtered = True
-        if max_price:
-            if trip.price > max_price:
-                to_be_filtered = True
-
-        # Date
-        if from_date_obj:
-            if trip.departure_date_obj < from_date_obj:
-                to_be_filtered = True
-        if to_date_obj:
-            if trip.departure_date_obj > to_date_obj:
-                to_be_filtered = True
-
-        # Transportation mean
-        if transportation_mean:
-            for segment in trip.segments:
-                if segment.transportation_mean != transportation_mean:
-                    to_be_filtered = True
-                    break
-
-        # Number of segments
-        if min_segment_nb:
-            if len(trip.segments) < min_segment_nb:
-                to_be_filtered = True
-        if max_segment_nb:
-            if len(trip.segments) > max_segment_nb:
-                to_be_filtered = True
-
-        # Bicycle
-        # All segments of the trip must respect the bicycle conditions
-        if bicycle_with_reservation_only:
-            for segment in trip.segments:
-                if segment.bicycle_with_reservation != \
-                   bicycle_with_reservation_only:
-                    to_be_filtered = True
-                    break
-
-        if bicycle_without_reservation_only:
-            for segment in trip.segments:
-                if segment.bicycle_without_reservation != \
-                   bicycle_without_reservation_only:
-                    to_be_filtered = True
-                    break
-
-        if bicycle_with_or_without_reservation:
-            for segment in trip.segments:
-                condition = (segment.bicycle_with_reservation or
-                             segment.bicycle_without_reservation)
-                if condition != bicycle_with_or_without_reservation:
-                    to_be_filtered = True
-                    break
-
-        # Add to list if it has not been filtered
-        if not to_be_filtered:
-            filtered_trip_list.append(trip)
-    return filtered_trip_list
 
 
 def _strfdelta(tdelta, fmt):
