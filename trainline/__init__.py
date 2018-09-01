@@ -118,36 +118,6 @@ class Trainline(object):
         return ret
 
 
-class Trips(object):
-    """ Class to represent a list of trips """
-    def __init__(self, trip_list):
-        self.trips = trip_list
-
-    def csv(self):
-        csv_str = "departure_date;arrival_date;duration;number_of_segments;\
-price;currency;transportation_mean\n"
-        for trip in self.trips:
-            trip_duration = (trip.arrival_date_obj-trip.departure_date_obj)
-            csv_str += "{dep};{arr};{dur};{seg};{price};{curr};{tr}\n".format(
-                dep=trip.departure_date_obj.strftime(_READABLE_DATE_FORMAT),
-                arr=trip.arrival_date_obj.strftime(_READABLE_DATE_FORMAT),
-                dur=_strfdelta(trip_duration, "{hours:02d}h{minutes:02d}"),
-                seg=len(trip.segments),
-                price=str(trip.price).replace(".", ","),  # For French Excel
-                curr=trip.currency,
-                tr=trip.transportation_mean,
-                )
-        return csv_str
-
-    def __len__(self):
-        return len(self.trips)
-
-    def __getitem__(self, key):
-        """ Method to access the object as a list
-        (ex : trips[1]) """
-        return self.trips[key]
-
-
 class Folder(object):
     """ Class to represent a folder, composed of the trips of each passenger
     ex : Folder Paris-Toulouse : 65€, which contains 2 trips :
@@ -184,14 +154,17 @@ class Folder(object):
         self.arrival_date_obj = _str_datetime_to_datetime_obj(
             str_datetime=self.arrival_date)
 
-        self.segment_nb = 0
-
         if len(self.trips) > 0:
             trip = self.trips[0]  # Choose trips[0] by default because every
             # trip of the folder has the same transportation mean and number
             # of segments
             self.transportation_mean = trip.transportation_mean
             self.segment_nb = len(trip.segments)
+
+            if trip.bicycle_price:
+                self.bicycle_reservation = trip.bicycle_price
+            else:
+                self.bicycle_reservation = "Unavailable"
 
         if self.price < 0:
             raise ValueError("price cannot be < 0, {} received".format(
@@ -263,6 +236,15 @@ class Trip(object):
             raise ValueError("price cannot be < 0, {} received".format(
                 self.price))
 
+        self.bicycle_price = 0  # Default
+        for segment in self.segments:
+            if segment.bicycle_price:
+                self.bicycle_price += segment.bicycle_price
+            else:
+                self.bicycle_price = None
+                # Do not calculate price if at least one segment has no price
+                break
+
     def __str__(self):
         return repr(self)
 
@@ -287,10 +269,11 @@ class Folders(object):
 
     def csv(self):
         csv_str = "departure_date;arrival_date;duration;number_of_segments;\
-price;currency;transportation_mean\n"
+price;currency;transportation_mean;bicycle_reservation\n"
         for folder in self.folders:
             trip_duration = (folder.arrival_date_obj-folder.departure_date_obj)
-            csv_str += "{dep};{arr};{dur};{seg};{price};{curr};{tr}\n".format(
+            csv_str += "{dep};{arr};{dur};{seg};{price};{curr};\
+{tr};{bicy}\n".format(
                 dep=folder.departure_date_obj.strftime(_READABLE_DATE_FORMAT),
                 arr=folder.arrival_date_obj.strftime(_READABLE_DATE_FORMAT),
                 dur=_strfdelta(trip_duration, "{hours:02d}h{minutes:02d}"),
@@ -298,6 +281,7 @@ price;currency;transportation_mean\n"
                 price=str(folder.price).replace(".", ","),  # For French Excel
                 curr=folder.currency,
                 tr=folder.transportation_mean,
+                bicy=folder.bicycle_reservation,
                 )
         return csv_str
 
@@ -403,6 +387,12 @@ class Segment(object):
         self.bicycle_without_reservation = \
             self._check_extra_value("bicycle_without_reservation")
 
+        for comfort_class in self.comfort_classes:
+            if comfort_class.bicycle_price:
+                self.bicycle_price = comfort_class.bicycle_price
+            else:
+                self.bicycle_price = None
+
     def __str__(self):
         return repr(self)
 
@@ -456,6 +446,15 @@ class ComfortClass(object):
             setattr(self, expected_param, param_value)
 
         self.extras = self.options.get("extras", [])
+
+        self.bicycle_price = None  # Default value
+        for extra in self.extras:
+            if ((extra.get("value", "") == "bicycle_with_reservation") or
+               (extra.get("value", "") == "bicycle_without_reservation")):
+
+                self.bicycle_price = float(extra.get("cents"))/100
+                self.bicycle_price_currency = extra.get("currency")
+                break
 
     def __str__(self):
         return repr(self)
