@@ -184,25 +184,41 @@ class Folder(object):
         self.arrival_date_obj = _str_datetime_to_datetime_obj(
             str_datetime=self.arrival_date)
 
+        self.segment_nb = 0
+
         if len(self.trips) > 0:
-            self.transportation_mean = self.trips[0].transportation_mean
+            trip = self.trips[0]  # Choose trips[0] by default because every
+            # trip of the folder has the same transportation mean and number
+            # of segments
+            self.transportation_mean = trip.transportation_mean
+            self.segment_nb = len(trip.segments)
 
         if self.price < 0:
             raise ValueError("price cannot be < 0, {} received".format(
                 self.price))
 
     def __str__(self):
-        return("{} → {} : {} {} ({} trips) [id : {}]".format(
+        return repr(self)
+
+    def __repr__(self):
+        return("[Folder] {} → {} : {} {} ({} trips) [id : {}]".format(
             self.departure_date, self.arrival_date, self.price, self.currency,
             len(self.trip_ids), self.id))
 
+    def _main_characteristics(self):
+        return("{} → {} : {} {} ({} trips)".format(
+            self.departure_date, self.arrival_date, self.price, self.currency,
+            len(self.trip_ids)))
+
     # __hash__ and __eq__ methods are defined to allow to remove duplicates
-    # in the results with list(set(trip_list))
+    # in the results with list(set(folder_list))
     def __eq__(self, other):
-        return self.id == other.id
+        # If 2 folders have the same route and price, we consider that
+        # they are the same, even if they don't have the same ids
+        return self._main_characteristics() == other._main_characteristics()
 
     def __hash__(self):
-        return hash((self.id))
+        return hash((self._main_characteristics()))
 
 
 class Trip(object):
@@ -248,7 +264,10 @@ class Trip(object):
                 self.price))
 
     def __str__(self):
-        return("{} → {} : {} {} ({} segments) [id : {}]".format(
+        return repr(self)
+
+    def __repr__(self):
+        return("[Trip] {} → {} : {} {} ({} segments) [id : {}]".format(
             self.departure_date, self.arrival_date, self.price, self.currency,
             len(self.segment_ids), self.id))
 
@@ -259,6 +278,36 @@ class Trip(object):
 
     def __hash__(self):
         return hash((self.id))
+
+
+class Folders(object):
+    """ Class to represent a list of folders """
+    def __init__(self, folder_list):
+        self.folders = folder_list
+
+    def csv(self):
+        csv_str = "departure_date;arrival_date;duration;number_of_segments;\
+price;currency;transportation_mean\n"
+        for folder in self.folders:
+            trip_duration = (folder.arrival_date_obj-folder.departure_date_obj)
+            csv_str += "{dep};{arr};{dur};{seg};{price};{curr};{tr}\n".format(
+                dep=folder.departure_date_obj.strftime(_READABLE_DATE_FORMAT),
+                arr=folder.arrival_date_obj.strftime(_READABLE_DATE_FORMAT),
+                dur=_strfdelta(trip_duration, "{hours:02d}h{minutes:02d}"),
+                seg=folder.segment_nb,
+                price=str(folder.price).replace(".", ","),  # For French Excel
+                curr=folder.currency,
+                tr=folder.transportation_mean,
+                )
+        return csv_str
+
+    def __len__(self):
+        return len(self.folders)
+
+    def __getitem__(self, key):
+        """ Method to access the object as a list
+        (ex : trips[1]) """
+        return self.folders[key]
 
 
 class Passenger(object):
@@ -308,7 +357,7 @@ class Passenger(object):
         return(repr(self))
 
     def __repr__(self):
-        return("Passenger(birthdate={}, cards=[{}])".format(
+        return("[Passenger] birthdate={}, cards=[{}]".format(
             self.birthdate,
             ",".join(self.cards)))
 
@@ -355,7 +404,11 @@ class Segment(object):
             self._check_extra_value("bicycle_without_reservation")
 
     def __str__(self):
-        return("{} → {} : {} ({}) ({} comfort_class) [id : {}]".format(
+        return repr(self)
+
+    def __repr__(self):
+        return("[Segment] {} → {} : {} ({}) \
+({} comfort_class) [id : {}]".format(
             self.departure_date, self.arrival_date,
             self.transportation_mean, self.carrier,
             len(self.comfort_class_ids), self.id))
@@ -405,7 +458,10 @@ class ComfortClass(object):
         self.extras = self.options.get("extras", [])
 
     def __str__(self):
-        return("{} {} ({}) ({} extras) [id : {}]".format(
+        return repr(self)
+
+    def __repr__(self):
+        return("[ComfortClass] {} ({}) ({} extras) [id : {}]".format(
             self.name,
             self.title,
             self.description,
@@ -493,7 +549,7 @@ def search(departure_station, arrival_station,
     for passenger in passengers:
         passenger_list.append(passenger.get_dict())
 
-    trip_list = []
+    folder_list = []
 
     search_date = from_date_obj
 
@@ -508,15 +564,15 @@ def search(departure_station, arrival_station,
             departure_date=departure_date,
             passenger_list=passenger_list)
         j = json.loads(ret.text)
-        trips = _get_trips(search_results_obj=j)
-        trip_list += trips
+        folders = _get_folders(search_results_obj=j)
+        folder_list += folders
 
         # Check the departure date of the last trip found
         # If it is after the 'to_date', we can stop searching
-        if trips[-1].departure_date_obj > to_date_obj:
+        if folders[-1].departure_date_obj > to_date_obj:
             break
         else:
-            search_date = trips[-1].departure_date_obj
+            search_date = folders[-1].departure_date_obj
             # If we get a date earlier than the last search date,
             # it means that we may be searching during the night,
             # so we must increment the search_date till we have a
@@ -524,12 +580,12 @@ def search(departure_station, arrival_station,
             # Probably the next day in this case
             if search_date <= last_search_date:
                 search_date = last_search_date + timedelta(hours=4)
-    trip_list = list(set(trip_list))  # Remove duplicate trips in the list
+    folder_list = list(set(folder_list))  # Remove duplicate trips in the list
 
     # Filter the list
     bicycle_w_or_wout_reservation = bicycle_with_or_without_reservation
-    filtered_trip_list = _filter_trips(
-        trip_list=trip_list,
+    _filter_folders_list = _filter_folders(
+        folder_list=folder_list,
         from_date_obj=from_date_obj,
         to_date_obj=to_date_obj,
         transportation_mean=transportation_mean,
@@ -538,11 +594,11 @@ def search(departure_station, arrival_station,
         bicycle_with_or_without_reservation=bicycle_w_or_wout_reservation)
 
     # Sort by date
-    filtered_trip_list = sorted(filtered_trip_list,
-                                key=lambda trip: trip.departure_date_obj)
+    _filter_folders_list = sorted(_filter_folders_list,
+                                  key=lambda folder: folder.departure_date_obj)
 
-    trip_list_obj = Trips(filtered_trip_list)
-    return trip_list_obj
+    folder_list_obj = Folders(_filter_folders_list)
+    return folder_list_obj
 
 
 def _convert_date_format(origin_date_str,
@@ -720,6 +776,81 @@ def _get_comfort_class_from_id(comfort_class_obj_list, comfort_class_id):
             found_comfort_class_obj = comfort_class_obj
             break
     return found_comfort_class_obj
+
+
+def _filter_folders(folder_list, from_date_obj=None, to_date_obj=None,
+                    min_price=0.1, max_price=None, transportation_mean=None,
+                    min_segment_nb=1, max_segment_nb=None,
+                    bicycle_without_reservation_only=None,
+                    bicycle_with_reservation_only=None,
+                    bicycle_with_or_without_reservation=None):
+    """ Filter a list of folders, based on different attributes, such as
+    from_date or min_price. Returns the filtered list """
+    filtered_folder_list = []
+    for folder in folder_list:
+        to_be_filtered = False
+
+        # Price
+        if folder.price < min_price:
+            to_be_filtered = True
+        if max_price:
+            if folder.price > max_price:
+                to_be_filtered = True
+
+        # Date
+        if from_date_obj:
+            if folder.departure_date_obj < from_date_obj:
+                to_be_filtered = True
+        if to_date_obj:
+            if folder.departure_date_obj > to_date_obj:
+                to_be_filtered = True
+
+        for trip in folder.trips:  # Check every trip
+
+            # Transportation mean
+            if transportation_mean:
+                if len(trip) > 0:
+                    for segment in trip.segments:
+                        if segment.transportation_mean != transportation_mean:
+                            to_be_filtered = True
+                            break
+
+            # Number of segments
+            if min_segment_nb:
+                if len(trip.segments) < min_segment_nb:
+                    to_be_filtered = True
+            if max_segment_nb:
+                if len(trip.segments) > max_segment_nb:
+                    to_be_filtered = True
+
+            # Bicycle
+            # All segments of the trip must respect the bicycle conditions
+            if bicycle_with_reservation_only:
+                for segment in trip.segments:
+                    if segment.bicycle_with_reservation != \
+                       bicycle_with_reservation_only:
+                        to_be_filtered = True
+                        break
+
+            if bicycle_without_reservation_only:
+                for segment in trip.segments:
+                    if segment.bicycle_without_reservation != \
+                       bicycle_without_reservation_only:
+                        to_be_filtered = True
+                        break
+
+            if bicycle_with_or_without_reservation:
+                for segment in trip.segments:
+                    condition = (segment.bicycle_with_reservation or
+                                 segment.bicycle_without_reservation)
+                    if condition != bicycle_with_or_without_reservation:
+                        to_be_filtered = True
+                        break
+
+        # Add to list if it has not been filtered
+        if not to_be_filtered:
+            filtered_folder_list.append(folder)
+    return filtered_folder_list
 
 
 def _filter_trips(trip_list, from_date_obj=None, to_date_obj=None,

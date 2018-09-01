@@ -350,22 +350,27 @@ def test_basic_search_with_bicyle_with_reservation():
     display_trips(results)
 
 
-def display_trips(trip_list):
-    print(trip_list.csv())
-    # for trip in trip_list:
-    #     print(trip)
-    #     for segment in trip.segments:
-    #         print('\t', end='')
-    #         print(segment)
-    #         for comfort_class in segment.comfort_classes:
-    #             print('\t\t', end='')
-    #             print(comfort_class)
-    #             for extra in comfort_class.extras:
-    #                 print('\t\t\t', end='')
-    #                 print("{} : {} {}".format(
-    #                     extra.get("title"),
-    #                     float(extra.get("cents"))/100,
-    #                     extra.get("currency")))
+def display_trips(folder_list):
+    # print(folder_list.csv())
+    for folder in folder_list:
+        print()
+        print("-----------------------")
+        print(folder)
+        for trip in folder.trips:
+            print('\t', end='')
+            print(trip)
+            for segment in trip.segments:
+                print('\t\t', end='')
+                print(segment)
+                for comfort_class in segment.comfort_classes:
+                    print('\t\t\t', end='')
+                    print(comfort_class)
+                    for extra in comfort_class.extras:
+                        print('\t\t\t\t', end='')
+                        print("{} : {} {}".format(
+                            extra.get("title"),
+                            float(extra.get("cents"))/100,
+                            extra.get("currency")))
 
 
 def test_search_3_passengers_and_bicyles():
@@ -378,7 +383,7 @@ def test_search_3_passengers_and_bicyles():
         departure_station="Toulouse Matabiau",
         arrival_station="Bordeaux St-Jean",
         from_date="{} 08:00".format(_TOMORROW),
-        to_date="{} 21:00".format(_TOMORROW),
+        to_date="{} 19:00".format(_TOMORROW),
         bicycle_with_or_without_reservation=True)
 
     print()
