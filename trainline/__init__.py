@@ -162,7 +162,7 @@ class Folder(object):
             self.segment_nb = len(trip.segments)
 
             if trip.bicycle_price is None:
-                self.bicycle_reservation = "Unavailable"
+                self.bicycle_reservation = "unavailable"
             else:
                 self.bicycle_reservation = trip.bicycle_price
 
@@ -281,7 +281,7 @@ price;currency;transportation_mean;bicycle_reservation\n"
                 price=str(folder.price).replace(".", ","),  # For French Excel
                 curr=folder.currency,
                 tr=folder.transportation_mean,
-                bicy=folder.bicycle_reservation,
+                bicy=str(folder.bicycle_reservation).replace(".", ","),
                 )
         return csv_str
 

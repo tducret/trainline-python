@@ -38,9 +38,10 @@ print(results.csv())
 Example output :
 
 ```bash
-departure_date;arrival_date;duration;number_of_segments;price;currency;transportation_mean
-15/10/2018 08:49;15/10/2018 10:58;02h09;1;15,0;EUR;train
-15/10/2018 10:19;15/10/2018 12:26;02h07;1;17,0;EUR;coach
+departure_date;arrival_date;duration;number_of_segments;price;currency;transportation_mean;bicycle_reservation
+15/10/2018 08:00;15/10/2018 10:55;02h55;1;5,0;EUR;coach;unavailable
+15/10/2018 08:00;15/10/2018 10:50;02h50;1;4,99;EUR;coach;unavailable
+15/10/2018 08:19;15/10/2018 10:26;02h07;1;20,5;EUR;train;10,0
 [...]
 ```
 
@@ -66,9 +67,10 @@ print(results.csv())
 Example output :
 
 ```bash
-departure_date;arrival_date;duration;number_of_segments;price;currency;transportation_mean
-15/10/2018 08:49;15/10/2018 10:58;02h09;1;55,0;EUR;train
-15/10/2018 10:19;15/10/2018 12:26;02h07;1;57,0;EUR;coach
+departure_date;arrival_date;duration;number_of_segments;price;currency;transportation_mean;bicycle_reservation
+15/10/2018 08:19;15/10/2018 10:26;02h07;1;36,0;EUR;train;30,0
+15/10/2018 08:19;15/10/2018 10:26;02h07;1;37,5;EUR;train;30,0
+15/10/2018 08:19;15/10/2018 10:26;02h07;1;95,5;EUR;train;30,0
 [...]
 ```
 
@@ -78,7 +80,6 @@ departure_date;arrival_date;duration;number_of_segments;price;currency;transport
 - [X] Implement the use of passengers during search
 - [ ] Create a sort function in Trips class (to get the cheapest trips first for example)
 - [ ] Add filter for class (first, second), for max_duration
-- [ ] Calculate total price with bicycle reservation if search 'with_bicyle' (and export it in csv)
-- [ ] Calculate total price for all the passengers (and export it in csv) => may need to create a class for Folder 
-- [ ] Allow to filter on Trips objects
+- [X] Calculate total price with bicycle reservation if search 'with_bicyle' (and export it in csv)
+- [X] Calculate total price for all the passengers (and export it in csv) => may need to create a class for Folder 
 - [ ] Create the CLI tool and update README
