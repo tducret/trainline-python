@@ -161,10 +161,10 @@ class Folder(object):
             self.transportation_mean = trip.transportation_mean
             self.segment_nb = len(trip.segments)
 
-            if trip.bicycle_price:
-                self.bicycle_reservation = trip.bicycle_price
-            else:
+            if trip.bicycle_price is None:
                 self.bicycle_reservation = "Unavailable"
+            else:
+                self.bicycle_reservation = trip.bicycle_price
 
         if self.price < 0:
             raise ValueError("price cannot be < 0, {} received".format(
@@ -238,7 +238,7 @@ class Trip(object):
 
         self.bicycle_price = 0  # Default
         for segment in self.segments:
-            if segment.bicycle_price:
+            if segment.bicycle_price is not None:
                 self.bicycle_price += segment.bicycle_price
             else:
                 self.bicycle_price = None
@@ -388,7 +388,7 @@ class Segment(object):
             self._check_extra_value("bicycle_without_reservation")
 
         for comfort_class in self.comfort_classes:
-            if comfort_class.bicycle_price:
+            if comfort_class.bicycle_price is not None:
                 self.bicycle_price = comfort_class.bicycle_price
             else:
                 self.bicycle_price = None
@@ -451,10 +451,9 @@ class ComfortClass(object):
         for extra in self.extras:
             if ((extra.get("value", "") == "bicycle_with_reservation") or
                (extra.get("value", "") == "bicycle_without_reservation")):
-
                 self.bicycle_price = float(extra.get("cents"))/100
-                self.bicycle_price_currency = extra.get("currency")
                 break
+        #print(self.bicycle_price)
 
     def __str__(self):
         return repr(self)

@@ -327,7 +327,8 @@ def test_basic_search_with_bicyle_without_reservation():
     print("{} results".format(len(results)))
     assert len(results) > 0
 
-    display_trips(results)
+    #display_trips(results)
+    print(results.csv())
 
 
 def test_basic_search_with_bicyle_with_reservation():
@@ -352,26 +353,26 @@ def test_basic_search_with_bicyle_with_reservation():
 
 
 def display_trips(folder_list):
-    print(folder_list.csv())
-    # for folder in folder_list:
-    #     print()
-    #     print("-----------------------")
-    #     print(folder)
-    #     for trip in folder.trips:
-    #         print('\t', end='')
-    #         print(trip)
-    #         for segment in trip.segments:
-    #             print('\t\t', end='')
-    #             print(segment)
-    #             for comfort_class in segment.comfort_classes:
-    #                 print('\t\t\t', end='')
-    #                 print(comfort_class)
-    #                 for extra in comfort_class.extras:
-    #                     print('\t\t\t\t', end='')
-    #                     print("{} : {} {}".format(
-    #                         extra.get("title"),
-    #                         float(extra.get("cents"))/100,
-    #                         extra.get("currency")))
+    #print(folder_list.csv())
+    for folder in folder_list:
+        print()
+        print("-----------------------")
+        print(folder)
+        for trip in folder.trips:
+            print('\t', end='')
+            print(trip)
+            for segment in trip.segments:
+                print('\t\t', end='')
+                print(segment)
+                for comfort_class in segment.comfort_classes:
+                    print('\t\t\t', end='')
+                    print(comfort_class)
+                    for extra in comfort_class.extras:
+                        print('\t\t\t\t', end='')
+                        print("{} : {} {}".format(
+                            extra.get("title"),
+                            float(extra.get("cents"))/100,
+                            extra.get("currency")))
 
 
 def test_search_3_passengers_and_bicyles():
