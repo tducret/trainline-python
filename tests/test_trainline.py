@@ -8,7 +8,7 @@
 import pytest
 import os
 import trainline
-from trainline import Trainline, Trip, Passenger, Segment, ComfortClass
+from trainline import Trainline, Trip, Passenger, Segment, ComfortClass, Folder
 from datetime import date, timedelta
 
 # Get useful environment variables
@@ -54,6 +54,18 @@ _DEFAULT_TRIP_DICT = {
         "segments": [Segment(mydict=_DEFAULT_SEGMENT_DICT)],
     }
 
+_DEFAULT_FOLDER_DICT = {
+        "id": "f721d0a4a2cb11e880abfc0416222638",
+        "departure_date": "2018-10-15T08:49:00+02:00",
+        "departure_station_id": TOULOUSE_STATION_ID,
+        "arrival_date": "2018-10-15T10:58:00+02:00",
+        "arrival_station_id": BORDEAUX_STATION_ID,
+        "price": 66.00,
+        "currency": "EUR",
+        "trip_ids": ["f721ce4ca2cb11e88152d3a9f56d4f85"],
+        "trips": [Trip(mydict=_DEFAULT_TRIP_DICT)],
+    }
+
 
 # Get the date of tomorrow for search tests,
 # otherwise they will become obsolete in the future
@@ -73,6 +85,13 @@ def test_class_Segment():
     assert seg.id == "ae8b939ca7c211e8967edcf1e2aa0fd7"
     print()
     print(seg)
+
+
+def test_class_Folder():
+    folder = Folder(mydict=_DEFAULT_FOLDER_DICT)
+    assert folder.id == "f721d0a4a2cb11e880abfc0416222638"
+    print()
+    print(folder)
 
 
 def test_class_Trip():

@@ -148,6 +148,63 @@ price;currency;transportation_mean\n"
         return self.trips[key]
 
 
+class Folder(object):
+    """ Class to represent a folder, composed of the trips of each passenger
+    ex : Folder Paris-Toulouse : 65€, which contains 2 trips :
+    - Trip Paris-Toulouse passenger1 : 45€ +
+    - Trip Paris-Toulouse passenger2 : 20€
+    """
+    def __init__(self, mydict):
+        expected = {
+            "id": str,
+            "departure_date": str,
+            "departure_station_id": str,
+            "arrival_date": str,
+            "arrival_station_id": str,
+            "price": float,
+            "currency": str,
+            "trip_ids": list,
+            "trips": list,
+        }
+
+        for expected_param, expected_type in expected.items():
+            param_value = mydict.get(expected_param)
+            if type(param_value) is not expected_type:
+                raise TypeError("Type {} expected for {}, {} received".format(
+                    expected_type, expected_param, type(param_value)))
+            setattr(self, expected_param, param_value)
+
+        # Remove ':' in the +02:00 offset (=> +0200). It caused problem with
+        # Python 3.6 version of strptime
+        self.departure_date = _fix_date_offset_format(self.departure_date)
+        self.arrival_date = _fix_date_offset_format(self.arrival_date)
+
+        self.departure_date_obj = _str_datetime_to_datetime_obj(
+            str_datetime=self.departure_date)
+        self.arrival_date_obj = _str_datetime_to_datetime_obj(
+            str_datetime=self.arrival_date)
+
+        if len(self.trips) > 0:
+            self.transportation_mean = self.trips[0].transportation_mean
+
+        if self.price < 0:
+            raise ValueError("price cannot be < 0, {} received".format(
+                self.price))
+
+    def __str__(self):
+        return("{} → {} : {} {} ({} trips) [id : {}]".format(
+            self.departure_date, self.arrival_date, self.price, self.currency,
+            len(self.trip_ids), self.id))
+
+    # __hash__ and __eq__ methods are defined to allow to remove duplicates
+    # in the results with list(set(trip_list))
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return hash((self.id))
+
+
 class Trip(object):
     """ Class to represent a trip, composed of one or more segments """
     def __init__(self, mydict):
@@ -500,6 +557,39 @@ origin_date_format="%d/%m/%Y %H:%M", target_date_format="%Y-%m-%dT%H:%M:%S%z"))
     return date_obj.strftime(target_date_format)
 
 
+def _get_folders(search_results_obj):
+    """ Get folders from the json object of search results """
+    trip_obj_list = _get_trips(search_results_obj)
+    folders = search_results_obj.get("folders")
+    folder_obj_list = []
+    for folder in folders:
+        dict_folder = {
+            "id": folder.get("id"),
+            "departure_date": folder.get("departure_date"),
+            "departure_station_id": folder.get("departure_station_id"),
+            "arrival_date": folder.get("arrival_date"),
+            "arrival_station_id": folder.get("arrival_station_id"),
+            "price": float(folder.get("cents"))/100,
+            "currency": folder.get("currency"),
+            "trip_ids": folder.get("trip_ids"),
+        }
+        trips = []
+        for trip_id in dict_folder["trip_ids"]:
+            trip_found = _get_trip_from_id(
+                trip_obj_list=trip_obj_list,
+                trip_id=trip_id)
+            if trip_found:
+                trips.append(trip_found)
+            else:
+                # Remove the id if the object is invalid or not found
+                dict_folder["trip_ids"].remove(trip_id)
+        dict_folder["trips"] = trips
+
+        folder_obj = Folder(dict_folder)
+        folder_obj_list.append(folder_obj)
+    return folder_obj_list
+
+
 def _get_trips(search_results_obj):
     """ Get trips from the json object of search results """
     segment_obj_list = _get_segments(search_results_obj)
@@ -531,6 +621,16 @@ def _get_trips(search_results_obj):
         trip_obj = Trip(dict_trip)
         trip_obj_list.append(trip_obj)
     return trip_obj_list
+
+
+def _get_trip_from_id(trip_obj_list, trip_id):
+    """ Get a trip from a list, based on a trip id """
+    found_trip_obj = None
+    for trip_obj in trip_obj_list:
+        if trip_obj.id == trip_id:
+            found_trip_obj = trip_obj
+            break
+    return found_trip_obj
 
 
 def _get_segments(search_results_obj):
