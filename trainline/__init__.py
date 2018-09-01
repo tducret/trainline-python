@@ -808,11 +808,10 @@ def _filter_folders(folder_list, from_date_obj=None, to_date_obj=None,
 
             # Transportation mean
             if transportation_mean:
-                if len(trip) > 0:
-                    for segment in trip.segments:
-                        if segment.transportation_mean != transportation_mean:
-                            to_be_filtered = True
-                            break
+                for segment in trip.segments:
+                    if segment.transportation_mean != transportation_mean:
+                        to_be_filtered = True
+                        break
 
             # Number of segments
             if min_segment_nb:

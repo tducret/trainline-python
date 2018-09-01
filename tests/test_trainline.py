@@ -282,9 +282,10 @@ def test_search_only_bus():
 
     display_trips(results)
 
-    for trip in results:
-        for segment in trip.segments:
-            assert(segment.transportation_mean == "coach")
+    for folder in results:
+        for trip in folder.trips:
+            for segment in trip.segments:
+                assert(segment.transportation_mean == "coach")
 
 
 def test_basic_search_with_bicyle():
