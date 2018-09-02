@@ -23,6 +23,12 @@ pip3 install -U trainline
 ## CLI tool usage
 
 ```bash
+trainline_cli.py --help
+```
+
+Examples :
+
+```bash
 trainline_cli.py --departure="Toulouse" --arrival="Bordeaux" --next=12hours
 trainline_cli.py --departure="Paris" --arrival="Marseille" --next=1day
 ```
@@ -43,6 +49,10 @@ departure_date;arrival_date;duration;number_of_segments;price;currency;transport
 15/10/2018 08:19;15/10/2018 10:26;02h07;1;95,5;EUR;train;30,0
 [...]
 ```
+
+You can then open it with your favorite spreadsheet editor (and play with the filters) :
+
+![snapshot trainline_cli.py output in Excel](cli_tool_csv_in_Excel.png)
 
 ## Package usage
 
@@ -100,10 +110,10 @@ departure_date;arrival_date;duration;number_of_segments;price;currency;transport
 
 # TODO
 
-- [X] Implement `get_station_id`
-- [X] Implement the use of passengers during search
 - [ ] Create a sort function in Trips class (to get the cheapest trips first for example)
 - [ ] Add filter for class (first, second), for max_duration
+- [X] Implement `get_station_id`
+- [X] Implement the use of passengers during search
 - [X] Calculate total price with bicycle reservation if search 'with_bicyle' (and export it in csv)
 - [X] Calculate total price for all the passengers (and export it in csv) => may need to create a class for Folder 
-- [ ] Create the CLI tool and update README
+- [X] Create the CLI tool and update README
