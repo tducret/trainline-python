@@ -20,6 +20,25 @@ Non-official Python wrapper and CLI tool for Trainline
 pip3 install -U trainline
 ```
 
+## CLI tool usage
+
+```bash
+trainline_cli.py --departure="Toulouse" --arrival="Bordeaux" \
+--from_date="15/10/2018 08:00" --to_date="15/10/2018 21:00"
+
+trainline_cli.py -d=Toulouse -a=Bordeaux --next=2days
+```
+
+Example output :
+
+```bash
+departure_date;arrival_date;duration;number_of_segments;price;currency;transportation_mean;bicycle_reservation
+15/10/2018 08:19;15/10/2018 10:26;02h07;1;36,0;EUR;train;30,0
+15/10/2018 08:19;15/10/2018 10:26;02h07;1;37,5;EUR;train;30,0
+15/10/2018 08:19;15/10/2018 10:26;02h07;1;95,5;EUR;train;30,0
+[...]
+```
+
 ## Package usage
 
 ```python
@@ -76,7 +95,7 @@ departure_date;arrival_date;duration;number_of_segments;price;currency;transport
 
 # TODO
 
-- [ ] Implement `get_station_id`
+- [X] Implement `get_station_id`
 - [X] Implement the use of passengers during search
 - [ ] Create a sort function in Trips class (to get the cheapest trips first for example)
 - [ ] Add filter for class (first, second), for max_duration
