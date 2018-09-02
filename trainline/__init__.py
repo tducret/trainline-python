@@ -10,6 +10,8 @@ from datetime import datetime, timedelta, date
 import pytz
 import time
 import uuid
+import pandas as pd
+import os
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
@@ -30,6 +32,11 @@ SENIOR = "SNCF.CarteSenior"
 _AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE, WEEK_END, SENIOR]
 
 _DEFAULT_PASSENGER_BIRTHDATE = "01/01/1980"
+
+_SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
+_STATIONS_CSV = os.path.join(_SCRIPT_PATH, "stations_mini.csv")
+_STATION_DB = pd.read_csv(_STATIONS_CSV, delimiter=';',
+                          dtype=str, index_col=0, header=None, names=['name'])
 
 
 class Client(object):
@@ -509,19 +516,15 @@ def _fix_date_offset_format(date_str):
 
 
 def get_station_id(station_name):
-    # TODO : Use trainline station database instead
-    # https://github.com/trainline-eu/stations
-    # https://raw.githubusercontent.com/trainline-eu/stations/master/stations.csv
-    _AVAILABLE_STATIONS = {
-        "Toulouse": "5306",
-        "Toulouse Matabiau": "5311",
-        "Bordeaux": "827",
-        "Bordeaux St-Jean": "828",
-        "Carcassonne": "1119",
-        "Paris": "4916",
-        "Narbonne": "5806",
-    }
-    return _AVAILABLE_STATIONS[station_name]
+    """ Returns the Trainline station id (mandatory for search) based on the
+    stations csv file content, and the station_name passed in parameter """
+    results = _STATION_DB.index[_STATION_DB.name ==
+                                station_name.lower().strip()].tolist()
+
+    if len(results) < 1:
+        raise KeyError("'{}' station has not been found".format(station_name))
+
+    return results[0]
 
 
 def search(departure_station, arrival_station,

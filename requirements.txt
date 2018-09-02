@@ -1,3 +1,4 @@
 requests>=2.6.0
 click>=6.7
 pytz>=2018.5
+pandas>=0.23.4
