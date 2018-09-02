@@ -23,10 +23,15 @@ pip3 install -U trainline
 ## CLI tool usage
 
 ```bash
-trainline_cli.py --departure="Toulouse" --arrival="Bordeaux" \
---from_date="15/10/2018 08:00" --to_date="15/10/2018 21:00"
+trainline_cli.py --departure="Toulouse" --arrival="Bordeaux" --next=12hours
+trainline_cli.py --departure="Paris" --arrival="Marseille" --next=1day
+```
 
-trainline_cli.py -d=Toulouse -a=Bordeaux --next=2days
+or the shorter call :
+
+```bash
+trainline_cli.py -d Toulouse -a Bordeaux -n 12h
+trainline_cli.py -d Paris -a Marseille -n 1d
 ```
 
 Example output :

@@ -80,10 +80,10 @@ def _decode_next_param(next_param):
         >>> print(_decode_next_param("4h"))
         4:00:00
         """
-        if "d" in next:
-            delta = timedelta(days=int(next.split("d")[0]))
-        elif "h" in next:
-            delta = timedelta(hours=int(next.split("h")[0]))
+        if "d" in next_param:
+            delta = timedelta(days=int(next_param.split("d")[0]))
+        elif "h" in next_param:
+            delta = timedelta(hours=int(next_param.split("h")[0]))
         else:
             delta = timedelta(hours=3)
         return delta
