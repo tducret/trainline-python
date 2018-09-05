@@ -110,7 +110,7 @@ departure_date;arrival_date;duration;number_of_segments;price;currency;transport
 
 # TODO
 
-- [ ] Create a sort function in Trips class (to get the cheapest trips first for example)
+- [ ] Create a sort function in Folders class (to get the cheapest trips first for example)
 - [ ] Add filter for class (first, second), for max_duration
 - [X] Implement `get_station_id`
 - [X] Implement the use of passengers during search

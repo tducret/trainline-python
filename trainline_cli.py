@@ -28,14 +28,19 @@ from datetime import datetime, timedelta
     type=str,
     help='period of search from now \
 (example : 1day, 2days, 3d, 1hour, 2hours, 3h)',
-    default='3hours'
+    default='3hours',
+)
+@click.option(
+    '--transport', '-t',
+    type=click.Choice(['train', 'coach', 'any']),
+    default='train',
 )
 @click.option(
     '--verbose', '-v',
     is_flag=True,
     help='verbose mode',
 )
-def main(departure, arrival, next, verbose):
+def main(departure, arrival, next, transport, verbose):
     """ Search trips with Trainline and returns it in csv """
 
     # Get current datetime > from_date
@@ -51,16 +56,20 @@ def main(departure, arrival, next, verbose):
     from_date = from_date_obj.strftime("%d/%m/%Y %H:%M")
     to_date = to_date_obj.strftime("%d/%m/%Y %H:%M")
 
+    if transport == "any":
+        transport = None
+
     if verbose:
         print()
-        print("Search trips for {} to {}, between {} and {}\n".format(
+        print("Search trips from {} to {}, between {} and {}\n".format(
             departure, arrival, from_date, to_date))
 
     results = trainline.search(
         departure_station=departure,
         arrival_station=arrival,
         from_date=from_date,
-        to_date=to_date)
+        to_date=to_date,
+        transportation_mean=transport)
 
     print(results.csv())
 

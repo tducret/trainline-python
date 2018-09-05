@@ -394,11 +394,11 @@ class Segment(object):
         self.bicycle_without_reservation = \
             self._check_extra_value("bicycle_without_reservation")
 
+        self.bicycle_price = None
+
         for comfort_class in self.comfort_classes:
             if comfort_class.bicycle_price is not None:
                 self.bicycle_price = comfort_class.bicycle_price
-            else:
-                self.bicycle_price = None
 
     def __str__(self):
         return repr(self)
