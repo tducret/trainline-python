@@ -29,11 +29,14 @@ from datetime import datetime, timedelta
     help='period of search from now \
 (example : 1day, 2days, 3d, 1hour, 2hours, 3h)',
     default='3hours',
+    show_default=True,
 )
 @click.option(
     '--transport', '-t',
     type=click.Choice(['train', 'coach', 'any']),
+    help='get only results for the selected transportation mean',
     default='train',
+    show_default=True,
 )
 @click.option(
     '--verbose', '-v',
