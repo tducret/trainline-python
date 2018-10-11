@@ -6,13 +6,10 @@
 # To be tested with : python3 -m pytest -vs tests/test_trainline.py
 
 import pytest
-import os
 import trainline
 from trainline import Trainline, Trip, Passenger, Segment, ComfortClass, Folder
 from datetime import date, timedelta
 
-# Get useful environment variables
-VAR = os.environ.get('VAR', None)
 
 TOULOUSE_STATION_ID = "5311"
 BORDEAUX_STATION_ID = "828"
