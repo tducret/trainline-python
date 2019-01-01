@@ -842,7 +842,7 @@
 1057;val-de-villé
 1059;lièpvre
 1060;ste-croix-aux-mines
-1061;ste-marie-aux-mines
+1061;sainte-marie-aux-mines (mairie)
 1062;réding
 1063;igney—avricourt
 1064;nouvel-avricourt
@@ -4583,7 +4583,7 @@
 6082;zofingen
 6083;schwyz
 6085;lichtensteig
-6086;yverdon
+6086;yverdon-les-bains
 6087;weite
 6090;wädenswil
 6091;islikon
@@ -4630,7 +4630,7 @@
 6140;arbon
 6141;chiasso-o-iselle
 6142;goldach
-6144;moerschwil
+6144;mörschwil
 6145;altstätten sg
 6146;monthey
 6147;riddes
@@ -4706,7 +4706,7 @@
 6249;leukerbad
 6251;lausanne—ouchy
 6252;ste-croix
-6253;champery
+6253;champéry
 6255;zürich enge
 6257;adelboden
 6259;bremgarten
@@ -4771,7 +4771,7 @@
 6358;st-gallen
 6359;sion
 6360;st-moritz
-6361;trois-torrents
+6361;troistorrents
 6363;veysonnaz
 6364;veysonnaz village
 6365;villars-sur-ollon
@@ -4786,7 +4786,7 @@
 6376;buchs
 6377;chiasso
 6378;chur
-6379;delemont
+6379;delémont
 6380;einsiedeln
 6382;fribourg
 6386;langenthal
@@ -6791,7 +6791,7 @@
 8493;modena
 8497;napoli centrale
 8500;napoli marittima
-8509;oulx
+8509;oulx-cesana-clavière-sestrières
 8514;parma
 8524;brescia
 8528;padova
@@ -15932,7 +15932,7 @@
 17866;evere
 17867;bordet
 17868;hofstade
-17869;liège-jonfosse
+17869;liège-carré
 17870;herstal
 17871;milmort
 17872;liers
@@ -16196,7 +16196,7 @@
 18130;moensberg
 18131;beersel
 18132;huizingen
-18133;liège-palais
+18133;liège-saint-lambert
 18134;aarsele
 18135;mortsel-liersesteenweg
 18136;simonis
@@ -18574,7 +18574,7 @@
 20545;tor vergata
 20546;piedimonte-villa santa lucia-aquino
 20547;le cure
-20548;punta raisi
+20548;palermo-punta raisi aeroporto
 20549;verona porta vescovo
 20550;sistiana-visogliano
 20551;soffratta
@@ -30495,12 +30495,12 @@
 33319;muccia
 33320;crosia
 33321;courchevel saint bon
-33322;venezia aeroporto
+33322;venezia aeroporto marco polo
 33323;milano linate aeroporto
 33324;bari aeroporto
 33325;treviso aeroporto
 33326;frascineto fermata autobus
-33327;prague airport (václav havel)
+33327;praha airport (václav havel)
 33328;krakow airport (john paul ii)
 33329;les gets
 33330;bushtyno
@@ -30516,7 +30516,7 @@
 33340;eindhoven airport
 33341;lisbon airport
 33342;bologna airport
-33343;palermo airport
+33343;palermo aeroporto (fermata autobus)
 33344;rothrist
 33345;porto airport
 33346;funchal madeira airport
@@ -32902,3 +32902,301 @@
 35728;vibo valentia
 35729;villamarina
 35730;zgierz
+35731;alfta
+35732;arbrå
+35733;bicaz
+35734;bollnäs
+35735;brunflo
+35736;câmpulung moldovenesc
+35737;delsbo
+35738;edsbyn
+35739;faro airport
+35740;forsa
+35741;funäsdalen
+35742;färila
+35743;fåker
+35744;gheorgheni
+35745;gävle
+35746;hackås
+35747;hede
+35748;hudiksvall
+35749;iggesund
+35750;järvsö
+35751;kilafors
+35752;kårböle
+35753;ljusdal
+35754;napoli capodichino
+35755;näsviken
+35756;rende (cosenza nord)
+35757;rätan
+35758;sinsheim
+35759;sveg
+35760;svenstavik
+35761;söderhamn
+35762;tarnaveni
+35763;tännäs
+35764;vallsta
+35765;vemdalen
+35766;ytterhogdal
+35767;åsarna
+35768;östersund
+35769;sainte-marie-aux-mines (services techniques)
+35770;sainte-marie-aux-mines (musées)
+35771;sainte-marie-aux-mines (place de gaulle)
+35772;sainte-marie-aux-mines (thêatre)
+35773;sainte-marie-aux-mines (super u)
+35774;alvesta
+35775;bjästa
+35776;blachownia
+35777;bollstabruk
+35778;caltanissetta
+35779;docksta
+35780;gnarp
+35781;harmånger
+35782;harrachov
+35783;herby
+35784;husum (se)
+35785;härnösand
+35786;hörnefors
+35787;iłowa
+35788;jättendal
+35789;karlsruhe / baden-baden airport
+35790;koceljeva
+35791;kořenov
+35792;kramfors
+35793;kvissleby
+35794;kłodzko
+35795;lunde
+35796;marktschellenberg
+35797;memmingen airport
+35798;nordmaling
+35799;nykøbing falster
+35800;oslo airport (gardermoen)
+35801;ramvik
+35802;sandöverken
+35803;skillingaryd
+35804;smržovka
+35805;sollefteå
+35806;stockholm arlanda t 2/3
+35807;stockholm arlanda t 4
+35808;stråtjära
+35809;sundsbruk
+35810;sundsvall
+35811;szklarska poręba
+35812;tanvald
+35813;timrå
+35814;trollhättan
+35815;ullånger
+35816;umeå
+35817;vianen
+35818;värnamo
+35819;örnsköldsvik
+35820;rohatyn
+35821;novohrad volynskyi
+35822;nyzhni vorota
+35823;svalyava
+35824;kėdainiai
+35825;lubartów
+35826;rindal
+35827;glucholazy
+35828;czarna białostocka
+35829;sant julia de ramis
+35830;innsbruck airport
+35831;cutura
+35832;linz airport
+35833;dubrave
+35834;opatów
+35835;sofia airport
+35836;jordanów
+35837;plovdiv airport
+35838;burgas airport
+35839;varna airport
+35840;bansko
+35841;sant pol de mar
+35842;ramsen
+35843;rzeszów airport
+35844;riga airport
+35845;ražanac
+35846;miletići
+35847;deringaj
+35848;bruvno
+35849;dubrovnik airport
+35850;rocca
+35851;miedzyrzec podlaski
+35852;mikołów
+35853;zalakaros
+35854;dohna
+35855;bad gottleuba
+35856;atessa
+35857;swieradow-zdroj
+35858;donja banda
+35859;broćanac
+35860;vrbovec
+35861;boryspil
+35862;zawadzkie
+35863;pyriatyn
+35864;ballyvourney
+35865;bandung
+35866;bantry
+35867;belturbet
+35868;caher
+35869;castleblayney
+35870;clonakilty
+35871;ferns
+35872;glinojeck
+35873;strokestown
+35874;glengarriff
+35875;goleen
+35876;inishannon
+35877;kells
+35878;kilbeggan
+35879;lwowek slaski
+35880;knock
+35881;letterkenny
+35882;lifford
+35883;mitchelstown
+35884;moate
+35885;monaghan
+35886;virginia
+35887;callan
+35888;pale
+35889;youghal
+35890;saint-herblain
+35891;saint-michel-de-maurienne
+35892;castets
+35893;oz
+35894;nantes airport
+35895;château-gontier
+35896;segré-en-anjou bleu
+35897;brodnica
+35898;krotoszyn
+35899;bàscara
+35900;salt
+35901;kinsale
+35902;vaganac
+35903;pollegio
+35904;gora
+35905;kolomyia
+35906;kalush
+35907;poznan airport
+35908;sniatyn
+35909;étaples
+35910;saint-jean-de-maurienne
+35911;perpignan airport
+35912;abbeyfeale
+35913;bialobrzegi
+35914;obertauern
+35915;midleton
+35916;möllenbeck
+35917;kinnegad
+35918;grangemockler
+35919;kozlow
+35920;baia mare airport
+35921;rathnew
+35922;zambrów
+35923;wildenfels
+35924;wolfsberg
+35925;carrickmacross
+35926;maastricht aachen airport
+35927;lofer
+35928;castellón airport
+35929;borovets
+35930;blagaj
+35931;kharkiv
+35932;ostrow wielkopolski
+35933;lausanne airport
+35934;cherkasy
+35935;hévíz
+35936;drežnik grad
+35937;taborište
+35938;danilovgrad
+35939;palanga
+35940;ashmyany
+35941;cluj airport
+35942;skibbereen
+35943;druskininkai
+35944;bronte
+35945;marzanello
+35946;ballineen
+35947;ballydehob
+35948;ballyshannon
+35949;kapela
+35950;schwarzheide
+35951;prijeboj
+35952;opicina
+35953;shannon airport
+35954;sibiu airport
+35955;himmelwitz
+35956;gornji nikšić
+35957;selište drežničko
+35958;maletto
+35959;krasnoarmiisk
+35960;lublin airport
+35961;mosonmagyaróvár
+35962;otmet
+35963;ostrzeszów
+35964;lubny
+35965;reus airport
+35966;oradea airport
+35967;eminovci
+35968;lipovlje
+35969;grzybowo
+35970;ličko petrovo selo
+35971;zečev varoš
+35972;tschortkiw
+35973;vodice slovenia
+35974;alytus
+35975;bük
+35976;schipkau
+35977;sárvár
+35978;człopa
+35979;grojec
+35980;ostfold
+35981;klapavica
+35982;dźwirzyno
+35983;novi grad
+35984;edgeworthstown
+35985;naas
+35986;pärnu
+35987;adare
+35988;ardee
+35989;ballaghadereen
+35990;cashel
+35991;cavan
+35992;charlestown
+35993;listowel
+35994;loughrea
+35995;macroom
+35996;navan
+35997;newbridge station
+35998;newcastlewest
+35999;newtownforbes
+36000;swinford
+36001;shannon
+36002;tramore
+36003;cerovac
+36004;donegal
+36005;drimoleague
+36006;dunmanway
+36007;fermoy
+36008;jošan
+36009;muškovci
+36010;ondić
+36011;pećane
+36012;druškovec
+36013;tallinn
+36014;rosscarbery
+36015;schull
+36016;trélazé
+36017;danjoutin
+36018;belfort-montbéliard tgv (meroux)
+36019;morvillars
+36020;grandvillars
+36021;joncherey
+36022;delle
+36023;zator
+36024;eemshaven
+36025;brno dolní nádraží
+36026;villefranche-sur-saône gare routière
+36027;haguenau moulin neuf
+36028;leipzig hbf (fernbus-terminal)
