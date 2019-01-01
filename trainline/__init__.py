@@ -440,7 +440,6 @@ class ComfortClass(object):
             "name": str,
             "description": str,
             "title": str,
-            "options": dict,
             "segment_id": str,
             "condition_id": str,
         }
@@ -452,6 +451,10 @@ class ComfortClass(object):
                     expected_type, expected_param, type(param_value)))
             setattr(self, expected_param, param_value)
 
+        self.options = mydict.get("options")
+        if self.options is None:
+            # No options field with "benerail.default" comfort class
+            self.options = {}
         self.extras = self.options.get("extras", [])
 
         self.bicycle_price = None  # Default value

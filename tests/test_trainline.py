@@ -413,3 +413,26 @@ number_of_segments;price;currency;transportation_mean;bicycle_reservation"
 def test_class_Trainline():
     t = Trainline()
     assert t is not None
+
+
+def test_with_benerail():
+    # Added this test to check that "benerail.default" comfort class
+    # is handled properly ("options" field is missing in this case)
+    # that was causing the issue #1
+    from_date = "{} 08:00".format(_TOMORROW)
+    to_date = "{} 23:00".format(_TOMORROW)
+    departure_station = "Paris"
+    arrival_station = "Antwerpen-Centraal"
+
+    results = trainline.search(
+        departure_station=departure_station,
+        arrival_station=arrival_station,
+        from_date=from_date,
+        to_date=to_date)
+    print()
+    print("Search trips for {} to {}, between {} and {}".format(
+        departure_station, arrival_station, from_date, to_date))
+    print("{} results".format(len(results)))
+    assert len(results) > 0
+
+    display_trips(results)
