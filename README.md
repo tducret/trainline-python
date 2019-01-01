@@ -3,6 +3,7 @@
 [![Travis](https://img.shields.io/travis/tducret/trainline-python.svg)](https://travis-ci.org/tducret/trainline-python)
 [![Coveralls github](https://img.shields.io/coveralls/github/tducret/trainline-python.svg)](https://coveralls.io/github/tducret/trainline-python)
 [![PyPI](https://img.shields.io/pypi/v/trainline.svg)](https://pypi.org/project/trainline/)
+[![Docker Image size](https://img.shields.io/microbadger/image-size/thibdct/trainline.svg)](https://hub.docker.com/r/thibdct/trainline/)
 ![License](https://img.shields.io/github/license/tducret/trainline-python.svg)
 
 ## Description
@@ -10,6 +11,8 @@
 Non-official Python wrapper and CLI tool for Trainline
 
 I wrote a French blog post about it [here](https://www.tducret.com/scraping/2018/09/05/trouvez-le-billet-de-train-le-moins-cher-grace-a-ce-module-python.html)
+
+🎁 I added [a tiny Docker image](#docker) to use the tool very easily
 
 # Requirements
 
@@ -108,6 +111,47 @@ departure_date;arrival_date;duration;number_of_segments;price;currency;transport
 15/10/2018 08:19;15/10/2018 10:26;02h07;1;37,5;EUR;train;30,0
 15/10/2018 08:19;15/10/2018 10:26;02h07;1;95,5;EUR;train;30,0
 [...]
+```
+
+# Docker
+
+You can use the `trainline` tool with the [Docker image](https://hub.docker.com/r/thibdct/trainline/)
+
+You may execute :
+
+`docker run -it --rm thibdct/trainline --departure="Toulouse" --arrival="Bordeaux" --next=12hours`
+
+> The Docker image is built on top of [Google Distroless image](https://github.com/GoogleContainerTools/distroless), so it is tiny :)
+
+## 🤘 The easy way 🤘
+
+I also built a bash wrapper to execute the Docker container easily.
+
+Install it with :
+
+```bash
+curl -s https://raw.githubusercontent.com/tducret/trainline-python/master/trainline.sh \
+> /usr/local/bin/trainline && chmod +x /usr/local/bin/trainline
+```
+*You may replace `/usr/local/bin` with another folder that is in your $PATH*
+
+Check that it works :
+
+```bash
+trainline --help
+trainline --departure="Toulouse" --arrival="Bordeaux" --next=12hours
+```
+
+You can upgrade the app with :
+
+```bash
+trainline --upgrade
+```
+
+and even uninstall with :
+
+```bash
+trainline --uninstall
 ```
 
 # TODO

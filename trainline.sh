@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# A wrapper script for invoking a docker container
+# Based on https://spin.atomicobject.com/2015/11/30/command-line-tools-docker/
+
+DOCKER_IMAGE="thibdct/trainline"
+
+error(){
+  error_code=$1
+  echo "ERROR: $2" >&2
+  exit $1
+}
+check_cmd_in_path(){
+  cmd=$1
+  which $cmd > /dev/null 2>&1 || error 1 "$cmd not found!"
+}
+upgrade(){
+  docker pull $DOCKER_IMAGE
+  exit 1
+}
+uninstall(){
+  read -p "Are you sure to uninstall (y/n)? " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    docker rmi $DOCKER_IMAGE
+    rm $0
+  fi
+  exit 1
+}
+
+# Checks for dependencies
+check_cmd_in_path docker
+
+case $1 in
+    --uninstall)
+    uninstall
+    ;;
+    --upgrade)
+    upgrade
+    ;;
+esac
+
+# Run our containerized command
+exec docker run -it --rm $DOCKER_IMAGE "$@"
