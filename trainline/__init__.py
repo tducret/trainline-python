@@ -10,7 +10,6 @@ from datetime import datetime, timedelta, date
 import pytz
 import time
 import uuid
-import pandas as pd
 import os
 
 __author__ = """Thibault Ducret"""
@@ -35,8 +34,6 @@ _DEFAULT_PASSENGER_BIRTHDATE = "01/01/1980"
 
 _SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
 _STATIONS_CSV = os.path.join(_SCRIPT_PATH, "stations_mini.csv")
-_STATION_DB = pd.read_csv(_STATIONS_CSV, delimiter=';',
-                          dtype=str, index_col=0, header=None, names=['name'])
 
 
 class Client(object):
@@ -521,13 +518,21 @@ def _fix_date_offset_format(date_str):
 def get_station_id(station_name):
     """ Returns the Trainline station id (mandatory for search) based on the
     stations csv file content, and the station_name passed in parameter """
-    results = _STATION_DB.index[_STATION_DB.name ==
-                                station_name.lower().strip()].tolist()
+    global _STATION_DB
 
-    if len(results) < 1:
+    if '_STATION_DB' not in globals():
+        _STATION_DB = _station_to_dict(_STATIONS_CSV)
+
+    station_id = None
+    for st_id, st_name in _STATION_DB.items():
+        if st_name == station_name.lower().strip():
+            station_id = st_id
+            break
+
+    if station_id is None:
         raise KeyError("'{}' station has not been found".format(station_name))
 
-    return results[0]
+    return station_id
 
 
 def search(departure_station, arrival_station,
@@ -862,3 +867,19 @@ def _strfdelta(tdelta, fmt):
     d["hours"], rem = divmod(tdelta.seconds, 3600)
     d["minutes"], d["seconds"] = divmod(rem, 60)
     return fmt.format(**d)
+
+def _read_file(filename):
+    """ Returns the file content as as string """
+    with open(filename, 'r') as f:
+        read_data = f.read()
+    return read_data
+
+def _station_to_dict(filename, csv_delimiter=';'):
+    """ Returns the stations csv database as a dict <id>:<station_name> """
+    csv_content = _read_file(filename)
+    station_dict = {}
+    for line in csv_content.split("\n"):
+        station_id = line.split(csv_delimiter)[0]
+        station_name = csv_delimiter.join(line.split(csv_delimiter)[1:])
+        station_dict[station_id] = station_name
+    return station_dict
