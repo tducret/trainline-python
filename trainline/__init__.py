@@ -14,7 +14,7 @@ import os
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 
 _SEARCH_URL = "https://www.trainline.eu/api/v5_1/search"
 _DEFAULT_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'

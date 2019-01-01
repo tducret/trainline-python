@@ -10,7 +10,7 @@ except ImportError:  # For pip <= 9
     from pip.req import parse_requirements
 
 
-__version__ = '0.0.5'  # Should match with __init.py__
+__version__ = '0.0.6'  # Should match with __init.py__
 _PACKAGE_NAME = 'trainline'
 _GITHUB_URL = 'https://github.com/tducret/trainline-python'
 _KEYWORDS = ['api', 'trainline', 'parsing', 'train', 'sncf',
@@ -53,7 +53,7 @@ setup(
 # ------------------------------------------
 # Make sure everything was pushed (with a git status)
 # (or git commit --am "Comment" and git push)
-# export VERSION=0.0.5; git tag $VERSION -m "Fixed problem with some belgian trains (issue #1)"; git push --tags
+# export VERSION=0.0.6; git tag $VERSION -m "Removed pandas package dependency"; git push --tags
 
 # If you need to delete a tag
 # git push --delete origin $VERSION; git tag -d $VERSION
