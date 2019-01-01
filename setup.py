@@ -45,7 +45,7 @@ setup(
         'Programming Language :: Python :: 3',
     ],
     python_requires='>=3',
-    tests_require=['pytest'],
+    tests_require=['pytest', 'pandas'],
 )
 
 # ------------------------------------------
