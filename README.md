@@ -9,6 +9,8 @@
 
 Non-official Python wrapper and CLI tool for Trainline
 
+I wrote a French blog post about it [here](https://www.tducret.com/scraping/2018/09/05/trouvez-le-billet-de-train-le-moins-cher-grace-a-ce-module-python.html)
+
 # Requirements
 
 - Python 3
