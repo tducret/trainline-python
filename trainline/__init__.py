@@ -11,6 +11,7 @@ import pytz
 import time
 import uuid
 import os
+import copy
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
@@ -28,7 +29,9 @@ ENFANT_PLUS = "SNCF.CarteEnfantPlus"
 JEUNE = "SNCF.Carte1225"
 WEEK_END = "SNCF.CarteEscapades"
 SENIOR = "SNCF.CarteSenior"
+TGVMAX = {"reference": "SNCF.HappyCard", "number": None}
 _AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE, WEEK_END, SENIOR]
+_SPECIAL_CARDS = [TGVMAX]
 
 _DEFAULT_PASSENGER_BIRTHDATE = "01/01/1980"
 
@@ -38,15 +41,16 @@ _STATIONS_CSV = os.path.join(_SCRIPT_PATH, "stations_mini.csv")
 
 class Client(object):
     """ Do the requests with the servers """
+
     def __init__(self):
         self.session = requests.session()
         self.headers = {
-                    'Accept': 'application/json',
-                    'User-Agent': 'CaptainTrain/43(4302) Android/4.4.2(19)',
-                    'Accept-Language': 'fr',
-                    'Content-Type': 'application/json; charset=UTF-8',
-                    'Host': 'www.trainline.eu',
-                    }
+            'Accept': 'application/json',
+            'User-Agent': 'CaptainTrain/43(4302) Android/4.4.2(19)',
+            'Accept-Language': 'fr',
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Host': 'www.trainline.eu',
+        }
 
     def _get(self, url, expected_status_code=200):
         ret = self.session.get(url=url, headers=self.headers)
@@ -69,14 +73,15 @@ class Client(object):
                 time.sleep(_TIME_AFTER_FAILED_REQUEST)
 
         if (ret.status_code != expected_status_code):
-                raise ConnectionError(
-                    'Status code {status} for url {url}\n{content}'.format(
-                        status=ret.status_code, url=url, content=ret.text))
+            raise ConnectionError(
+                'Status code {status} for url {url}\n{content}'.format(
+                    status=ret.status_code, url=url, content=ret.text))
         return ret
 
 
 class Trainline(object):
     """ Class to... """
+
     def __init__(self):
         pass
 
@@ -84,38 +89,36 @@ class Trainline(object):
                passenger_list):
         """ Search on Trainline """
         data = {
-              "local_currency": "EUR",
-              "search": {
+            "local_currency": "EUR",
+            "search": {
                 "passengers": passenger_list,
                 "arrival_station_id": arrival_station_id,
                 "departure_date": departure_date,
                 "departure_station_id": departure_station_id,
                 "systems": [
-                  "benerail",
-                  "busbud",
-                  "db",
-                  "hkx",
-                  "idtgv",
-                  "locomore",
-                  "ntv",
-                  "ocebo",
-                  "ouigo",
-                  "ravel",
-                  "renfe",
-                  "sncf",
-                  "timetable",
-                  "trenitalia",
-                  "westbahn",
-                  "flixbus",
-                  "pao_ouigo",
-                  "pao_sncf",
-                  "leoexpress",
-                  "city_airport_train",
-                  "obb",
-                  "distribusion"
+                    "sncf",
+                    "db",
+                    "idtgv",
+                    "ouigo",
+                    "trenitalia",
+                    "ntv",
+                    "hkx",
+                    "renfe",
+                    "cff",
+                    "benerail",
+                    "ocebo",
+                    "westbahn",
+                    "leoexpress",
+                    "locomore",
+                    "busbud",
+                    "flixbus",
+                    "distribusion",
+                    "cityairporttrain",
+                    "obb",
+                    "timetable"
                 ]
-              }
             }
+        }
         post_data = json.dumps(data)
         c = Client()
         ret = c._post(url=_SEARCH_URL, post_data=post_data)
@@ -128,6 +131,7 @@ class Folder(object):
     - Trip Paris-Toulouse passenger1 : 45€ +
     - Trip Paris-Toulouse passenger2 : 20€
     """
+
     def __init__(self, mydict):
         expected = {
             "id": str,
@@ -178,12 +182,12 @@ class Folder(object):
         return repr(self)
 
     def __repr__(self):
-        return("[Folder] {} → {} : {} {} ({} trips) [id : {}]".format(
+        return ("[Folder] {} → {} : {} {} ({} trips) [id : {}]".format(
             self.departure_date, self.arrival_date, self.price, self.currency,
             len(self.trip_ids), self.id))
 
     def _main_characteristics(self):
-        return("{} → {} : {} {} ({} trips)".format(
+        return ("{} → {} : {} {} ({} trips)".format(
             self.departure_date, self.arrival_date, self.price, self.currency,
             len(self.trip_ids)))
 
@@ -200,6 +204,7 @@ class Folder(object):
 
 class Trip(object):
     """ Class to represent a trip, composed of one or more segments """
+
     def __init__(self, mydict):
         expected = {
             "id": str,
@@ -253,7 +258,7 @@ class Trip(object):
         return repr(self)
 
     def __repr__(self):
-        return("[Trip] {} → {} : {} {} ({} segments) [id : {}]".format(
+        return ("[Trip] {} → {} : {} {} ({} segments) [id : {}]".format(
             self.departure_date, self.arrival_date, self.price, self.currency,
             len(self.segment_ids), self.id))
 
@@ -268,6 +273,7 @@ class Trip(object):
 
 class Folders(object):
     """ Class to represent a list of folders """
+
     def __init__(self, folder_list):
         self.folders = folder_list
 
@@ -275,7 +281,7 @@ class Folders(object):
         csv_str = "departure_date;arrival_date;duration;number_of_segments;\
 price;currency;transportation_mean;bicycle_reservation\n"
         for folder in self.folders:
-            trip_duration = (folder.arrival_date_obj-folder.departure_date_obj)
+            trip_duration = (folder.arrival_date_obj - folder.departure_date_obj)
             csv_str += "{dep};{arr};{dur};{seg};{price};{curr};\
 {tr};{bicy}\n".format(
                 dep=folder.departure_date_obj.strftime(_READABLE_DATE_FORMAT),
@@ -286,7 +292,7 @@ price;currency;transportation_mean;bicycle_reservation\n"
                 curr=folder.currency,
                 tr=folder.transportation_mean,
                 bicy=str(folder.bicycle_reservation).replace(".", ","),
-                )
+            )
         return csv_str
 
     def __len__(self):
@@ -300,6 +306,7 @@ price;currency;transportation_mean;bicycle_reservation\n"
 
 class Passenger(object):
     """ Class to represent a passenger """
+
     def __init__(self, birthdate, cards=[]):
         self.birthdate = birthdate
         self.birthdate_obj = _str_date_to_date_obj(
@@ -325,34 +332,43 @@ class Passenger(object):
         born = self.birthdate_obj
         today = date.today()
         age = today.year - born.year - \
-            ((today.month, today.day) < (born.month, born.day))
+              ((today.month, today.day) < (born.month, born.day))
         return age
 
     def get_dict(self):
         cards_dicts = []
         for card in self.cards:
+            if type(card) is dict:
+                cards_dicts.append(card)
+                continue
             cards_dicts.append({"reference": card})
 
         passenger_dict = {
-                           "id": self.id,
-                           "age": self.age,
-                           "cards": cards_dicts,
-                           "label": self.id
-                        }
+            "id": self.id,
+            "age": self.age,
+            "cards": cards_dicts,
+            "label": self.id
+        }
         return passenger_dict
 
     def __str__(self):
-        return(repr(self))
+        return (repr(self))
 
     def __repr__(self):
-        return("[Passenger] birthdate={}, cards=[{}]".format(
+        return ("[Passenger] birthdate={}, cards=[{}]".format(
             self.birthdate,
             ",".join(self.cards)))
+
+    def add_special_card(self, card, number):
+        c = copy.deepcopy(card)
+        c['number'] = number
+        self.cards.append(c)
 
 
 class Segment(object):
     """ Class to represent a segment
     (a trip is composed of one or more segment) """
+
     def __init__(self, mydict):
         expected = {
             "id": str,
@@ -401,7 +417,7 @@ class Segment(object):
         return repr(self)
 
     def __repr__(self):
-        return("[Segment] {} → {} : {} ({}) \
+        return ("[Segment] {} → {} : {} ({}) \
 ({} comfort_class) [id : {}]".format(
             self.departure_date, self.arrival_date,
             self.transportation_mean, self.carrier,
@@ -431,6 +447,7 @@ class ComfortClass(object):
     """ Class to represent a comfort_class
     (a trip is composed of one or more segment,
     each one composed of one or more comfort_class) """
+
     def __init__(self, mydict):
         expected = {
             "id": str,
@@ -457,15 +474,15 @@ class ComfortClass(object):
         self.bicycle_price = None  # Default value
         for extra in self.extras:
             if ((extra.get("value", "") == "bicycle_with_reservation") or
-               (extra.get("value", "") == "bicycle_without_reservation")):
-                self.bicycle_price = float(extra.get("cents"))/100
+                    (extra.get("value", "") == "bicycle_without_reservation")):
+                self.bicycle_price = float(extra.get("cents")) / 100
                 break
 
     def __str__(self):
         return repr(self)
 
     def __repr__(self):
-        return("[ComfortClass] {} ({}) ({} extras) [id : {}]".format(
+        return ("[ComfortClass] {} ({}) ({} extras) [id : {}]".format(
             self.name,
             self.title,
             self.description,
@@ -512,7 +529,7 @@ def _fix_date_offset_format(date_str):
     >>> print(_fix_date_offset_format("2018-10-15T08:49:00+02:00"))
     2018-10-15T08:49:00+0200
     """
-    return date_str[:-3]+date_str[-2:]
+    return date_str[:-3] + date_str[-2:]
 
 
 def get_station_id(station_name):
@@ -541,7 +558,8 @@ def search(departure_station, arrival_station,
            transportation_mean=None,
            bicycle_without_reservation_only=None,
            bicycle_with_reservation_only=None,
-           bicycle_with_or_without_reservation=None):
+           bicycle_with_or_without_reservation=None,
+           max_price=None):
     t = Trainline()
 
     departure_station_id = get_station_id(departure_station)
@@ -599,7 +617,8 @@ def search(departure_station, arrival_station,
         transportation_mean=transportation_mean,
         bicycle_without_reservation_only=bicycle_without_reservation_only,
         bicycle_with_reservation_only=bicycle_with_reservation_only,
-        bicycle_with_or_without_reservation=bicycle_w_or_wout_reservation)
+        bicycle_with_or_without_reservation=bicycle_w_or_wout_reservation,
+        max_price=max_price)
 
     # Sort by date
     _filter_folders_list = sorted(_filter_folders_list,
@@ -633,7 +652,7 @@ def _get_folders(search_results_obj):
             "departure_station_id": folder.get("departure_station_id"),
             "arrival_date": folder.get("arrival_date"),
             "arrival_station_id": folder.get("arrival_station_id"),
-            "price": float(folder.get("cents"))/100,
+            "price": float(folder.get("cents")) / 100,
             "currency": folder.get("currency"),
             "trip_ids": folder.get("trip_ids"),
         }
@@ -666,7 +685,7 @@ def _get_trips(search_results_obj):
             "departure_station_id": trip.get("departure_station_id"),
             "arrival_date": trip.get("arrival_date"),
             "arrival_station_id": trip.get("arrival_station_id"),
-            "price": float(trip.get("cents"))/100,
+            "price": float(trip.get("cents")) / 100,
             "currency": trip.get("currency"),
             "segment_ids": trip.get("segment_ids"),
         }
@@ -787,7 +806,7 @@ def _get_comfort_class_from_id(comfort_class_obj_list, comfort_class_id):
 
 
 def _filter_folders(folder_list, from_date_obj=None, to_date_obj=None,
-                    min_price=0.1, max_price=None, transportation_mean=None,
+                    min_price=0.0, max_price=None, transportation_mean=None,
                     min_segment_nb=1, max_segment_nb=None,
                     bicycle_without_reservation_only=None,
                     bicycle_with_reservation_only=None,
@@ -801,7 +820,7 @@ def _filter_folders(folder_list, from_date_obj=None, to_date_obj=None,
         # Price
         if folder.price < min_price:
             to_be_filtered = True
-        if max_price:
+        if max_price is not None:
             if folder.price > max_price:
                 to_be_filtered = True
 
@@ -835,14 +854,14 @@ def _filter_folders(folder_list, from_date_obj=None, to_date_obj=None,
             if bicycle_with_reservation_only:
                 for segment in trip.segments:
                     if segment.bicycle_with_reservation != \
-                       bicycle_with_reservation_only:
+                            bicycle_with_reservation_only:
                         to_be_filtered = True
                         break
 
             if bicycle_without_reservation_only:
                 for segment in trip.segments:
                     if segment.bicycle_without_reservation != \
-                       bicycle_without_reservation_only:
+                            bicycle_without_reservation_only:
                         to_be_filtered = True
                         break
 
@@ -868,11 +887,13 @@ def _strfdelta(tdelta, fmt):
     d["minutes"], d["seconds"] = divmod(rem, 60)
     return fmt.format(**d)
 
+
 def _read_file(filename):
     """ Returns the file content as as string """
-    with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf8') as f:
         read_data = f.read()
     return read_data
+
 
 def _station_to_dict(filename, csv_delimiter=';'):
     """ Returns the stations csv database as a dict <id>:<station_name> """
