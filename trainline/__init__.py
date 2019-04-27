@@ -360,6 +360,9 @@ class Passenger(object):
             ",".join(self.cards)))
 
     def add_special_card(self, card, number):
+        if card not in _SPECIAL_CARDS:
+            raise KeyError("Card '{}' unknown, [{}] available".format(
+                card, ",".join([d['reference'] for d in _SPECIAL_CARDS])))
         c = copy.deepcopy(card)
         c['number'] = number
         self.cards.append(c)
