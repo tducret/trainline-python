@@ -91,9 +91,11 @@ import trainline
 Pierre = trainline.Passenger(birthdate="01/01/1980")
 Sophie = trainline.Passenger(birthdate="01/02/1981")
 Enzo = trainline.Passenger(birthdate="01/03/2012", cards=[trainline.ENFANT_PLUS])
+Nicolas = trainline.Passenger(birthdate="01/01/1996", cards=[trainline.JEUNE])
+Nicolas.add_special_card(trainline.TGVMAX, "YourCardNumber")
 
 results = trainline.search(
-	passengers=[Pierre, Sophie, Enzo],
+	passengers=[Pierre, Sophie, Enzo, Nicolas],
 	departure_station="Toulouse",
 	arrival_station="Bordeaux",
 	from_date="15/10/2018 08:00",
@@ -112,6 +114,9 @@ departure_date;arrival_date;duration;number_of_segments;price;currency;transport
 15/10/2018 08:19;15/10/2018 10:26;02h07;1;95,5;EUR;train;30,0
 [...]
 ```
+
+user = trainline.Passenger(birthdate="01/01/1996", cards=[trainline.JEUNE])
+user.add_special_card(trainline.TGVMAX, "YourCardNumber")
 
 # Docker
 
