@@ -472,7 +472,10 @@ class ComfortClass(object):
         if self.options is None:
             # No options field with "benerail.default" comfort class
             self.options = {}
-        self.extras = self.options.get("extras", [])
+
+        self.extras = self.options.get("extras")
+        if self.extras is None:
+            self.extras = []
 
         self.bicycle_price = None  # Default value
         for extra in self.extras:
