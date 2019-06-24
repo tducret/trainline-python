@@ -561,7 +561,7 @@ def get_station_id(station_name):
 
 def search(departure_station, arrival_station,
            from_date, to_date,
-           passengers=[Passenger(birthdate=_DEFAULT_PASSENGER_BIRTHDATE)],
+           passengers=None,
            transportation_mean=None,
            bicycle_without_reservation_only=None,
            bicycle_with_reservation_only=None,
@@ -579,6 +579,8 @@ def search(departure_station, arrival_station,
         str_datetime=to_date, date_format=_READABLE_DATE_FORMAT)
 
     passenger_list = []
+    passengers = passengers or [Passenger(birthdate=_DEFAULT_PASSENGER_BIRTHDATE)]
+
     for passenger in passengers:
         passenger_list.append(passenger.get_dict())
 
