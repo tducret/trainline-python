@@ -307,7 +307,7 @@ price;currency;transportation_mean;bicycle_reservation\n"
 class Passenger(object):
     """ Class to represent a passenger """
 
-    def __init__(self, birthdate, cards=[]):
+    def __init__(self, birthdate, cards=None):
         self.birthdate = birthdate
         self.birthdate_obj = _str_date_to_date_obj(
             str_date=self.birthdate,
@@ -316,6 +316,7 @@ class Passenger(object):
 
         self.id = self._gen_id()
 
+        cards = cards or []
         for card in cards:
             if card not in _AVAILABLE_CARDS:
                 raise KeyError("Card '{}' unknown, [{}] available".format(
