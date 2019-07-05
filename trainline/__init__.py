@@ -29,8 +29,13 @@ ENFANT_PLUS = "SNCF.CarteEnfantPlus"
 JEUNE = "SNCF.Carte1225"
 WEEK_END = "SNCF.CarteEscapades"
 SENIOR = "SNCF.CarteSenior"
+AVANTAGE_FAMILLE = "SNCF.AvantageFamille"
+AVANTAGE_JEUNE = "SNCF.AvantageJeune"
+AVANTAGE_SENIOR = "SNCF.AvantageSenior"
+AVANTAGE_WEEK_END = "SNCF.AvantageWeekEnd"
 TGVMAX = {"reference": "SNCF.HappyCard", "number": None}
-_AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE, WEEK_END, SENIOR]
+_AVAILABLE_CARDS = [ENFANT_PLUS, JEUNE, WEEK_END, SENIOR, AVANTAGE_FAMILLE,
+                    AVANTAGE_JEUNE, AVANTAGE_WEEK_END]
 _SPECIAL_CARDS = [TGVMAX]
 
 _DEFAULT_PASSENGER_BIRTHDATE = "01/01/1980"
@@ -281,7 +286,7 @@ class Folders(object):
         csv_str = "departure_date;arrival_date;duration;number_of_segments;\
 price;currency;transportation_mean;bicycle_reservation\n"
         for folder in self.folders:
-            trip_duration = (folder.arrival_date_obj - folder.departure_date_obj)
+            trip_duration = folder.arrival_date_obj - folder.departure_date_obj
             csv_str += "{dep};{arr};{dur};{seg};{price};{curr};\
 {tr};{bicy}\n".format(
                 dep=folder.departure_date_obj.strftime(_READABLE_DATE_FORMAT),
@@ -333,7 +338,7 @@ class Passenger(object):
         born = self.birthdate_obj
         today = date.today()
         age = today.year - born.year - \
-              ((today.month, today.day) < (born.month, born.day))
+            ((today.month, today.day) < (born.month, born.day))
         return age
 
     def get_dict(self):
@@ -579,7 +584,8 @@ def search(departure_station, arrival_station,
         str_datetime=to_date, date_format=_READABLE_DATE_FORMAT)
 
     passenger_list = []
-    passengers = passengers or [Passenger(birthdate=_DEFAULT_PASSENGER_BIRTHDATE)]
+    passengers = passengers or [
+        Passenger(birthdate=_DEFAULT_PASSENGER_BIRTHDATE)]
 
     for passenger in passengers:
         passenger_list.append(passenger.get_dict())
