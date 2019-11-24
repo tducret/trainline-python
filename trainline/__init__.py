@@ -15,7 +15,7 @@ import copy
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 _SEARCH_URL = "https://www.trainline.eu/api/v5_1/search"
 _DEFAULT_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
@@ -51,7 +51,7 @@ class Client(object):
         self.session = requests.session()
         self.headers = {
             'Accept': 'application/json',
-            'User-Agent': 'CaptainTrain/43(4302) Android/4.4.2(19)',
+            'User-Agent': 'CaptainTrain/1574360965(web) (Ember 3.5.1)',
             'Accept-Language': 'fr',
             'Content-Type': 'application/json; charset=UTF-8',
             'Host': 'www.trainline.eu',
