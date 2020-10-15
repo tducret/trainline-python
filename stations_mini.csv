@@ -2032,6 +2032,7 @@
 2820;villedieu-sur-indre
 2822;buzançais
 2823;clion-sur-indre
+2825;nîmes centre
 2830;marsac (creuse)
 2831;vieilleville
 2832;bourganeuf
@@ -2329,6 +2330,7 @@
 3177;maubourguet centre
 3178;caussade (hautes pyrénées)
 3179;hères
+3190;genève eaux-vives
 3192;gex centre
 3193;montaut—bétharram
 3195;coarraze—nay
@@ -3672,6 +3674,7 @@
 5244;st-sulpice
 5245;st-andré (nord)
 5246;ste-gemme
+5247;basel st. johann
 5250;st-satur place du marché
 5251;sauveterre-de-béarn
 5254;séverac-le-château
@@ -4189,6 +4192,7 @@
 6024;jenaz
 6025;la-chaux-de-fonds
 6029;aarau
+6030;chêne-bourg
 6032;oberwald
 6036;poschiavo
 6037;le prese
@@ -4543,8 +4547,8 @@
 6620;badajoz
 6621;blanes
 6622;bobadilla
-6623;barcelona plazça de catalunya
-6624;barcelona paseig de gracia
+6623;barcelona plaça de catalunya
+6624;barcelona passeig de gracia
 6625;barcelona sants
 6626;barcelona estació de frança
 6627;burgos
@@ -4571,7 +4575,7 @@
 6652;guadix
 6653;brenes
 6654;granollers centro
-6655;gerona
+6655;girona
 6656;granada
 6658;jaén
 6659;a coruña-san cristovo
@@ -5007,7 +5011,6 @@
 7123;miltenberg
 7124;ehringen
 7125;mochenwangen
-7126;mulsum-essel
 7127;nagold
 7128;neheim-hüsten
 7129;neubrücke (nahe)
@@ -5304,7 +5307,6 @@
 7437;friedland (han)
 7438;bobingen
 7439;bad aibling
-7441;flensburg-weiche
 7442;bad oldesloe
 7443;bad wörishofen
 7444;mindelheim
@@ -5317,7 +5319,6 @@
 7451;wittlich hbf
 7452;holzkirchen
 7453;münchen harras
-7454;weizen
 7455;seeg
 7456;lengenwang
 7457;marktoberdorf
@@ -5451,7 +5452,6 @@
 7596;frankfurt (m) flughafen fernbf
 7597;freiburg (breisgau) hbf
 7598;bergen auf rügen
-7599;binz lb
 7600;freilassing
 7601;reichenbach (vogtl) ob bf
 7602;frankfurt (main)
@@ -6422,6 +6422,7 @@
 10341;ouistreham
 10398;ogeu-les-bains
 10411;jacques-monod-la-demi-lieue
+10419;irigny-yvours
 10450;toulouse roseraie
 10456;bologna centrale
 10457;bologna corticella
@@ -6742,7 +6743,6 @@
 11044;bad bergzabern
 11045;bad aibling kurpark
 11046;bad dürkheim
-11047;bad empfing
 11048;bad ems west
 11049;bad friedrichshall-kochendorf
 11050;bad griesbach (schwarzwald)
@@ -6803,7 +6803,6 @@
 11105;barsinghausen
 11106;hemmoor
 11107;ochsenfurt
-11108;batzenhäusle
 11109;batzhausen
 11110;bauerbach
 11111;baunach
@@ -6957,7 +6956,6 @@
 11260;bramsche
 11261;bramstedt (b syke)
 11262;brandoberndorf
-11263;brandstätt
 11264;bretten-ruit
 11265;braunschweig-gliesmarode
 11266;bredelar
@@ -7213,7 +7211,6 @@
 11517;duisburg-schlenk
 11518;düsseldorf-hamm
 11519;düsseldorf-flingern
-11520;duisburg-bissingheim
 11521;duisburg-buchholz
 11522;duisburg-großenbaum
 11523;düsseldorf völklinger straße
@@ -7222,7 +7219,6 @@
 11526;duisburg-obermeiderich
 11527;duisburg-rahm
 11528;duisburg-ruhrort
-11529;duisburg-wedau
 11530;durmersheim
 11531;dußlingen
 11532;dutenhofen (wetzlar)
@@ -7421,7 +7417,6 @@
 11726;fischbachau
 11727;esting
 11728;fischhausen-neuhaus
-11729;fladungen
 11730;boppard-fleckertshöhe
 11731;flehingen
 11733;flieden
@@ -7493,7 +7488,6 @@
 11800;friedrichsfeld (niederrhein)
 11801;friedrichshafen hafen
 11802;friedrichshafen-fischbach
-11803;friedrichsruh
 11804;friedrichstal (baden)
 11805;friedrichsthal (saar)
 11806;friedrichsthal (b bayreuth)
@@ -7950,7 +7944,6 @@
 12258;ittlingen
 12259;itzelberg
 12260;iversheim
-12261;jägerhaus
 12262;jägersfreude
 12263;jagstzell
 12264;jarrenwisch
@@ -7965,7 +7958,6 @@
 12273;hamburg jungfernstieg
 12274;kaarster bahnhof
 12275;hesseneck kailbach
-12276;kainzenbad
 12277;kaisersesch
 12278;kaiserslautern pfaffwerk
 12279;kaiserslautern west
@@ -8231,7 +8223,6 @@
 12542;lich (oberhess)
 12543;gießen licher str
 12544;lichtenthal
-12545;liebenau (bz kassel)
 12546;lieblos
 12547;limbach (b homburg saar)
 12548;limburgerhof
@@ -8342,7 +8333,6 @@
 12653;marl mitte
 12654;marl-hamm
 12655;marl-sinsen
-12656;marnheim
 12657;marstetten-aitrach
 12658;martinlamitz
 12659;martinstein
@@ -8357,7 +8347,6 @@
 12668;maubach
 12669;mauer (b heidelberg)
 12670;dortmund-körne west
-12671;maulbronn stadt
 12672;maulburg
 12673;mausheim
 12674;maxhütte-haidhof
@@ -8414,7 +8403,6 @@
 12725;bad schönborn-kronau
 12726;mittel gründau
 12727;mittelsinn
-12728;mittergars
 12729;hamburg mittlerer landweg
 12730;mögglingen (gmünd)
 12731;espenau-mönchehof
@@ -8672,7 +8660,6 @@
 12985;oberhausen-osterfeld süd
 12986;oberhausen-sterkrade
 12987;oberkirch-köhlersiedlung
-12988;oberklingensporn
 12989;oberlahnstein
 12990;lauchringen
 12991;oberlenningen
@@ -8740,7 +8727,6 @@
 13053;osterspai
 13054;osterstedt
 13055;osterwald
-13056;ostheim vor der rhön
 13057;ostheim (b butzbach)
 13058;ostheim (kr hanau)
 13059;hamburg-othmarschen
@@ -8783,7 +8769,6 @@
 13096;pfeddersheim
 13097;pflaumloch
 13098;pforzheim-weißenstein
-13099;pfraundorf (inn)
 13100;pfreimd
 13101;pforzheim maihälden
 13102;pfronten-weißbach
@@ -9008,7 +8993,6 @@
 13321;salzbergen
 13322;salzgitter-immendorf
 13323;salzgitter-lebenstedt
-13324;duisburg entenfang
 13325;salzgitter-thiede
 13326;salzgitter-watenstedt
 13327;sand (niederbay)
@@ -9210,7 +9194,6 @@
 13525;stockdorf
 13526;stockhausen (lahn)
 13527;stockheim (oberfr)
-13528;stockheim (unterfr)
 13529;stockstadt (main)
 13530;stockstadt (rhein)
 13531;stolberg-altstadt
@@ -9224,7 +9207,6 @@
 13539;straßberg-winterlingen
 13540;strullendorf
 13541;struthütten
-13542;stryck
 13543;stühlingen
 13544;stuttgart ebitzweg
 13545;stuttgart nord
@@ -9319,7 +9301,6 @@
 13634;ulm ost
 13635;ulm-donautal
 13636;ulm-söflingen
-13637;umrathshausen bf
 13638;umrathshausen ort
 13639;unadingen
 13640;undorf
@@ -9387,7 +9368,6 @@
 13703;vormwald dorf
 13704;vorra (pegnitz)
 13705;wachenheim (pfalz)
-13706;wachenheim-mölsheim
 13707;wächterhof
 13708;waffenbrunn
 13709;wackershofen
@@ -9566,7 +9546,6 @@
 13883;wolfstein
 13884;wolterdingen (han)
 13885;woltwiesche
-13886;worms brücke
 13887;wülfrath-aprath
 13888;würgendorf
 13889;würgendorf (ort)
@@ -9646,7 +9625,6 @@
 13964;hamburg neuwiedenthal
 13965;hagnau (bodensee)
 13966;immenstaad (bodensee)
-13967;unteruhldingen
 13968;busenbach
 13969;achern stadt
 13970;oberachern
@@ -9688,11 +9666,7 @@
 14007;voßloch
 14008;barmstedt brunnenstr
 14009;barmstedt
-14010;stubersheim
-14011;schalkstetten
 14012;waldhausen (b geislingen)
-14013;gussenstadt
-14014;gerstetten
 14015;biersdorf (westerw)
 14016;daaden
 14017;alsdorf (westerw)
@@ -9705,11 +9679,6 @@
 14024;oberharmersbach dorf
 14025;oberharmersbach-riersbach
 14027;biersdorf-ort (ww)
-14028;gnarrenburg
-14029;nordsode
-14030;hüttenbusch
-14031;neu st. jürgen
-14032;worpswede
 14033;ubstadt ort
 14034;stettfeld (baden)
 14035;zeutern
@@ -9786,7 +9755,6 @@
 14106;schwieberdingen
 14107;hemmingen
 14108;heimerdingen
-14109;weissach
 14110;bad krozingen ost
 14111;oberkrozingen
 14112;staufen
@@ -9803,12 +9771,6 @@
 14123;frahelsbruck
 14124;lam
 14125;urmersbach
-14126;neckarbischofsheim stadt
-14127;neckarbischofsheim helmhof
-14128;untergimpern
-14129;obergimpern
-14130;siegelsbach
-14131;hüffenhardt
 14132;neidenstein
 14133;waibstadt
 14134;eschelbronn
@@ -9822,7 +9784,6 @@
 14142;rudersberg-oberndorf
 14143;moosrain
 14144;trossingen stadt
-14145;wangerooge flugplatz
 14147;wyk auf föhr
 14148;wittdün (amrum)
 14149;norderney
@@ -9836,9 +9797,6 @@
 14157;hörnum (sylt)
 14158;baltrum
 14159;helgoland katamaran
-14160;borkum flugplatz
-14161;helgoland flugplatz
-14162;juist flugplatz
 14163;neumünster stadtwald
 14164;bremervörde
 14165;jülich-broich
@@ -9934,7 +9892,6 @@
 14255;berlin-schöneweide
 14256;bernburg
 14257;berthelsdorf (erzgeb)
-14258;bertsdorf
 14259;beucha
 14260;biederitz
 14261;birkungen
@@ -9943,7 +9900,6 @@
 14264;blankenfelde (teltow-fläming)
 14265;blankenheim (sangerhausen)
 14266;bleicherode ost
-14267;blumenberg
 14268;borsdorf (sachs)
 14269;bretleben
 14270;britz
@@ -9985,7 +9941,6 @@
 14306;genthin
 14307;reinsdorf (artern)
 14308;gera süd
-14309;gernrode (harz)
 14310;flöha-plaue
 14311;glauchau-schönbörnchen
 14312;jena-göschwitz
@@ -10027,7 +9982,6 @@
 14348;jüterbog
 14349;sedlitz ost
 14350;chemnitz süd
-14351;karow (meckl)
 14352;küstrin-kietz
 14353;klostermansfeld
 14354;königs wusterhausen
@@ -10038,7 +9992,6 @@
 14359;lalendorf
 14360;lehndorf (altenburg)
 14361;leinefelde
-14362;klostermansfeld randsiedlung
 14363;leipzig-connewitz
 14364;leipzig-leutzsch
 14365;leipzig-paunsdorf
@@ -10082,7 +10035,6 @@
 14403;parchim
 14404;pasewalk
 14405;pegau
-14406;strobelmühle
 14407;pirna
 14408;plaaz
 14409;plaue (thür)
@@ -10091,7 +10043,6 @@
 14412;potsdam charlottenhof
 14413;pratau
 14414;prenzlau
-14415;pretzsch
 14416;priemerburg
 14417;priestewitz
 14418;pritzwalk
@@ -10104,7 +10055,6 @@
 14425;rövershagen
 14426;ronneburg (thür)
 14427;roßlau (elbe)
-14428;roßwein
 14429;rottenbach
 14430;rudolstadt (thür)
 14431;rudolstadt-schwarza
@@ -10182,7 +10132,6 @@
 14504;ahrensfelde nord
 14505;alt hüttendorf
 14506;alt rosenthal
-14507;alt schwerin
 14508;altdöbern
 14509;altefähr
 14510;altenbach
@@ -10209,36 +10158,26 @@
 14531;arnstadt süd
 14532;auehütte
 14533;auerbach (vogtl) hp
-14534;auerstedt
 14535;baabe
 14536;bachfeld
 14537;bad berka
 14538;bad berka zeughausplatz
 14539;bad brambach
-14540;bad doberan goethestraße
 14541;bad dürrenberg
 14542;bad elster
 14543;bad köstritz
-14544;bad lauchstädt
-14545;bad lauchstädt west
 14546;bad lausick
 14547;bad liebenwerda
 14548;bad saarow-pieskow
-14549;bad schmiedeberg
-14550;splau
-14551;bad suderode
 14552;bad sulza
-14553;bad sulza nord
 14554;bad wilsnack
 14555;bärenhecke-johnsbach
 14556;bärenklau
 14557;bärenstein (annaberg)
 14558;bärenstein (b glashütte sachs)
-14559;bärnsdorf
 14560;bagenz
 14561;bahnsdorf
 14562;baitz
-14564;berlin gesundbrunnen
 14565;balgstädt
 14566;ballstädt (gotha)
 14567;bannemin-mölschow
@@ -10249,7 +10188,6 @@
 14572;barthmühle
 14573;baruth (mark)
 14574;berlin potsdamer platz
-14575;bebitz
 14576;bechstedt-trippstein
 14577;beetz-sommerfeld
 14578;beilrode
@@ -10258,8 +10196,6 @@
 14581;bennungen
 14582;benshausen
 14583;bentwisch
-14584;berbisdorf
-14585;berbisdorf anbau
 14586;berga (elster)
 14587;bergsdorf
 14588;bergwitz
@@ -10278,7 +10214,6 @@
 14601;bibra
 14602;biendorf
 14603;bienenmühle
-14604;biesenrode
 14605;biesenthal
 14606;bindfelde
 14607;ostseebad binz
@@ -10343,8 +10278,6 @@
 14667;coswig (anh)
 14668;crimmitschau
 14669;crivitz
-14670;cunnertswalde
-14671;cursdorf
 14672;dabendorf
 14673;dachrieden
 14674;dachwig
@@ -10358,24 +10291,20 @@
 14682;dessau süd
 14683;dessau-alten
 14684;dessau-mosigkau
-14685;deutschenbora
 14686;deutzen
 14687;dieskau
 14688;dietzhausen
-14689;dippoldiswalde
 14690;ditfurt
 14691;dittersbach
 14692;dittersdorf
 14693;doberschütz
 14694;dodendorf
-14695;döbeln zentrum
 14696;döberitz
 14697;dörrberg
 14698;dohna (sachs)
 14699;dresden flughafen
 14700;domnitz (saalkr)
 14701;domsühl
-14702;dorfchemnitz
 14703;dornburg (saale)
 14704;dossow (prign)
 14705;drahnsdorf
@@ -10400,14 +10329,12 @@
 14724;dütschow
 14725;ebersbrunn
 14726;eckardtsleben
-14727;eckartsberga (thür)
 14728;edle krone
 14729;effelder (thür)
 14730;eggersdorf
 14731;eggesin
 14733;eichstedt (altm)
 14734;eickendorf
-14735;einsiedel hp gymnasium
 14736;einsiedel
 14737;eisenach west
 14738;eisenhüttenstadt
@@ -10435,7 +10362,6 @@
 14760;ernstthal am rennsteig
 14761;ettenhausen
 14762;etzleben
-14763;eutzsch
 14764;rostock-evershagen
 14765;fährbrücke
 14766;falkenau (sachs) hp
@@ -10461,36 +10387,27 @@
 14786;frauenhain
 14787;freckleben
 14788;freienorla
-14789;freital-coßmannsdorf
 14790;freital-deuben
 14791;freital-hainsberg west
 14792;frenz
 14793;fretzdorf
 14794;freyburg (unstrut)
 14795;friedersdorf (königs wusterhausen)
-14796;friedewald (kr dresden) bad
-14797;friedewald (kr dresden) hp
 14798;friedrichroda
 14799;friedrichsruhe (meck)
 14800;friesack (mark)
-14801;friesdorf
-14802;friesdorf ost
 14803;frohburg
 14804;fürstenwalde süd
 14805;gadebusch
-14806;gallin
 14807;gangloffsömmern
 14808;gardelegen
-14809;garftitz
 14810;gaschwitz
 14811;gatersleben
 14812;gebra (hainleite)
 14813;gehlberg
 14814;geising
 14815;gelbensande
-14816;gera ost
 14817;gera-langenberg
-14818;gera-liebschwitz
 14819;gera-zwötzen
 14820;geraberg
 14821;gerichshain
@@ -10499,7 +10416,6 @@
 14824;giersleben
 14825;glashütte (sachs)
 14826;glaubitz (riesa)
-14827;gleisberg-marbach
 14828;glöwen
 14829;glückauf
 14830;gnevkow
@@ -10519,7 +10435,6 @@
 14844;gotha ost
 14845;grabow (meckl)
 14846;gräfenhainichen
-14847;gräfenstuhl-klippmühle
 14848;gräfentonna
 14849;grambow
 14850;gransee
@@ -10536,7 +10451,6 @@
 14861;gröditz (riesa)
 14862;groß ammensleben
 14863;groß brütz
-14864;groß gräfendorf
 14865;groß kiesow
 14866;groß kreutz
 14867;groß laasch
@@ -10583,7 +10497,6 @@
 14912;halle-nietleben
 14913;halle-trotha
 14914;hammelspring
-14915;hammerunterwiesenthal
 14916;hangelsberg
 14917;harra
 14918;harra nord
@@ -10594,8 +10507,6 @@
 14923;hedersleben-wedderstedt
 14924;heidenau süd
 14925;heidenau-großsedlitz
-14926;heiligendamm
-14927;steilküste/wittenbeck
 14928;heiligengrabe
 14929;heilbad heiligenstadt
 14930;heldrungen
@@ -10640,11 +10551,9 @@
 14971;irfersgrün
 14972;jabel (meckl)
 14973;jacobsdorf (mark)
-14974;jakobsdorf (prign)
 14975;jänschwalde
 14976;jänschwalde ost
 14977;jävenitz
-14978;jagdschloß
 14979;jahnsdorf (erzgeb)
 14980;jasnitz
 14981;jeber-bergfrieden
@@ -10662,7 +10571,6 @@
 14994;chemnitz kinderwaldstätte
 14995;chemnitz mitte
 14996;chemnitz-borna hp
-14997;chemnitz erfenschlag
 14998;chemnitz-harthau
 14999;chemnitz-reichenhain
 15000;chemnitz-schönau
@@ -10679,7 +10587,6 @@
 15011;katzhütte
 15012;kaulsdorf (saale)
 15013;kavelstorf (kr rostock)
-15014;kemtau
 15015;kenz
 15016;kerkwitz
 15017;kiebitzhöhe
@@ -10689,8 +10596,6 @@
 15021;kläden (stendal)
 15022;klandorf
 15023;klasdorf glashütte
-15024;klebitz
-15025;kleeth
 15026;klein bünzow
 15027;kleinfurra
 15028;kleinjena
@@ -10703,7 +10608,6 @@
 15035;klitschmar
 15037;klosterbuch
 15038;klosterfelde
-15039;knautnaundorf
 15040;kodersdorf
 15041;kölleda
 15042;kölpinsee
@@ -10721,7 +10625,6 @@
 15054;kratzeburg
 15055;kremmen
 15056;krensitz
-15057;kretscham-rothensehma
 15058;krippen
 15059;krölpa-ranis
 15060;kröpelin
@@ -10730,19 +10633,11 @@
 15064;krumpa
 15065;kubschütz
 15066;kühren
-15067;kuhbier
-15068;kummerow (stralsund)
 15069;kummersdorf (storkow)
-15070;kurort jonsdorf
-15071;kurort jonsdorf hst
-15072;kurort oberwiesenthal
-15073;kurort oybin
-15074;kurort oybin-niederdorf
 15075;kurort rathen
 15076;kyhna
 15077;kyritz
 15078;laage (meckl)
-15079;laaske
 15080;lampertswalde
 15081;lancken
 15082;landsberg (halle/saale)
@@ -10789,7 +10684,6 @@
 15124;leuthen (cottbus)
 15125;lichtenberg (erzgeb)
 15126;rostock-lichtenhagen
-15127;lichtenhain an der bergbahn
 15128;lichtenstein (sachs)
 15129;lichtentanne (sachs)
 15130;lichtentanne (thür)
@@ -10801,9 +10695,7 @@
 15136;lindenberg (mark)
 15137;lindow (mark)
 15138;lobstädt
-15139;lößnitz ob bf
 15140;lößnitz unt bf
-15141;lößnitzgrund
 15142;lohmen
 15143;loitsch-hohenleuben
 15144;lottschesee
@@ -10813,14 +10705,12 @@
 15148;lüblow (meckl)
 15149;lübs (magdeburg)
 15150;lübstorf
-15151;lübz
 15152;lüdersdorf (meckl)
 15153;lüssow (meckl)
 15154;rostock-lütten klein
 15155;lützow
 15156;lutherstadt eisleben
 15157;lutherstadt wittenberg altstadt
-15158;lutherstadt wittenberg west
 15159;lutherstadt wittenb-piesteritz
 15160;machern (sachs)
 15161;leipzig-lützschena
@@ -10830,8 +10720,6 @@
 15165;magdeburg sudenburg
 15166;mahlwinkel
 15167;malchow (meckl)
-15168;malter
-15169;mansfeld (südharz)
 15170;marienberg (sachs)
 15171;marke
 15172;markkleeberg
@@ -10855,10 +10743,8 @@
 15190;mellingen (thür)
 15191;mengersgereuth-hämmern
 15192;mengersgereuth-hämmern ost
-15193;merseburg elisabethhöhe
 15194;merseburg bergmannsring
 15195;cottbus-merzdorf
-15196;meßdorf
 15197;leipzig völkerschlachtdenkmal
 15198;meuselbach-schwarzmühle
 15199;meyenburg
@@ -10866,12 +10752,9 @@
 15202;miesterhorst
 15203;miltern
 15204;leipzig-miltitz
-15205;miltitz-roitzschen
 15206;miltzow
-15207;milzau
 15208;mirow
 15209;mistorf
-15210;mittelndorf
 15211;mitteloelsnitz
 15212;mittelschmalkalden
 15213;mittweida
@@ -10884,7 +10767,6 @@
 15220;möringen (altm)
 15221;möser
 15222;moidentin
-15223;moritzburg
 15224;mosel
 15225;mücheln (geiseltal)
 15227;mücheln (geiseltal) stadt
@@ -10913,7 +10795,6 @@
 15250;neu wokern
 15251;neubukow
 15252;artern
-15253;neudorf (erzgeb)
 15254;neue schenke
 15255;teichland
 15256;neuhaus-igelshieb
@@ -10944,12 +10825,9 @@
 15281;gernrode-niederorschel
 15282;niederpöllnitz
 15283;niedersachswerfen
-15284;niederschlag
 15285;niederschlottwitz
 15286;niederschmalkalden
-15287;niederzwönitz
 15288;niederspier
-15289;niederstriegis
 15290;niedertrebra
 15291;niederwartha
 15292;niederwillingen
@@ -10963,7 +10841,6 @@
 15300;nossentin
 15301;nünchritz
 15302;obergrunstedt
-15303;oberhof (thür)
 15304;oberholz
 15305;oberlauscha
 15306;oberlichtenau
@@ -10975,7 +10852,6 @@
 15312;obersdorf
 15313;obervogelgesang
 15314;oberweimar
-15315;oberweißbach-deesbach
 15316;ochtmersleben
 15317;oderin
 15318;oederan
@@ -10986,8 +10862,6 @@
 15323;oertzenhof
 15324;olbernhau
 15325;olbernhau-grünthal
-15326;olbersdorf niederdorf
-15327;olbersdorf oberdorf
 15328;olbersleben-ellersleben
 15329;oppurg
 15330;ortrand
@@ -11000,9 +10874,6 @@
 15337;rostock-torfbrücke
 15338;graal-müritz
 15339;graal-müritz koppelweg
-15340;ostseebad kühlungsborn mitte
-15341;ostseebad kühlungsborn ost
-15342;ostseebad kühlungsborn west
 15343;ottendorf (mittweida)
 15344;ottendorf-okrilla hp
 15345;ottendorf-okrilla nord
@@ -11015,10 +10886,8 @@
 15352;parkentin
 15353;pasewalk ost
 15354;passow (uckermark)
-15355;passow (meckl)
 15356;paulinenaue
 15357;paulinzella
-15358;pausa
 15359;peenemünde
 15360;peißen
 15361;peitz ost
@@ -11028,7 +10897,6 @@
 15366;petershain
 15367;petersroda
 15368;pfaffenhain
-15369;philippshagen
 15370;pillgram
 15371;pinnow (uckermark)
 15372;pirk
@@ -11036,7 +10904,6 @@
 15374;pirna-copitz nord
 15375;plate (meckl)
 15376;plauen (vogtl) west
-15377;plauen (v) zellwolle
 15378;plessa
 15379;plüschow
 15380;pölchow
@@ -11046,7 +10913,6 @@
 15384;pommritz
 15385;porschdorf (pirna)
 15386;porstendorf
-15387;posewald
 15388;premnitz nord
 15389;premnitz zentrum
 15390;pretzier (altm)
@@ -11061,17 +10927,12 @@
 15399;prora
 15400;prora ost
 15401;pulsnitz
-15402;putlitz
 15403;putzkau
-15404;quedlinburg-quarmbeck
-15405;rabenau
-15406;rackith (elbe)
 15407;rackwitz (leipzig)
 15408;raddusch
 15409;radeberg
 15410;radebeul-weintraube
 15411;radebeul-zitzschewig
-15412;radeburg
 15413;wustrau-radensleben
 15414;radis
 15415;rätzlingen
@@ -11134,7 +10995,6 @@
 15476;sandhagen bei bad doberan
 15477;sanitz (b rostock)
 15478;sarnow
-15479;schafstädt
 15480;schalkau
 15481;scharfenstein
 15482;schalkau mitte
@@ -11162,7 +11022,6 @@
 15504;schönebeck-bad salzelmen
 15505;schöneck (vogtl)
 15506;schönerlinde
-15507;schönfließ (mark) dorf
 15508;schönow (angerm)
 15509;schönstedt
 15510;schönwalde (spreewald)
@@ -11195,16 +11054,11 @@
 15537;seehausen (altm)
 15538;seehausen (uckermark)
 15539;seelow (mark)
-15540;seelvitz
 15541;seerhausen
 15542;sehma
-15543;seifersdorf
 15544;seifhennersdorf
 15545;seitschen
-15546;sellin (rügen) ost
 15547;seltendorf
-15548;serams
-15549;siebenbrunn
 15550;silberhausen
 15551;silberstraße
 15552;singen (thür)
@@ -11217,7 +11071,6 @@
 15559;sonneberg (thür) nord
 15560;sonneberg (thür) ost
 15561;sonneberg (thür) west
-15562;spechtritz
 15563;sponholz
 15564;spornitz
 15565;berlin-staaken
@@ -11276,14 +11129,11 @@
 15619;trassenmoor
 15620;trebbin
 15621;treben-lehma
-15622;trebitz (elbe)
-15623;trebitz (könnern)
 15624;trebnitz (mark)
 15625;treuen
 15626;treuenbrietzen
 15627;treuenbrietzen süd
 15628;triebes
-15629;tromsdorf
 15630;ueckermünde stadthafen
 15631;uchtspringe
 15632;uder
@@ -11295,19 +11145,15 @@
 15638;ulbersdorf
 15639;unterloquitz
 15640;untermaßfeld
-15641;unterneudorf
 15642;unterwellenborn
-15643;unterwiesenthal
 15644;utzedel
 15645;vachdorf
 15646;vahldorf
-15647;vatterode
 15648;vehlefanz
 15649;veilsdorf
 15650;velten (mark)
 15651;ventschow
 15652;vetschau
-15653;vierenstraße
 15654;viernau
 15655;vieselbach
 15656;vinzelberg
@@ -11345,7 +11191,6 @@
 15688;weisen
 15689;weißandt-gölzau
 15690;weißenfels west
-15691;weißes roß
 15692;weimar west
 15693;weinböhla hp
 15694;weixdorf
@@ -11370,7 +11215,6 @@
 15713;wilmersdorf (angerm)
 15714;wingerode
 15715;wipperdorf
-15716;wippra
 15717;wittenhagen
 15718;wittgensdorf mitte
 15719;witzschdorf
@@ -11414,12 +11258,8 @@
 15757;zeutsch
 15758;zielitz
 15759;ziltendorf
-15760;zittau hp
-15761;zittau süd
-15762;zittau vorstadt
 15763;zoblitz
 15764;zöberitz
-15765;zöblitz-pobershau
 15766;zörnigall
 15767;zschaitz
 15768;zscherben
@@ -11442,14 +11282,12 @@
 15786;magdeburg herrenkrug
 15787;magdeburg-buckau
 15788;niederdorf (erzgeb)
-15789;plauen (v) unt bf
 15790;schönebeck-felgeleben
 15791;beelitz-heilstätten
 15792;beelitz stadt
 15793;bernau (b berlin)
 15794;böhlen (leipzig)
 15795;brieselang
-15796;buna werke
 15797;camburg (saale)
 15798;dresden-friedrichstadt
 15799;dresden-plauen
@@ -11465,44 +11303,9 @@
 15809;radebeul-naundorf
 15810;seddin
 15811;niesky
-15812;teufelsmühle
-15813;beuchow
 15814;hörschel hp
 15815;herleshausen hp
-15816;albrechtshaus
-15817;alexisbad
-15818;benneckenstein
-15819;birkenmoor
-15820;brocken
-15821;drahtzug
-15822;drei annen hohne
-15823;eisfelder talmühle
-15824;elend
-15825;friedrichshöhe
-15826;güntersberge
-15827;harzgerode
-15828;hasselfelde
-15829;ilfeld
-15830;mägdesprung
-15831;netzkater
-15833;nordhausen-altentor
-15834;nordhausen-krimderode
 15835;nordhausen nord
-15836;osterteich
-15837;schierke
-15838;silberhütte ne
-15839;sorge
-15840;steinerne renne
-15841;sternhaus-haferfeld
-15842;sternhaus-ramberg
-15843;stiege
-15844;straßberg (harz)
-15845;tiefenbachmühle
-15846;wernigerode-hasserode
-15847;wernigerode-kirchstraße
-15848;wernigerode westerntor
-15849;sophienhof
-15850;kraslice (grenze)
 15851;holzhau skilift
 15852;berthelsdorf (erzgebirge) ort
 15854;lauterbach (rügen)
@@ -11531,12 +11334,6 @@
 15877;chemnitz-altchemnitz
 15878;klaffenbach hp
 15879;hohndorf mitte
-15880;altdorf (niederbay)
-15881;pfettrach
-15882;neuhausen (b landshut)
-15884;endingen (württ)
-15885;erzingen (württ)
-15886;dotternhausen-dormettingen
 15889;birkenstein
 15890;frankfurt (m) flughafen regionalbf
 15891;heidenheim voithwerk
@@ -11547,7 +11344,6 @@
 15896;diedelsheim
 15899;hummelberg
 15901;burladingen west
-15902;basdahl kluste
 15903;st augustin markt
 15907;königswinter fähre
 15909;list (sylt)
@@ -11579,12 +11375,8 @@
 15947;wössingen ost
 15950;alveslohe
 15952;bonn bertha-von-suttner-platz
-15955;ostersode
 15956;hütten
 15957;münchingen rührberg
-15961;albisheim (pfrimm)
-15963;göllheim-dreisen
-15964;sellin (rügen) west
 15972;brötzingen sandweg
 15973;brötzingen wohnlichstraße
 15974;neuenbürg (enz) freibad
@@ -11596,62 +11388,34 @@
 15980;bad wildbad uhlandplatz
 15981;bad wildbad kurpark
 15982;königstein reißiger platz
-15985;obervogelgesang abzweigung ebenheit
-15987;bad imnau
 15991;brohl (brohltalbahn)
-15992;burgbrohl
-15995;delmenhorst-süd
 15996;dinkelsbühl bf
-15997;dünsen dhe
-15998;engeln
 16000;gammertingen europastraße
 16001;fremdingen bf
 16004;gomadingen
-16006;groß ippener dhe
-16007;groß mackenstedt dhe
 16008;haidkapelle
-16009;haigerloch
-16010;hammerstein
-16011;harpstedt dhe
-16014;heiligenrode dhe
-16016;kandern
-16017;kirchseelte dhe
 16018;kleinengstingen
 16019;kohlstetten
 16022;mägerkingen
 16023;marbach (b münsingen)
 16024;marienheide
-16026;mühringen
 16027;münsingen
-16028;niederzissen
-16029;oberzissen
-16030;oettingen (bay)
 16031;offenhausen
-16032;rangendingen
-16035;stetten (haigerloch)
 16037;trochtelfingen (hohenz)
 16038;viechtach
 16039;wassertrüdingen
 16042;altingen (württ)
 16043;gumpenried-asbach
-16044;feuchtwangen bf
 16045;gültstein
-16046;wilburgstetten bf
 16047;ostrach bahnhof
 16048;pfullendorf
 16050;ruhmannsfelden
 16051;patersdorf
 16052;teisnach
-16053;böbrach
-16054;nußberg-schönau
 16056;schnitzmühle
 16057;metzingen-neuhausen
 16058;dettingen-mitte
 16059;bad urach wasserfall
-16065;naundorf (b oschatz)
-16066;schweta gasth
-16068;mügeln bf
-16070;altmügeln
 16072;aachen schanz
 16092;mesch neue mühle
 16102;bonn-vilich-rheindorf adelheidisstraße
@@ -11664,22 +11428,14 @@
 16120;st augustin ort
 16121;st augustin kloster
 16122;st augustin-mülldorf
-16127;ilfeld neanderklinik
 16130;münchen flughafen terminal 2
 16131;heilbronn finanzamt
 16132;heilbronn friedensplatz
 16133;heilbronn pfühlpark
-16135;halfing
-16136;amerang
-16137;obing
-16144;schierling
-16145;langquaid (b eggmühl)
-16151;bad schmiedeberg kurzentrum
 16152;mücka schule
 16153;niesky ödernitzer straße
 16154;uhyst gaststätte
 16155;lohsa ziegelteich
-16162;escherndorf
 16166;söllingen kapellenstraße
 16168;werdum feuerwehr
 16174;schmiechen albbahn
@@ -11688,17 +11444,10 @@
 16177;schwaigern (württ) west
 16178;leingarten mitte
 16187;chemnitz friedrichstraße
-16208;brenk
-16209;gondelsheim marktplatz
-16214;aindorf
-16216;schömberg stausee
-16217;pittenhart
 16222;zielitz ort
 16226;niebüll neg
-16270;treis sf
 16281;alzenau burg
 16282;neckarbischofsheim nord
-16284;dagebüll kirche
 16285;haselbrunn
 16286;nenzingen
 16287;stahringen
@@ -11708,13 +11457,6 @@
 16291;hallig langeneß
 16293;pellworm
 16302;linkenheim rathaus
-16304;deezbüll
-16305;moorbekhalle
-16306;friedrichsgabe
-16307;haslohfurth
-16308;meeschensee
-16309;norderstedt mitte
-16310;quickborner straße
 16314;hochstetten grenzstraße
 16315;karlsruhe albtalbf
 16318;spielberg
@@ -11737,11 +11479,8 @@
 16338;ersingen west
 16342;hannover-nordstadt
 16343;hannover-ledeburg
-16344;barabein
-16346;sulmingen
 16348;borkum reede
 16349;busenberg-schindhard
-16350;maselheim
 16362;köln-blumenberg
 16363;wörth (rhein) bürgerpark
 16364;wörth (rhein) bienwaldhalle
@@ -11750,7 +11489,6 @@
 16368;hinterweidenthal ost
 16369;unteröwisheim martin-luther-straße
 16370;dreieich-weibelfeld
-16371;vatteröder teich
 16372;hörnum mitte
 16373;hörnum nord
 16374;hörnum steintal
@@ -11787,7 +11525,6 @@
 16473;albrechtshof
 16476;potsdam-babelsberg
 16477;bergfelde (b berlin)
-16478;gronau (westf) gr
 16479;birkengrund
 16480;birkenwerder (b berlin)
 16481;borgsdorf
@@ -11818,8 +11555,6 @@
 16507;mahlow
 16508;mühlenbeck-mönchmühle
 16509;todtnau
-16510;ilfeld schreiberwiese
-16513;ilfeld bad
 16514;neuendorf (hiddensee)
 16517;neuenhagen (berlin)
 16524;petershagen nord
@@ -11856,8 +11591,6 @@
 16564;keitum parkplatz west
 16568;kampen (sylt) hamburger kinderheim
 16569;vogelkoje (sylt)
-16575;tinnum (sylt) culemeyerstraße
-16576;westerland (sylt) drk
 16577;bruchsal schloßgarten
 16578;bruchsal stegwiesen
 16579;ubstadt salzbrunnenstr
@@ -11882,7 +11615,6 @@
 16601;kronberg süd
 16602;oberursel-stierstadt
 16603;wehrden
-16604;weingarten berg
 16605;maulbronn west
 16606;neuhaus am rennweg
 16607;berlin-schulzendorf
@@ -12015,11 +11747,8 @@
 16764;eschweiller
 16766;kassel
 16767;berlin flughafen tegel
-16771;dresden-neustadt gleis 10
 16781;nürnberg frankenstadion sonderbahnsteig
 16784;bensersiel ne
-16785;hildesheim gbf
-16786;stolberg (rheinl) gbf
 16789;ste-florine lycée claude favard
 16790;bantzenheim
 16793;bienville
@@ -12317,7 +12046,6 @@
 17679;terfens-weer
 17680;uderns im zillertal
 17681;volders-baumkirchen
-17683;bad kreckelmoos
 17684;braunau/inn
 17685;brixen im thale
 17686;graz ostbahnhof-messe
@@ -12342,7 +12070,6 @@
 17705;lähn
 17706;musau
 17707;pflach
-17708;schönbichl in tirol
 17709;ulrichsbrücke-füssen
 17710;graz köflacher bahnhof
 17711;graz webling
@@ -12984,13 +12711,8 @@
 18583;praha-smíchov
 18584;praha-vršovice
 18585;praha-dejvice
-18586;nove údolí
-18587;praha-bubeneč
 18588;praha-bubny
-18590;praha-strašnice zastávka
-18591;praha-zbraslav
 18595;alken st.
-18596;ålsgårde st.
 18597;arden st.
 18598;aulum st.
 18599;bedsted thy st.
@@ -13009,11 +12731,8 @@
 18612;brørup st.
 18613;bur st.
 18614;døstrup st. (sønderjylland)
-18615;dronningmølle st.
 18616;ejby st.
 18617;engesvang st.
-18618;firhøj st. (gilleleje)
-18619;fjellenstrup st.
 18620;frederikshavn st.
 18621;fruens bøge st.
 18622;gadstrup st.
@@ -13022,19 +12741,15 @@
 18625;give st.
 18626;glumsø st.
 18627;gørding st.
-18628;græsted st.
-18629;græsted syd st.
 18630;gråsten st.
 18631;gredstedbro st.
 18632;grenaa st.
-18633;grønnehave st. (helsingør)
 18634;guldager st.
 18635;hadsten st.
 18636;hammerum st.
 18637;haslev st.
 18638;havdrup st.
 18639;hee st.
-18640;hellebæk st.
 18641;herfølge st.
 18642;hinnerup st.
 18643;hjallese st.
@@ -13043,14 +12758,11 @@
 18646;hobro st.
 18647;højby fyn st.
 18648;højslev st.
-18649;højstrup st.
 18650;holbæk st.
 18651;holme-olstrup st.
 18652;holmstrup st.
 18653;holsted st.
 18654;hørdum st.
-18655;hornbæk st.
-18656;horneby sand st.
 18657;humlebæk st.
 18658;humlum st.
 18659;hurup thy st.
@@ -13060,20 +12772,15 @@
 18663;ikast st.
 18664;jelling st.
 18665;jyderup st.
-18666;kagerup st. (hillerød)
 18667;kalundborg st.
-18668;karinebæk st.
 18669;kauslunde st.
 18670;kibæk st.
-18671;kildekrog st.
 18672;klampenborg st.
 18673;kliplev st.
 18674;knabstrup st.
 18675;korsør st.
 18676;kværndrup st.
 18677;kvissel st.
-18678;kvistgaard st.
-18679;langerød st.
 18680;laven st.
 18681;lejre st.
 18682;lem st.
@@ -13081,9 +12788,6 @@
 18684;lundby st.
 18685;lyngs st.
 18686;ørestad st.
-18687;marienlyst st.
-18688;mårum st. (græsted-gilleleje)
-18689;mørdrup st.
 18690;mørkøv st.
 18691;nivå st.
 18692;nørre alslev st.
@@ -13091,7 +12795,6 @@
 18694;oddesund nord st.
 18695;ølby st.
 18696;ølgod st.
-18697;paarup st.
 18698;pederstrup st.
 18699;randers st.
 18700;regstrup st.
@@ -13106,8 +12809,6 @@
 18709;rødkærsbro st.
 18710;rudme st.
 18711;rungsted kyst st.
-18712;saltrup st.
-18713;saunte st.
 18714;sejstrup st.
 18715;sig st.
 18716;silkeborg st.
@@ -13115,17 +12816,13 @@
 18718;sjørring st.
 18719;skærbæk st.
 18720;skalbjerg st.
-18721;skibstrup st.
 18722;skive st.
 18723;skodsborg st.
 18724;skørping st.
 18725;slagelse st.
-18726;slotspavillonen st.
 18727;snedsted st.
-18728;søborg st. (gilleleje)
 18729;sønderborg st.
 18730;sorø st.
-18731;stæremosen st.
 18732;stenstrup st.
 18733;stenstrup syd st.
 18734;stoholm st.
@@ -13163,14 +12860,11 @@
 18766;vraa st.
 18767;ydby st.
 18768;nykøbing falster rtb. (bus)
-18769;gilleleje øst st.
 18770;birk centerpark st.
 18771;tårnby st.
 18772;ørestad st. (metro)
 18773;herning messecenter st.
 18774;esbjerg st.
-18775;fredensborg st.
-18776;gilleleje st.
 18777;herning st.
 18778;høje taastrup st.
 18779;holstebro st.
@@ -13204,10 +12898,7 @@
 18808;szeged
 18809;eger
 18810;budapest-ferencváros
-18811;angyalföld
-18812;üröm
 18813;györ-gyarvaros
-18814;obuda
 18815;ujszeged
 18816;vác
 18817;györ
@@ -13334,7 +13025,7 @@
 18945;helmond
 18946;heemskerk
 18947;’s-hertogenbosch oost
-18948;hilversum noord
+18948;hilversum media park
 18950;hoensbroek
 18951;hollandsche rading
 18952;holten
@@ -15247,7 +14938,7 @@
 20954;sevegliano
 20955;villazzano
 20956;tremestieri
-20957;vibo valentia pizzo
+20957;vibo valentia-pizzo
 20958;santo stefano di magra
 20959;sezzadio
 20960;tusa
@@ -16512,7 +16203,6 @@
 22383;salve-ruggiano
 22384;san lorenzo / st. lorenzen
 22385;san gennaro
-22386;milano porta garibaldi passante
 22387;napoli molo mergellina
 22388;ladispoli-cerveteri
 22389;sellia marina
@@ -16535,6 +16225,7 @@
 22408;fiorentina di piombino
 22409;favarotta
 22410;laives leifers
+22411;casal velino
 22412;campi salentino
 22413;benevento porta rufina
 22414;migliaro
@@ -16697,7 +16388,6 @@
 22606;minversheim rue principale
 22607;kastrup lufthavn st.
 22608;zürich hardbrücke
-22623;hahn flughafen terminal 2
 22626;budapest-kelenföld
 22627;klatovy
 22628;břeclav
@@ -16722,7 +16412,6 @@
 22982;entraigues-sur-la-sorgue
 22983;monteux
 23005;praha masarykovo n.
-23008;københavn ingerslevsgade
 23012;opole główne
 23018;auch hôpital
 23019;flughafen wien
@@ -16800,7 +16489,6 @@
 23118;torino dora gtt
 23119;versciaco elmo/vierschach helm
 23120;sorbello
-23121;viernheim bahnhof oeg
 23132;l’alpe d’huez
 23133;les deux alpes
 23134;nice pont michel
@@ -17081,7 +16769,6 @@
 23591;wiener neustadt hbf
 23596;erlangen busbahnhof
 23597;busa di vigonza
-23598;orehoved st.
 23599;paris porte maillot
 23609;wien rennweg
 23612;chomutov
@@ -20263,28 +19950,11 @@
 26832;saint-jean-de-luz
 26833;saint-gervais-les-bains
 26834;guadiana del caudillo
-26836;zadar autobusni kolodvor
-26837;biograd na moru autobusni kolodvor
-26838;vodice autobusni kolodvor
-26839;šibenik autobusni kolodvor
-26840;trogir autobusni kolodvor
-26841;split autobusni kolodvor
 26842;ptuj avtobusna postaja
 26843;varaždin autobusni kolodvor
 26844;koprivnica
-26845;djurdjevac autobusni kolodvor
-26846;virovitica autobusni kolodvor
-26847;slatina autobusni kolodvor
-26848;donji miholjac autobusni kolodvor
-26849;valpovo autobusni kolodvor
 26850;osijek
-26851;djakovo autobusni kolodvor
 26852;vinkovci autobusni kolodvor
-26853;rijeka autobusni kolodvor
-26854;opatija autobusni kolodvor
-26855;poreč autobusni kolodvor
-26856;rovinj autobusni kolodvor
-26857;pula autobusni kolodvor
 26860;osnabrück
 26861;heinsberg (rheinl)
 26862;wien
@@ -21038,7 +20708,6 @@
 27742;espergærde st.
 27743;farum st.
 27744;flintholm st.
-27745;skagen st. (frederikshavn)
 27746;frederikssund st.
 27747;friheden st.
 27748;fuglebakken st. (frederiksberg)
@@ -21514,6 +21183,8 @@
 28238;kecskemét
 28257;nagykanizsa
 28260;keszthely
+28293;vilnius
+28296;riga
 28298;skopje
 28300;as
 28302;moss
@@ -21828,7 +21499,6 @@
 29219;weng bei neumarkt
 29220;flughafen graz-feldkirchen
 29221;sopron
-29231;luckau busbahnhof
 29234;wien hbf (bahnsteige 1-2)
 29239;livorno
 29240;la spezia
@@ -21855,6 +21525,7 @@
 29261;bellaria igea marina
 29262;puy de dôme (panoramique des dômes)
 29263;château de chaumont-sur-loire
+29264;acciaroli
 29267;marina di camerota
 29276;zoo de beauval
 29277;château de chambord
@@ -21897,6 +21568,7 @@
 29320;lviv
 29321;mukacheve
 29322;uzhhorod
+29323;wrocław
 29325;kraków
 29326;chorzów
 29327;bonn un campus
@@ -26161,7 +25833,7 @@
 34273;piran
 34274;beograd airport
 34275;cento
-34276;verona airport
+34276;verona aeroporto
 34277;turin cuneo airport
 34278;salzburg airport
 34279;novo mesto
@@ -26469,8 +26141,6 @@
 34583;waldl bahnhof
 34584;diepoltsdorf bahnhof
 34585;burgeck bahnhof
-34586;schramberg
-34587;st. blasien busbahnhof
 34588;arco
 34589;bad hindelang
 34590;bardolino
@@ -26852,7 +26522,6 @@
 34989;ostuni via pola
 34990;otranto via papa giovanni paolo ii
 34991;palagiano
-34992;palinuro centro
 34993;palmariggi
 34994;parabita via san pasquale
 34995;patù
@@ -27205,7 +26874,7 @@
 35345;plocice
 35346;krvavice
 35347;ivanić grad
-35348;florence airport
+35348;firenze-peretola aeroporto
 35349;rabac
 35350;kremenchuk
 35351;poltava
@@ -29945,3 +29614,1289 @@
 38102;belmonte
 38103;duas igrejas (paredes)
 38104;viso del marqués
+38105;kiev boryspil airport
+38106;ciboure
+38107;st. andrä-wördern
+38108;nîmes pont du gard
+38109;bircza
+38110;borlänge
+38111;castiglione della pescaia
+38112;chłapowo
+38113;cisna
+38114;contrada foresta
+38116;czaplinek
+38117;czarna górna
+38118;czorsztyn
+38119;djurås
+38120;gołdap
+38121;grindsted
+38122;hedemora
+38123;hofors
+38124;hovmantorp
+38125;hörby
+38126;insjön
+38127;jastrzębia góra
+38128;karwia
+38129;kluszkowce
+38130;kosta
+38131;krościenko
+38132;krościenko nad dunajcem
+38133;kubova huť
+38134;kungsgården
+38135;lekenik
+38136;leksand
+38137;les herbiers (puy du fou)
+38138;lessebo
+38139;lidköping
+38140;loket u čechtic
+38141;longobucco
+38142;lutowiska
+38143;läggesta (mariefred)
+38144;nidzica
+38145;nová báňa
+38146;nybro
+38147;olecko
+38148;orrefors
+38149;rozewie
+38150;rättvik
+38151;sandviken
+38154;storvik
+38155;strzelce krajeńskie
+38156;szczawnica
+38157;tursi
+38158;ustrzyki dolne
+38159;ustrzyki górne
+38160;valbo
+38161;vareš
+38162;vimperk
+38163;wetlina
+38164;wyszogród
+38165;zlaté moravce
+38166;čkyně
+38167;łeba
+38168;łowicz
+38169;žarnovica
+38170;a mezquita
+38171;acquaformosa
+38172;almada
+38173;apollinara
+38174;baske ostarije
+38175;berinovac
+38176;bibbona-bolgheri
+38177;billund airport
+38178;billund legoland
+38179;biorine
+38180;bisignano (viale roma)
+38181;bivio acri (san demetrio)
+38182;bivio apollinara
+38183;bivio caloveto
+38184;bivio cocozzello
+38185;bivio crosia
+38186;bivio spezzano albanese
+38187;bivio vaccarizzo
+38188;breza
+38189;bromolla
+38190;brtnice
+38191;budimiri
+38192;calafat
+38193;caloveto
+38194;camping portofelice
+38195;camping san francesco
+38196;canet-en-roussillon
+38197;carnon-plage
+38198;cava di melis
+38199;chocholow
+38200;cista velika
+38201;clausthal-zellerfeld
+38202;contrada frasso
+38203;cropalati
+38204;destro
+38205;duna rossa
+38206;francavilla sul sinni
+38207;fraz destro
+38208;grubine
+38209;hlinik nad hronom
+38210;horni vltavice
+38211;izola
+38212;kljenovac
+38213;kop afsluitdijk
+38214;konarovce
+38215;koscielisko
+38216;krasiczyn
+38217;krivodol
+38218;la palmyre
+38219;latronico
+38220;lindved
+38221;ljuba
+38222;ludanice
+38223;lungro
+38224;modric
+38225;montegiordano scalo
+38226;mrnjavci
+38227;munster / osnabruck airport
+38228;nova siri
+38229;nowa wies
+38230;osno lubuskie
+38231;palavas-les-flots
+38232;piragineti (scuola)
+38233;piragineti (tabacchi)
+38234;pisak
+38235;podostra
+38236;podstrana
+38237;polanczyk
+38238;pomezia
+38239;preselany
+38240;prolozac
+38241;pra delle torri
+38242;san donato di ninea
+38243;san marco argentano
+38244;san sosti
+38245;sant agata d esaro
+38246;sc acri-bisignano
+38247;segheria cupone
+38248;solina
+38249;sotin
+38250;spar
+38251;stobrec
+38252;studenci
+38253;susanj cesaricki
+38254;sv rose-luzzi (emmezeta)
+38255;sv torano
+38256;sztum
+38257;tanum
+38258;torano castello
+38259;tortora
+38260;turjaci
+38261;ugljane
+38262;upplands vasby
+38263;villapiana
+38264;volyne
+38265;vycapy
+38266;wieliczka
+38267;zagorz
+38268;altomonte (fondovalle)
+38269;amendolara
+38270;arma di taggia
+38271;bivio caraffa
+38272;bivio castrovillari
+38273;bivio luzzi
+38274;bivio silvana mansio
+38275;brela gornja
+38276;briševo
+38277;brnaze
+38278;caporice
+38279;contrada amica
+38280;corigliano (margherita)
+38281;diamante
+38282;dubci
+38283;gladsaxe
+38284;glavina donja
+38285;gornji kneginec
+38286;hohnstein
+38287;kamenmost
+38288;kaniža gospićka
+38289;klis
+38290;korswandt
+38291;krneza
+38292;mačvanska mitrovica
+38293;medyka
+38294;miočići
+38295;mohovo
+38296;novoselo trnovačko
+38297;ogliastretti
+38298;podvršje
+38299;potpoletnica
+38300;prpusa
+38301;ribarica
+38302;roggiano gravina
+38303;rtina
+38304;ruskamen
+38305;sabunike
+38306;santa maria del cedro
+38307;spezzano di fiorano
+38308;szczecin lotnisko goleniów
+38309;velika gorica
+38310;vidovac cesarički
+38311;villa frassa (incrocio)
+38312;vlašići
+38313;zašovice
+38314;zemunik donji
+38315;świecie
+38316;jupiter
+38317;saturn
+38318;winnyzja
+38319;tallinn airport
+38320;sovetsk
+38321;luhamaa
+38322;debelo brdo
+38323;čatež ob savi
+38324;zapponeta
+38325;baranovichi
+38326;piskorevci
+38327;la villa
+38328;corvara
+38329;colfosco
+38330;fiames
+38331;cimabanche
+38332;caciulata
+38333;babtai
+38334;krosna
+38335;laukuva
+38336;balbieriskis
+38337;birzine
+38338;tytuvenai
+38339;voiteg
+38340;thasos
+38341;lefkada
+38342;calimanesti
+38343;corfu
+38344;nydri
+38345;zakynthos
+38346;paralia
+38347;eforie nord
+38348;neptun
+38349;venus
+38350;vama veche
+38351;urziceni
+38352;busteni
+38353;polychrono
+38354;amaliada
+38355;andravida
+38356;gastouni
+38357;azuga
+38358;rasnov
+38359;ariogala
+38360;rietavas
+38361;seirijai
+38362;aukstadvaris
+38363;cinkiskiai
+38364;leipalingis
+38365;jieznas
+38366;deguciai
+38367;perloja
+38368;merkine
+38369;stakliskes
+38370;senoji varena
+38371;zelva
+38372;ammoudia
+38373;neos pirgos
+38374;kallithea
+38375;kriopighi
+38376;chaniotis
+38377;bran
+38378;pefkochori
+38379;virolahti
+38380;verbyliskes
+38381;sventupe
+38382;babriskes
+38383;prebold
+38384;trbovlje
+38385;hrasta
+38386;siluva
+38387;veisiejai
+38388;lom
+38389;yambol
+38390;debelt
+38391;zornitsa
+38392;irechekovo
+38393;kalchevo
+38394;nedyalsko
+38395;novoseltsi
+38396;sredets
+38397;tamarino
+38398;chargan
+38399;timisoara airport
+38400;boyanovo
+38401;skara
+38402;zimnitsa
+38403;palma
+38404;el arenal
+38405;zelena morava
+38406;prolaz
+38407;gurkovo
+38408;elhovo
+38409;knjazhevo
+38410;kukorevo
+38411;okop
+38412;levka
+38413;pastrogor
+38414;studena
+38415;straldzha
+38416;golyam manastir
+38417;krumovo
+38418;roza
+38419;topolovgrad
+38420;radovets
+38421;ustrem
+38422;general inzovo
+38423;agnone cilento
+38424;nove hrady
+38425;chvalovice
+38426;ekzarh antimovo
+38427;zhitosvyat
+38428;bobolice
+38429;chodziez
+38430;jaworzno
+38431;kolczyglowy
+38432;krzeszowice
+38433;oborniki
+38434;szczyrk
+38435;velka trna
+38436;mala trna
+38437;wisla
+38438;bolyarovo
+38439;stefan karadzhovo
+38440;manastirsko
+38441;tsar kaloyan
+38442;calvia
+38443;magaluf
+38444;torrenova
+38445;can pastilla
+38446;skopje airport
+38447;paternò
+38448;valsinni
+38449;san fili
+38450;arandilla
+38451;arauzo de miel
+38452;arauzo de torre
+38453;trecchina
+38454;baillo
+38455;barcarrota
+38456;barcial del barco
+38457;barreiros
+38458;benia de onís
+38459;boeza
+38460;confrides
+38461;corporales
+38462;cubillas de arbás
+38463;el cubo de tierra del vino
+38464;folgueras
+38465;hondón de las nieves
+38466;hontoria de valdearados
+38467;iruela
+38468;loro
+38469;mansilla del páramo
+38470;maraña
+38471;morales de rey
+38472;morales del vino
+38473;nogarejas
+38474;penáguila
+38475;portilla de la reina
+38476;quintanilla de yuso
+38477;salvatierra de esca
+38478;santibáñez de rueda
+38479;torneros de jamuz
+38480;truchas
+38481;villamor de los escuderos
+38482;villar del monte
+38483;villaverde del río
+38484;villaveza del agua
+38485;zocueca
+38486;alicun
+38487;alquife
+38488;ballota
+38489;cabañes de esgueva
+38490;calicasas
+38491;camposdelante
+38492;cascantes
+38493;cremenes
+38494;cuevas del sil
+38495;deifontes
+38496;guisatecha
+38497;gutar
+38498;el pilar
+38499;escuredo
+38500;haza del lino
+38501;figarol
+38502;jabares de los oteros
+38503;llamas de rueda
+38504;madrigalejo del monte
+38505;palacios de rueda
+38506;milanos
+38507;palacios del sil
+38508;punta arenas
+38509;quintanilla del monte
+38510;rio de baza
+38511;salinas
+38512;tabladillo
+38513;san pedro bercianos
+38514;san salvador
+38515;sanaüja
+38516;santa cruz del comercio
+38517;villapadierna
+38518;canpons
+38519;cortijo de la juana
+38520;enlace oblanca
+38521;el puerto
+38522;ibiza airport
+38523;santiago de compostela airport
+38524;caín de valdeón
+38525;morla de la valdería
+38526;rodriguillo
+38527;vega de cien
+38528;vegafriosa
+38529;aguasmestas de omaña
+38530;puerta arenas
+38531;barcena villaviciosa
+38532;campo camara empalme
+38533;chilluevar empalme
+38534;valdecazorla
+38535;venta de velez
+38536;venta del gallo
+38537;espluvins
+38538;la peza
+38539;molino atocha
+38540;pristina airport
+38541;porto sao bento
+38542;graz liebenau murpark bahnhof
+38543;graz don bosco bahnhof
+38544;helsinki airport
+38545;desertines
+38546;san cassiano (bolzano)
+38547;parga
+38548;srem
+38549;giardini naxos
+38550;agira
+38551;zaton doli
+38552;srem
+38553;velina
+38554;case del conte
+38555;castellabate
+38556;bivio acquavella
+38557;bara
+38558;le pontet
+38559;calda
+38560;case perrone
+38561;rivello
+38562;scarcelli
+38563;grisolia
+38564;sparvasile
+38565;scalea
+38566;praia a mare
+38567;marina cosenza
+38568;mougins
+38569;biron
+38570;bracigliano
+38571;siano
+38572;beli
+38573;tutrakan
+38574;kapciamiestis
+38575;jameln
+38576;kobryn
+38577;slonim
+38578;plonsk
+38579;tomaszow mazowiecki
+38580;turek
+38581;südbrookmerland
+38582;briceni
+38583;orhei
+38584;błonie
+38585;marysinek
+38586;glowno
+38587;sepolno krajenskie
+38588;sochaczew
+38589;kielcza
+38590;kowale oleckie
+38591;krupski młyn
+38592;narol
+38593;okmiany
+38594;podgaje
+38595;staszow
+38596;stawiski
+38597;szczuczyn
+38598;trzebnica
+38599;tworóg
+38600;kryvyi rih
+38601;marhanets
+38602;gelezunai
+38603;popovo
+38604;bakhmut
+38605;berdyansk
+38606;bershad
+38607;bila tserkva
+38608;bolekhiv
+38609;borschiv
+38610;broshniv-osada
+38611;burshtyn
+38612;chervonohrad
+38613;chudniv
+38614;chuhuiv
+38615;deliatyn
+38616;marsannay la côte
+38617;druzhkivka
+38618;dubno
+38619;dunaivtsi
+38620;haisyn
+38621;horodysche
+38622;izium
+38623;yahotyn
+38624;yarmolyntsi
+38625;kopychyntsi
+38626;korsun-shevchenkivskyi
+38627;kostiantynivka
+38628;kramatorsk
+38629;krasnohrad
+38630;kremenets
+38631;lityn
+38632;liuboml
+38633;lysychansk
+38634;okonsk
+38635;mariupol
+38636;mohyliv-podilskyi
+38637;nadvirna
+38638;netishyn
+38639;nikopol
+38640;novovolynsk
+38641;olevsk
+38642;pereyaslav-khmelnytskyi
+38643;pervomaisk
+38644;pidvolochysk
+38645;polichno
+38646;proszenie
+38647;ratne
+38648;rokytne
+38649;villingen-schwenningen
+38650;sieverodonetsk
+38651;skadovsk
+38652;slavuta
+38653;slovyansk
+38654;smila
+38655;starokostiantyniv
+38656;stebnyk
+38657;shepetivka
+38658;terebovlia
+38659;trostianets
+38660;tulchyn
+38661;vaŭkavysk
+38662;verkhnodniprovsk
+38663;voznesensk
+38664;yavoriv
+38665;yuzhnoukrainsk
+38666;jdrzychowice
+38667;zhovkva
+38668;zolochiv
+38669;zolotonosha
+38670;zvenyhorodka
+38671;karcemos
+38672;islauzas
+38673;glubczyce
+38674;emilianow
+38675;slivno ravno
+38676;dubrava
+38677;vrhi pregradski
+38678;kaufungen
+38679;špiljani
+38680;veselinovo
+38681;marina di fuscaldo
+38682;silagalys
+38683;garliava
+38684;skirsnemunė
+38685;verstaminai
+38686;pikelionys
+38687;madrid moncloa
+38690;loudéac
+38691;lancy-bachet
+38692;genève-champel
+38698;vnukovo airport train station
+38699;moscow domodedovo airport train station
+38700;moscow sheremetyevo airport train station
+38701;cormano-cusano milanino
+38702;casablanca
+38703;fès
+38704;kenitra
+38705;marrakech
+38706;meknès
+38707;rabat
+38708;sidi kacem
+38709;tanger
+38710;taza
+38711;stockholm
+38712;malmö
+38713;chop
+38714;zhmerynka
+38715;podilsk
+38716;konotop pass
+38717;vapnjarka
+38718;pidzamche
+38719;poltava-kyiv
+38720;berdychiv
+38721;zdolbuniv
+38722;hrebinka
+38723;myronivka
+38724;kalinowka 1
+38725;rudnytsia
+38726;krasne (ua)
+38727;derashnja
+38728;korsun
+38729;pokrovsk
+38730;slotschew
+38731;sumi
+38732;wolotschisk
+38733;vynohradiv-zak
+38734;darnicsa
+38735;kazatin 1
+38736;kalinovka
+38737;brzeg dolny
+38738;terespol
+38739;choszczno
+38740;czerwiensk
+38741;dzialdowo
+38742;gryfino
+38743;korsze
+38744;lobez
+38745;laskowice pomorskie
+38746;strzelce krajenskie wschod
+38747;swidwin
+38748;trzcianka
+38749;wolow
+38750;ploty
+38751;scinawa
+38752;rudna gwizdanow
+38753;krakow plaszow
+38754;tuplice
+38755;kamien pomorski
+38756;dabrowa gornicza
+38757;witnica
+38758;skierniewice
+38759;dabroszyn
+38760;kamien maly
+38761;nowiny wielkie
+38762;morag
+38763;paslek
+38764;bieniow
+38765;brzeszcze jawiszowi
+38766;buchalow
+38767;budachow
+38768;bytnica
+38769;chalupki
+38770;chojna
+38771;chojnow
+38772;dobiegniew
+38773;drawsko pomorskie
+38774;gadkow wielki
+38775;jagodzin
+38776;jerzmanice lubuskie
+38777;kalisz pomorski
+38778;kuznia raciborska
+38779;lubanice
+38780;lodz widzew
+38781;miedzyrzec podl
+38782;miekinia
+38783;malczyce
+38784;nowe drezdenko
+38785;nowy tomysl
+38786;okraglica
+38787;olkusz
+38788;opalenica
+38789;pliszka
+38790;przylep
+38791;ruszow
+38792;stary wegliniec
+38793;toporow
+38794;torzym
+38795;tuplice debinka
+38796;wielen polnocny
+38797;zbaszyn
+38798;zlocieniec
+38799;wloszczowa polnoc
+38800;szczecin
+38801;gdynia
+38802;horni dvoriste
+38803;as (cz)
+38804;nyrsko
+38805;hojsova straz
+38806;kdyne
+38807;konstantinovy lazne
+38808;kynsperk nad ohri
+38809;praha-cakovice
+38810;rohatec
+38811;sebuzin
+38812;valtice
+38813;zajeci
+38814;papa (h)
+38815;csorna
+38816;murakeresztur
+38817;ajka
+38818;tapolca
+38819;kaposvar
+38820;szentlörinc
+38821;dunaujvaros
+38822;fülöpszallas
+38823;hodmezövasarhely
+38824;kisujszallas
+38825;körmend
+38826;ketegyhaza
+38827;szentes
+38828;veszpremvarsany
+38829;zirc
+38830;mohacs
+38831;alsorönök
+38832;balassagyarmat
+38833;barcs
+38834;biatorbagy
+38835;bösarkany
+38836;budaörs
+38837;csakanydoroszlo
+38838;csongrad
+38839;debrecen-kondoros
+38840;dombovar also
+38841;dorog
+38842;dunakeszi-gyartelep
+38843;egyhazasradoc
+38844;esztergom
+38845;felsögöd
+38846;gyöngyös
+38847;györszentivan
+38848;hansagliget
+38849;kimle-karolyhaza
+38850;kony
+38851;köszeg
+38852;lébény-mosonszentmiklos
+38853;level
+38854;lövö
+38855;mezöhegyes
+38856;mosonszolnok
+38857;oroshaza
+38858;oroszlany
+38859;ozd
+38860;ötteveny
+38861;pannonhalma
+38862;pinnye
+38863;porpac
+38864;ratot
+38865;repcelak
+38866;soltvadkert
+38867;sopronkövesd
+38868;sümeg
+38869;szabadszallas
+38870;szar
+38871;szarliget
+38872;szarvas
+38873;szazhalombatta
+38874;szekszard
+38875;szigetvar
+38876;szombathely-szölös
+38877;törökbalint
+38878;törökszentmiklos
+38879;vasvar
+38880;vitnyed-csermajor
+38881;zalaszentmihaly-pac
+38882;herceghalom
+38883;janossomorja
+38884;josvafö-aggtelek
+38885;hortobágy
+38886;jak-balogunyom
+38887;horvatnadalja
+38888;komarno
+38889;nove zamky
+38890;puchov
+38891;trencianska tepla
+38892;brezno
+38893;filakovo
+38894;hronska dubrava
+38895;jesenske
+38896;kozarovce
+38897;kralovany
+38898;leopoldov
+38899;surany
+38900;luzianky
+38901;devinska nova ves
+38902;horna stubna
+38903;borsky mikulas
+38904;gbely
+38905;holic nad moravou
+38906;chynorany
+38907;kapusany pri presove
+38908;malacky
+38909;medzilaborce
+38910;michalany
+38911;plavecky stvrtok
+38912;podhajska
+38913;senica nad myjavou
+38914;skalica na slovensku
+38915;velke levare
+38916;sturovo
+38917;aastorp station
+38918;ed station
+38919;alingsaas station
+38920;aare station
+38921;emmaboda station
+38922;herrljunga station
+38923;simrishamn station
+38924;strömstad station
+38925;uddevalla central
+38926;växjö station
+38927;vaggeryd station
+38928;ystad station
+38929;öxnered station
+38930;perstorp station
+38931;klippan station
+38932;vinslöv station
+38933;tenhult station
+38934;forserum station
+38935;sävsjö station
+38936;tyringe station
+38937;stehag station
+38938;örtofta station
+38939;billeberga station
+38940;teckomatorp station
+38941;dösjebro station
+38942;skurup station
+38943;rydsgaard station
+38944;köpingebro station
+38945;tomelilla station
+38946;lunnarp station
+38947;smedstorp (tomelilla kn) stn
+38948;gärsnäs station
+38949;katrineholm central
+38950;malmbäck station
+38951;hok station
+38952;björköby station
+38953;stockholm flemingsberg
+38954;huskvarna station
+38955;kungsbacka hede station
+38956;mölndal nedre station
+38957;paarp (helsingborg kn) station
+38958;stensjön (nässjö kn) station
+38959;stenungsund station
+38960;vittsjö
+38961;vaargaarda station
+38962;oxie station
+38963;svarte station
+38964;stockaryd station
+38965;bodafors station
+38966;taagarp (svalöv kn) station
+38967;sösdala station
+38968;gemla station
+38969;bjarnum station
+38970;kvidinge
+38971;trelleborg centralstation
+38972;onnestad station
+38973;kattarp station
+38974;banova jaruga
+38975;perkovic
+38976;dugo selo
+38977;krizevci
+38978;vrhovi-plitvi jezera
+38979;moravice
+38980;nova kapela
+38981;savski marof
+38982;oriovac
+38983;stari mikanovci
+38984;ivankovo
+38985;kamanje
+38986;mursko sredisce
+38987;bedekovcina
+38988;budinscina
+38989;cerna
+38990;ceminac
+38991;darda
+38992;djulovac
+38993;gomirje
+38994;hrvatski leskovac
+38995;klostar
+38996;konjscina
+38997;kosovo
+38998;labin dalmatinski
+38999;lepavina
+39000;licko lesce
+39001;lipovljani
+39002;lovinac
+39003;mahicno
+39004;maslenjaca
+39005;mucna reka
+39006;novoselec
+39007;ozalj
+39008;plaski
+39009;pleternica
+39010;sibinj
+39011;skrad
+39012;staro petrovo selo
+39013;sveti ivan zabno
+39014;unesic
+39015;velika
+39016;virje
+39017;vladislavci
+39018;vrbanja
+39019;zdencina
+39020;zlatar bistrica
+39021;bregi
+39022;gabos
+39023;laslovo-korod
+39024;bohinjska bistrica
+39025;sevnica
+39026;most na soci
+39027;ormoz
+39028;krsko
+39029;lasko
+39030;rimske toplice
+39031;hrpelje-kozina
+39032;skofja loka
+39033;dravograd
+39034;rogaska slatina
+39035;velenje
+39036;lendava
+39037;hrastnik
+39038;litija
+39039;poljcane
+39040;hodos
+39041;burgweiler
+39042;dornstetten-aach
+39043;eutingen nord
+39044;feldolling
+39045;halver-oberbrügge
+39046;hoßkirch königseggsee
+39047;ingolstadt audi
+39048;jaderberg
+39049;jülich an den aspen
+39050;kierspe
+39051;reken-klein reken
+39052;engstingen schulzentrum
+39053;leutershausen-wiedersbach
+39054;margertshausen bf
+39055;münster-mecklenbeck
+39056;nörvenich-rommelsheim
+39057;oese
+39058;schopfheim-schlattholz
+39059;stettfeld-weiher
+39060;vohren
+39061;marienfeld (westf)
+39062;finsterwald
+39063;leipzig miltitzer allee
+39064;uhyst
+39065;zirtow-leussow
+39066;kyritz am bürgerpark
+39067;rechenberg schule
+39068;wilthen pumphut
+39069;hille
+39070;ibbenbüren-aasee
+39071;maximilian park
+39072;wersen
+39073;nammen-bad
+39074;valbert
+39075;versmold
+39076;meißen triebischtal karl-niesner-straße
+39077;entringen obere straße
+39078;oppenheim postplatz
+39079;alsheim rathaus
+39080;mettenheim rathaus
+39081;höste
+39082;rheinsheim schule
+39083;niesky horkaer straße
+39084;bad wimpfen parkplatz seegarten
+39085;grombach kirchhardter straße
+39086;martinroda ort
+39087;lübeck-dänischburg grenzweg
+39088;elsterberg gasthof linde
+39089;altmittweida neusorger straße
+39090;weißer see
+39091;hohenleipisch mitte
+39092;dannenwalde (gransee) kirche
+39093;lüblow ortsmitte
+39094;sülstorf sportplatz
+39095;ellefeld rathaus
+39096;rodewisch busbahnhof
+39097;stenn wendestelle
+39098;leinefelde zob
+39099;heiligengrabe stift
+39100;sulzbach marktplatz
+39101;zapfendorf kirche
+39102;neuhof (b zossen) zum wolziger see
+39103;golßen (niederlausitz) bahnhofstraße
+39104;klitten jahmen
+39105;walddrehna dorfplatz
+39106;hainewalde gemeindeamt
+39107;niederspier ort
+39108;lübeck alexander-fleming-straße
+39109;pracht-niederhausen brunnenplatz
+39110;riestedt abzw annarode
+39111;kruft jahnstraße
+39112;unterschwaningen
+39113;ronshausen bürgermeisteramt
+39114;sontra breitwiese
+39115;witzenhausen vor dem rabensberg
+39116;friedland bahnhof westseite
+39117;neumark (sachs) ladestraße
+39118;eschelbronn post
+39119;malsch bahnhof (industriegebiet)
+39120;erkrath-nord stadthalle
+39121;kaarst mitte/holzbüttgen pfarrzentrum
+39122;liessow breesener chaussee
+39123;kavelstorf neubau
+39124;warmbad floßplatz
+39125;beetz-sommerfeld bahnhofstraße
+39126;wustrau-radensleben l164
+39127;altenbeken-buke hühnerfeld
+39128;ascheberg bahnhofsweg
+39129;blankenheim ort
+39130;sersheim bahnhofstraße
+39131;mühlacker steuler
+39132;lübstorf schule
+39133;mehltheuer leubnitzer straße
+39134;eibau bahnhofstraße
+39135;volpriehausen bollertstraße
+39136;hardegsen rathaus
+39137;lauchheim schule
+39138;höxter schulzentrum
+39139;putzkau viadukt
+39140;neutrebbin wriezener straße
+39141;brehna markt
+39142;landsberg (b halle/saale) petersdorfer straße
+39143;plüschow dorf
+39144;rolandseck bahnhof/fähre
+39145;urmitz bahnhof/landstraße
+39146;st. goar fähre
+39147;arensdorf (köthen) badegaster weg
+39148;dettum kirche
+39149;entringen hauffstraße
+39150;wiesengrund-klinge
+39151;nieder-ohmen brücke merlauer straße
+39152;romrod kirche
+39153;netzeband kirche
+39154;lödingsen gartenstraße
+39155;krumpa addinol
+39156;nemsdorf-göhrendorf verwaltung
+39157;hausen (taunus) auf der hochwiese
+39158;otze freiengericht
+39159;bad driburg polizei
+39160;godelheim driburger straße
+39161;teltow stadt (mahlower straße/gonfrevillestraße)
+39162;großbeeren märkische allee süd
+39163;birkengrund am birkengrund
+39164;trebbin bahnhofstraße
+39165;malsfeld-beiseförth mühlenplatz
+39166;neumühle (elster) knottengrund
+39167;schwerin am europahotel
+39168;holtensen hamelner straße
+39169;cuxhaven/nordholz flugplatz
+39170;hasselborn dgh
+39171;bielefeld-quelle albertstraße
+39172;starnberg sf
+39173;hettstedt kupferkammerhütte (bergwerksbahn)
+39174;stolpen grüne aue
+39175;breinig
+39176;lammersdorf
+39177;monschau
+39178;moosbachtal
+39179;rehna friedrich-dreyer-straße
+39180;lützow gadebuscher straße
+39181;holdorf (meckl) b104
+39182;gadebusch rehnaer straße
+39183;dossow dorfstraße
+39184;altentreptow zob
+39185;beelitz-heilstätten bahnhof
+39186;beutersitz bahnhof/wildgruber straße
+39187;bobitz schule
+39188;bärenklau wendemarker weg
+39189;chorin dorf
+39190;cottbus-willmersdorf möbeldorf
+39191;doberschütz b87
+39192;ducherow gaststätte
+39193;eberswalde busbahnhof
+39194;falkensee zob
+39195;fretzdorf dorf
+39196;fürstenwalde zob
+39197;gnevkow wendeschleife
+39198;hangelsberg berliner damm
+39199;hohen neuendorf friedhof
+39200;jatznick gemeindeverwaltung
+39201;lalendorf am waldrand
+39202;lauta puschkinallee
+39203;lietzow b96
+39204;lubolz lübbener straße
+39205;luckaitztal buchwäldchen ortsmitte
+39206;lüssow ortsmitte
+39207;mistorf ort
+39208;mönchhagen b105/oberdorf/unterdorf
+39209;parkentin stegekamp
+39210;prösen ost b101
+39211;rakow alte schule
+39212;rambin (rügen) hauptstraße
+39213;saarmund abzweig zum bahnhof
+39214;seddin waldstraße
+39215;sponholz ort
+39216;sternfeld ort
+39217;uebigau markt
+39218;utzedel gaststätte
+39219;weisen kreuzung
+39220;woltersdorf berliner chaussee
+39221;pillgram schulstraße
+39222;fohrde dorf
+39223;falkenberg (mark) bus
+39224;schwante an der kirche
+39225;caputh schule
+39226;buschow dorf
+39227;roetgen
+39228;ribnitz-damgarten ost friedhof
+39229;schlottwitz mittelstraße
+39230;vetschau bahnhofstr
+39231;templin f-engels-str
+39232;berlin-mahlsdorf (s)
+39233;seebach (b mühl) ort
+39234;marquardt schule
+39235;rüdnitz dorf
+39236;rohr (thür) ort
+39237;blankenfelde (s)
+39238;strausberg (s)
+39239;oranienburg (s)
+39240;hennigsdorf (s)
+39241;blindenmarkt
+39242;gries im pinzgau
+39243;wien blumental
+39244;stadt haag
+39245;rottenmann landeskrankenhaus
+39246;hoek van holland haven
+39247;blatten (lötschen) dorf
+39248;savognin posta
+39249;schwarzsee (ch) bad
+39250;silvaplana kreisel mitte
+39251;langeskov st
+39252;viby jylland st
+39253;nybro station
+39254;bromölla station
+39255;lessebo station
+39256;svedala station
+39257;ekenässjön station
+39258;hovmantorp station
+39259;skillingaryd station
+39260;vetlanda station
+39261;södertälje syd
+39262;wildeck-bosserode bahnhof
+39263;götzendorf/leitha
+39264;gattendorf
+39265;gramatneusiedl
+39266;kittsee
+39267;loipersbach-schattendorf
+39268;marz-rohrbach
+39269;neufeld/leitha
+39270;st. andrä im lavanttal
+39271;pama
+39272;gutenstein
+39273;deutschkreutz
+39274;laa/thaya
+39275;puchberg am schneeberg
+39276;tassenbach
+39277;thörl-maglern
+39278;weitlanbrunn
+39279;wöllersdorf/piesting
+39280;zurndorf
+39281;graz-liebenau murpark
+39282;graz don bosco
+39283;zürich tiefenbrunnen bahnhof
+39284;brig bahnhof
+39285;herblingen bahnhof
+39286;baar bahnhof
+39287;aarau bahnhof
+39288;schaffhausen bahnhof
+39289;kaiserstuhl ag bahnhof
+39290;bassersdorf bahnhof
+39291;wädenswil bahnhof
+39292;horgen bahnhof
+39293;düdingen bahnhof
+39294;schwyz bahnhof
+39295;altstätten sg bahnhof
+39296;thun bahnhof
+39297;luzern bahnhof
+39298;wilderswil bahnhof
+39299;münsingen (ch) bahnhof
+39300;oey-diemtigen bahnhof
+39301;olten bahnhof
+39302;wildegg bahnhof
+39303;döttingen bahnhof
+39304;bad zurzach bahnhof
+39305;schöftland bahnhof
+39306;muri ag bahnhof
+39307;zofingen bahnhof
+39308;wolhusen bahnhof
+39309;schüpfheim bahnhof
+39310;sarnen bahnhof
+39311;alpnach dorf bahnhof
+39312;dielsdorf bahnhof
+39313;frauenfeld bahnhof
+39314;thayngen bahnhof
+39315;uster bahnhof
+39316;fehraltorf bahnhof
+39317;einsiedeln bahnhof
+39318;pfäffikon sz bahnhof
+39319;schmerikon bahnhof
+39320;uzwil bahnhof
+39321;gossau sg bahnhof
+39322;wattwil bahnhof
+39323;urnäsch bahnhof
+39324;walzenhausen bahnhof
+39325;degersheim bahnhof
+39326;arbon bahnhof
+39327;st. moritz bahnhof
+39328;davos platz bahnhof
+39329;effretikon bahnhof
+39330;illnau bahnhof
+39331;kemptthal bahnhof
+39332;zweidlen bahnhof
+39333;uerikon bahnhof
+39334;kempraten bahnhof
+39335;stäfa bahnhof
+39336;bubikon bahnhof
+39337;rüti zh bahnhof
+39338;hinwil bahnhof
+39339;schwerzenbach zh bahnhof
+39340;pfungen bahnhof
+39341;otelfingen bahnhof
+39342;buchs-dällikon bahnhof
+39343;spiez bahnhof
+39344;lyss bahnhof
+39345;bern bahnhof
+39346;langenthal bahnhof
+39347;worblaufen bahnhof
+39348;zweisimmen bahnhof
+39349;muttenz bahnhof
+39350;wilchingen-hallau bahnhof
+39351;herisau bahnhof
+39352;walenstadt bahnhof
+39353;lenzburg bahnhof
+39354;oberwald bahnhof
+39355;zürich oerlikon bahnhof
+39356;rümikon ag bahnhof
+39357;rietheim bahnhof
+39358;oberwinterthur bahnhof
+39359;dietikon bahnhof
+39360;amriswil bahnhof
+39361;romanshorn bahnhof
+39362;kloten bahnhof
+39363;dübendorf bahnhof
+39364;wallisellen bahnhof
+39365;erlenbach zh bahnhof
+39366;herrliberg-feldmeilen bahnhof
+39367;dietlikon bahnhof
+39368;riehen niederholz bahnhof
+39369;wettingen bahnhof
+39370;au zh bahnhof
+39371;glattbrugg bahnhof
+39372;niederhasli bahnhof
+39373;schlieren bahnhof
+39374;regensdorf-watt bahnhof
+39375;zürich affoltern bahnhof
+39376;zürich altstetten bahnhof
+39377;zürich hardbrücke bahnhof
+39378;riehen bahnhof
+39379;leukerbad bahnhof
+39380;klosters platz bahnhof
+39381;arosa bahnhof
+39382;unterterzen bahnhof
+39383;neunkirch bahnhof
+39384;andernos-les-bains centre
+39385;arès centre
+39387;loix château d’eau
+39388;marennes
+39389;bourcefranc
+39390;jesolo spiagge
+39391;ancona portonovo
+39392;assisi centro
+39393;castel gandolfo ville pontificie
+39394;amalfi porto
+39395;cetara porto
+39396;maiori porto
+39397;pompei scavi archeologici
+39398;pioppi
+39399;velia scavi archeologici
+39400;casal velino marina
+41000;villetelle
