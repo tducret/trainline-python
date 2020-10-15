@@ -19,7 +19,10 @@ _SCRIPTS = ['trainline_cli.py']
 _PACKAGE_DATA = ['stations_mini.csv']
 
 install_reqs = parse_requirements('requirements.txt', session='hack')
-requirements = [str(ir.req) for ir in install_reqs]
+try:
+    requirements = [str(ir.req) for ir in install_reqs]
+except:
+    requirements = [str(ir.requirement) for ir in install_reqs]
 
 setup(
     name=_PACKAGE_NAME,
