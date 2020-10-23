@@ -12,12 +12,14 @@ import time
 import uuid
 import os
 import copy
+import re
 
 __author__ = """Thibault Ducret"""
 __email__ = 'hello@tducret.com'
 __version__ = '0.1.2'
 
 _SEARCH_URL = "https://www.trainline.eu/api/v5_1/search"
+_LOGIN_URL = "https://www.trainline.fr/api/v5_1/account/signin"
 _DEFAULT_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 _BIRTHDATE_FORMAT = '%d/%m/%Y'
 _READABLE_DATE_FORMAT = "%d/%m/%Y %H:%M"
@@ -47,7 +49,7 @@ _STATIONS_CSV = os.path.join(_SCRIPT_PATH, "stations_mini.csv")
 class Client(object):
     """ Do the requests with the servers """
 
-    def __init__(self):
+    def __init__(self, token=None):
         self.session = requests.session()
         self.headers = {
             'Accept': 'application/json',
@@ -56,9 +58,14 @@ class Client(object):
             'Content-Type': 'application/json; charset=UTF-8',
             'Host': 'www.trainline.eu',
         }
+        if token:
+            self.headers['authorization'] = 'Token token="'+token+'"'
 
-    def _get(self, url, expected_status_code=200):
-        ret = self.session.get(url=url, headers=self.headers)
+    def _get(self, url, expected_status_code=200, headers = None):
+        if not headers:
+            ret = self.session.get(url=url, headers=self.headers)
+        else:
+            ret = self.session.get(url=url, headers=headers)
         if (ret.status_code != expected_status_code):
             raise ConnectionError(
                 'Status code {status} for url {url}\n{content}'.format(
@@ -70,8 +77,8 @@ class Client(object):
         while trials <= _MAX_SERVER_RETRY:
             trials += 1
             ret = self.session.post(url=url,
-                                    headers=self.headers,
-                                    data=post_data)
+                    headers=self.headers,
+                    data=post_data)
             if (ret.status_code == expected_status_code):
                 break
             else:
@@ -87,8 +94,17 @@ class Client(object):
 class Trainline(object):
     """ Class to... """
 
-    def __init__(self):
-        pass
+    def __init__(self, email_account=None, password_account=None):
+        if not email_account or not password_account:
+            self.token_session = None
+            self.account_passengers = None
+            self.account_cards = None
+
+        else:
+            infos_account_session = self._connection(email_account, password_account)
+            self.token_session = infos_account_session['token']
+            self.account_passengers = infos_account_session['passengers']
+            self.account_cards = infos_account_session['cards']
 
     def search(self, departure_station_id, arrival_station_id, departure_date,
                passenger_list):
@@ -96,7 +112,6 @@ class Trainline(object):
         data = {
             "local_currency": "EUR",
             "search": {
-                "passengers": passenger_list,
                 "arrival_station_id": arrival_station_id,
                 "departure_date": departure_date,
                 "departure_station_id": departure_station_id,
@@ -124,11 +139,38 @@ class Trainline(object):
                 ]
             }
         }
-        post_data = json.dumps(data)
-        c = Client()
+
+        # If we are connected to an account, you can only use passengers that are created in your account
+        if self.token_session:
+            card_ids = []
+            passenger_ids = []
+            for passenger in passenger_list:
+                for card in passenger['cards']:
+                    card_ids.append(card['id'])
+                passenger_ids.append(passenger['id'])
+            data['search']["passenger_ids"] = passenger_ids
+            data['search']["card_ids"] = card_ids
+            post_data = json.dumps(data)
+            c = Client(token=self.token_session)
+        else:
+            data['search']["passengers"] = passenger_list
+            post_data = json.dumps(data)
+            c = Client()
+
         ret = c._post(url=_SEARCH_URL, post_data=post_data)
         return ret
 
+    def _connection(self, email_account, password_account):
+        c = Client()
+        data_login = {"id":"1","email":email_account,"password":password_account,
+         "facebook_id":None,"facebook_token": None,"google_code": None,"concur_auth_code": None,"concur_new_email": None,"concur_migration_type": None,"source": None,"correlation_key": None,"auth_token": None, "user_id": None}
+        post_data_login = json.dumps(data_login)
+        ret_login = c._post(url=_LOGIN_URL, post_data=post_data_login)
+        dict_ret_login = dict_str_to_dict(ret_login.text)
+        token = dict_ret_login['meta']['token']
+        passengers = dict_ret_login['passengers']
+        cards = dict_ret_login['cards']
+        return {'token' : token, 'passengers' : passengers, 'cards': cards}
 
 class Folder(object):
     """ Class to represent a folder, composed of the trips of each passenger
@@ -312,8 +354,10 @@ price;currency;transportation_mean;bicycle_reservation\n"
 class Passenger(object):
     """ Class to represent a passenger """
 
-    def __init__(self, birthdate, cards=None):
+    def __init__(self, birthdate, firstname=None, lastname=None, cards=None, trainline_session=None):
         self.birthdate = birthdate
+        self.firstname = firstname
+        self.lastname = lastname
         self.birthdate_obj = _str_date_to_date_obj(
             str_date=self.birthdate,
             date_format=_BIRTHDATE_FORMAT)
@@ -321,12 +365,33 @@ class Passenger(object):
 
         self.id = self._gen_id()
 
-        cards = cards or []
-        for card in cards:
-            if card not in _AVAILABLE_CARDS:
-                raise KeyError("Card '{}' unknown, [{}] available".format(
-                    card, ",".join(_AVAILABLE_CARDS)))
-        self.cards = cards
+        if not (all(el is None for el in [firstname, lastname]) or all(el is not None for el in [firstname, lastname, trainline_session])):
+            raise KeyError("Firstname, lastname AND trainline_session are required to enable TGVMax research")
+
+        if firstname:
+            passengers = trainline_session.account_passengers
+            #We check every registered passenger of the account to find the passenger corresponding the the firstname, the lastname and the birthdate given
+            for passenger in passengers:
+                birthdate_format_request = self.birthdate_obj.strftime('%Y-%m-%dT00:00:00+00:00')
+                if (passenger['first_name'].lower() == firstname.lower() and passenger['last_name'].lower() == lastname.lower() and passenger['birthdate'] == birthdate_format_request):
+                    self.id = passenger['id']
+                    own_cards = []
+                    for card_item in trainline_session.account_cards:
+                        if (card_item['id'] in passenger['card_ids']):
+                            own_cards.append(card_item)
+                    self.cards = own_cards
+                    break
+            try: self.cards
+            except NameError: 
+                raise KeyError("No passenger in your business trainline account named {} {}".format(firstname, lastname))
+
+        else:
+            cards = cards or []
+            for card in cards:
+                if card not in _AVAILABLE_CARDS:
+                    raise KeyError("Card '{}' unknown, [{}] available".format(
+                        card, ",".join(_AVAILABLE_CARDS)))
+            self.cards = cards
 
     def _gen_id(self):
         """ Returns a unique passenger id in the proper format
@@ -365,7 +430,13 @@ class Passenger(object):
             self.birthdate,
             ",".join(self.cards)))
 
-    def add_special_card(self, card, number):
+    def add_special_card(self, card, number=None):
+        ##USELESS, since that when we use a business trainline account to be connected with, we take all cards of the passenger,
+        # and it is not possible to use special_card (TGV_MAX) without account...
+        raise KeyError("The function add_special_card is no more available, to connect a special card, please create a business "
+                        "trainline account (free), and pass your email address and your password creating your Trainline object. Verify "
+                        "that you have a passenger created in your business trainline account, with expected associated cards and pass "
+                        " his name creating a Passenger.")
         if card not in _SPECIAL_CARDS:
             raise KeyError("Card '{}' unknown, [{}] available".format(
                 card, ",".join([d['reference'] for d in _SPECIAL_CARDS])))
@@ -571,8 +642,12 @@ def search(departure_station, arrival_station,
            bicycle_without_reservation_only=None,
            bicycle_with_reservation_only=None,
            bicycle_with_or_without_reservation=None,
-           max_price=None):
-    t = Trainline()
+           max_price=None,
+           trainline_session=None):
+    if not trainline_session:
+        t = Trainline()
+    else:
+        t = trainline_session
 
     departure_station_id = get_station_id(departure_station)
     arrival_station_id = get_station_id(arrival_station)
@@ -909,6 +984,13 @@ def _read_file(filename):
         read_data = f.read()
     return read_data
 
+def dict_str_to_dict(dict_str):
+    """ Returns the dictionnary string from result of a request (with null, false, true) as a dictionnary object """
+    dict_str_inter = re.sub('null', 'None', dict_str)
+    dict_str_inter = re.sub('false', 'False', dict_str_inter)
+    dict_str_inter = re.sub('true', 'True', dict_str_inter)
+    dictionnary = eval(dict_str_inter)
+    return dictionnary
 
 def _station_to_dict(filename, csv_delimiter=';'):
     """ Returns the stations csv database as a dict <id>:<station_name> """
@@ -919,3 +1001,4 @@ def _station_to_dict(filename, csv_delimiter=';'):
         station_name = csv_delimiter.join(line.split(csv_delimiter)[1:])
         station_dict[station_id] = station_name
     return station_dict
+    
