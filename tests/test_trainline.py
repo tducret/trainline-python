@@ -228,7 +228,7 @@ def test_basic_search():
 
 def test_search_only_bus():
     from_date = "{} 09:00".format(_TOMORROW)
-    to_date = "{} 11:00".format(_TOMORROW)
+    to_date = "{} 15:00".format(_TOMORROW)
     departure_station = "Toulouse Matabiau"
     arrival_station = "Bordeaux St-Jean"
 
@@ -274,10 +274,10 @@ def test_basic_search_with_bicyle():
 
 
 def test_basic_search_with_bicyle_without_reservation():
-    from_date = "{} 08:00".format(_TOMORROW)
-    to_date = "{} 12:00".format(_TOMORROW)
-    departure_station = "Toulouse Matabiau"
-    arrival_station = "Carcassonne"
+    from_date = "{} 07:00".format(_TOMORROW)
+    to_date = "{} 18:00".format(_TOMORROW)
+    departure_station = "Capdenac"
+    arrival_station = "Figeac"
 
     results = trainline.search(
         departure_station=departure_station,
@@ -296,8 +296,8 @@ def test_basic_search_with_bicyle_without_reservation():
 
 
 def test_basic_search_with_bicyle_with_reservation():
-    from_date = "{} 20:00".format(_TOMORROW)
-    to_date = "{} 21:00".format(_TOMORROW)
+    from_date = "{} 10:00".format(_TOMORROW)
+    to_date = "{} 17:00".format(_TOMORROW)
     departure_station = "Toulouse Matabiau"
     arrival_station = "Bordeaux"
 

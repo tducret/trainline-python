@@ -56,7 +56,7 @@ setup(
 # ------------------------------------------
 # Make sure everything was pushed (with a git status)
 # (or git commit --am "Comment" and git push)
-# export VERSION=0.1.2; git tag $VERSION -m "Fix pip install issue #13"; git push --tags
+# export VERSION=0.1.2; git tag $VERSION -m "Fix pip install issue #13 + TGV max #17"; git push --tags
 
 # If you need to delete a tag
 # git push --delete origin $VERSION; git tag -d $VERSION
